@@ -1,0 +1,2680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Tree of Life — עץ החיים</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&family=Frank+Ruhl+Libre:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --parchment-light: #f5e6c8;
+      --parchment-mid: #e8d4b0;
+      --parchment-dark: #d4c4a0;
+      --parchment-edge: #c9a86c;
+      --ink-dark: #2c1810;
+      --ink-mid: #4a3728;
+      --ink-light: #6b5344;
+      --ink-faint: #8a7a68;
+      --gold: #9a7b30;
+      --gold-bright: #b8943a;
+      --mercy-fill: #e4ebe4;
+      --mercy-stroke: #5a7a5a;
+      --severity-fill: #ebe4e4;
+      --severity-stroke: #7a5a5a;
+      --middle-fill: #ebe8dc;
+      --middle-stroke: #7a7040;
+    }
+
+    /* Dark mode - "Midnight Codex" */
+    [data-theme="dark"] {
+      --parchment-light: #1a1612;
+      --parchment-mid: #141210;
+      --parchment-dark: #0f0d0b;
+      --parchment-edge: #2a2420;
+      --ink-dark: #e8e0d4;
+      --ink-mid: #c4b8a8;
+      --ink-light: #9a8e7e;
+      --ink-faint: #6a6054;
+      --gold: #d4a84b;
+      --gold-bright: #e8c064;
+      --mercy-fill: #1a2a1a;
+      --mercy-stroke: #6a9a6a;
+      --severity-fill: #2a1a1a;
+      --severity-stroke: #9a6a6a;
+      --middle-fill: #242118;
+      --middle-stroke: #a89850;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background:
+        radial-gradient(ellipse at 50% 0%, #3d2a1a 0%, #1a0f08 100%);
+      color: var(--ink-dark);
+      min-height: 100vh;
+      line-height: 1.6;
+      transition: background 0.4s ease, color 0.3s ease;
+    }
+
+    /* Main parchment surface */
+    .parchment {
+      max-width: 1500px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: var(--parchment-light);
+      position: relative;
+      box-shadow:
+        0 0 60px rgba(0,0,0,0.5),
+        inset 0 0 100px rgba(139, 69, 50, 0.06);
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"),
+        radial-gradient(ellipse at 20% 10%, rgba(255,252,245,0.5) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 90%, rgba(139, 90, 50, 0.05) 0%, transparent 35%),
+        linear-gradient(180deg, #f8edd5 0%, var(--parchment-light) 15%, var(--parchment-mid) 85%, #dcc8a0 100%);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    /* Worn edge overlay */
+    .parchment::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(80,50,30,0.08) 0%, transparent 2.5%, transparent 97.5%, rgba(80,50,30,0.08) 100%),
+        linear-gradient(180deg, rgba(80,50,30,0.04) 0%, transparent 1.5%, transparent 98.5%, rgba(80,50,30,0.06) 100%);
+    }
+
+    /* Layout */
+    .container {
+      display: grid;
+      grid-template-columns: 1fr minmax(400px, 520px);
+      min-height: 100vh;
+    }
+
+    @media (max-width: 1000px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      .tree-section {
+        min-height: 70vh;
+      }
+    }
+
+    /* Tree section */
+    .tree-section {
+      display: flex;
+      flex-direction: column;
+      padding: 40px;
+      position: relative;
+    }
+
+    .tree-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .tree-title h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--ink-dark);
+      letter-spacing: 0.2em;
+      margin-bottom: 4px;
+    }
+
+    .tree-title .hebrew-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.3rem;
+      color: var(--ink-mid);
+      letter-spacing: 0.15em;
+    }
+
+    /* Tree diagram container */
+    .tree-diagram {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .tree-wrapper {
+      position: relative;
+      width: 380px;
+      height: 570px;
+    }
+
+    /* SVG paths layer */
+    .paths-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .path-line {
+      stroke: var(--parchment-edge);
+      stroke-width: 2;
+      fill: none;
+      opacity: 0.7;
+    }
+
+    /* Pillar labels */
+    .pillar-labels {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 15px;
+      font-size: 0.75rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      letter-spacing: 0.05em;
+    }
+
+    /* Sephirah nodes */
+    .sephirah {
+      position: absolute;
+      width: 72px;
+      height: 72px;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .sephirah:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      z-index: 10;
+    }
+
+    .sephirah.active {
+      z-index: 20;
+    }
+
+    .sephirah-circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid;
+      transition: all 0.25s ease;
+      background: var(--parchment-light);
+      box-shadow:
+        0 2px 8px rgba(0,0,0,0.1),
+        inset 0 0 15px rgba(255,255,255,0.3);
+    }
+
+    .sephirah:hover .sephirah-circle {
+      box-shadow:
+        0 4px 20px rgba(154, 123, 48, 0.3),
+        inset 0 0 15px rgba(255,255,255,0.3);
+    }
+
+    .sephirah.active .sephirah-circle {
+      border-color: var(--gold) !important;
+      border-width: 3px;
+      box-shadow:
+        0 0 25px rgba(154, 123, 48, 0.4),
+        inset 0 0 15px rgba(255,255,255,0.3);
+    }
+
+    /* Pillar colors */
+    .sephirah.mercy .sephirah-circle {
+      background: var(--mercy-fill);
+      border-color: var(--mercy-stroke);
+    }
+
+    .sephirah.severity .sephirah-circle {
+      background: var(--severity-fill);
+      border-color: var(--severity-stroke);
+    }
+
+    .sephirah.middle .sephirah-circle {
+      background: var(--middle-fill);
+      border-color: var(--middle-stroke);
+    }
+
+    /* Da'at special styling */
+    .sephirah.daat .sephirah-circle {
+      background: transparent;
+      border: 2px dashed var(--ink-faint);
+      box-shadow: none;
+    }
+
+    .sephirah.daat:hover .sephirah-circle {
+      border-color: var(--ink-mid);
+      box-shadow: 0 2px 15px rgba(154, 123, 48, 0.15);
+    }
+
+    .sephirah.daat .seph-number,
+    .sephirah.daat .seph-name,
+    .sephirah.daat .seph-hebrew {
+      opacity: 0.6;
+    }
+
+    /* Sephirah text */
+    .seph-number {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--ink-dark);
+      line-height: 1;
+    }
+
+    .seph-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--ink-dark);
+      line-height: 1.2;
+    }
+
+    .seph-hebrew {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 0.65rem;
+      color: var(--ink-mid);
+      line-height: 1;
+    }
+
+    /* Positions */
+    .sephirah[data-sephirah="keter"] { left: 190px; top: 55px; }
+    .sephirah[data-sephirah="chokmah"] { left: 310px; top: 110px; }
+    .sephirah[data-sephirah="binah"] { left: 70px; top: 110px; }
+    .sephirah[data-sephirah="daat"] { left: 190px; top: 175px; width: 60px; height: 60px; }
+    .sephirah[data-sephirah="chesed"] { left: 310px; top: 235px; }
+    .sephirah[data-sephirah="gevurah"] { left: 70px; top: 235px; }
+    .sephirah[data-sephirah="tiphareth"] { left: 190px; top: 305px; }
+    .sephirah[data-sephirah="netzach"] { left: 310px; top: 375px; }
+    .sephirah[data-sephirah="hod"] { left: 70px; top: 375px; }
+    .sephirah[data-sephirah="yesod"] { left: 190px; top: 445px; }
+    .sephirah[data-sephirah="malkuth"] { left: 190px; top: 545px; }
+
+    /* Info panel */
+    .info-section {
+      border-left: 1px solid var(--parchment-edge);
+      background:
+        linear-gradient(90deg, rgba(139,90,50,0.03) 0%, transparent 30%),
+        linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment-mid) 100%);
+      padding: 50px 45px;
+      overflow-y: auto;
+      max-height: 100vh;
+      position: sticky;
+      top: 0;
+    }
+
+    @media (max-width: 1000px) {
+      .info-section {
+        border-left: none;
+        border-top: 1px solid var(--parchment-edge);
+        max-height: none;
+        position: relative;
+      }
+    }
+
+    .panel-placeholder {
+      height: 100%;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--ink-light);
+    }
+
+    .placeholder-icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 25px;
+      opacity: 0.25;
+    }
+
+    .placeholder-icon circle {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .panel-placeholder p {
+      font-size: 1.15rem;
+      font-style: italic;
+      max-width: 260px;
+      line-height: 1.6;
+    }
+
+    .panel-placeholder .hint {
+      font-size: 0.9rem;
+      margin-top: 8px;
+      opacity: 0.7;
+    }
+
+    /* Detail content */
+    .sephirah-detail {
+      display: none;
+      animation: fadeSlideIn 0.35s ease;
+    }
+
+    .sephirah-detail.visible {
+      display: block;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .detail-header {
+      text-align: center;
+      margin-bottom: 35px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid var(--parchment-edge);
+      position: relative;
+    }
+
+    .detail-header::after {
+      content: '◆';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--parchment-mid);
+      padding: 0 12px;
+      color: var(--gold);
+      font-size: 0.6rem;
+    }
+
+    .detail-number {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 0.25em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .detail-name {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      color: var(--ink-dark);
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .detail-hebrew {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--ink-mid);
+      margin-bottom: 10px;
+    }
+
+    .detail-meaning {
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--ink-light);
+    }
+
+    .detail-pillar {
+      font-size: 0.85rem;
+      color: var(--ink-faint);
+      margin-top: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .detail-section {
+      margin-bottom: 28px;
+    }
+
+    .detail-section h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .detail-section p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--ink-dark);
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    .detail-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .detail-section li {
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: var(--ink-dark);
+      padding-left: 22px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    .detail-section li::before {
+      content: '◇';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 0.65rem;
+      top: 0.35em;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: -5px;
+      right: 0;
+      background: none;
+      border: none;
+      color: var(--ink-light);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 5px 10px;
+      transition: color 0.2s ease;
+      font-family: serif;
+    }
+
+    .close-btn:hover {
+      color: var(--ink-dark);
+    }
+
+    /* Biblical Sources section styling */
+    .biblical-sources {
+      margin-top: 30px;
+      padding-top: 25px;
+      border-top: 1px solid var(--parchment-edge);
+      position: relative;
+    }
+
+    .biblical-sources::before {
+      content: '✡';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--parchment-mid);
+      padding: 0 12px;
+      color: var(--gold);
+      font-size: 0.7rem;
+    }
+
+    .biblical-sources h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    .key-verse {
+      background: linear-gradient(135deg, rgba(154, 123, 48, 0.06) 0%, rgba(139, 90, 50, 0.03) 100%);
+      border: 1px solid rgba(154, 123, 48, 0.2);
+      border-radius: 4px;
+      padding: 15px 18px;
+      margin-bottom: 15px;
+    }
+
+    .verse-ref {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      color: var(--ink-mid);
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .verse-hebrew {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.1rem;
+      color: var(--ink-dark);
+      line-height: 1.8;
+      direction: rtl;
+      text-align: right;
+      margin-bottom: 8px;
+    }
+
+    .verse-english {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--ink-mid);
+      line-height: 1.6;
+    }
+
+    .verse-english em {
+      color: var(--gold);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* Verses list in detail panel */
+    .verses-list {
+      background: linear-gradient(135deg, rgba(154, 123, 48, 0.04) 0%, rgba(139, 90, 50, 0.02) 100%);
+      border: 1px solid rgba(154, 123, 48, 0.15);
+      border-radius: 4px;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+    }
+
+    .verse-item {
+      display: flex;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(154, 123, 48, 0.1);
+      align-items: baseline;
+    }
+
+    .verse-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .verse-item:first-child {
+      padding-top: 0;
+    }
+
+    .verse-ref-inline {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      min-width: 110px;
+    }
+
+    .verse-text-inline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--ink-dark);
+      line-height: 1.5;
+    }
+
+    .verse-text-inline em {
+      color: var(--gold);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .biblical-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .occurrence-count {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      color: var(--ink-light);
+    }
+
+    .occurrence-count strong {
+      color: var(--ink-dark);
+      font-weight: 600;
+    }
+
+    .match-badge {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      border: 1px solid;
+    }
+
+    .match-badge.exact {
+      background: rgba(90, 122, 90, 0.1);
+      border-color: var(--mercy-stroke);
+      color: var(--mercy-stroke);
+    }
+
+    .match-badge.substituted {
+      background: rgba(154, 123, 48, 0.1);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .match-badge.derived {
+      background: rgba(122, 90, 90, 0.1);
+      border-color: var(--severity-stroke);
+      color: var(--severity-stroke);
+    }
+
+    .match-badge.coded {
+      background: rgba(106, 90, 122, 0.1);
+      border-color: #7a5a8a;
+      color: #7a5a8a;
+    }
+
+    .sources-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      color: var(--gold);
+      cursor: pointer;
+      transition: color 0.2s ease;
+      margin-top: 15px;
+      text-decoration: none;
+    }
+
+    .sources-link:hover {
+      color: var(--gold-bright);
+    }
+
+    .sources-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Biblical Sources Overlay */
+    .biblical-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .biblical-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .biblical-overlay-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(26, 15, 8, 0.85);
+      backdrop-filter: blur(4px);
+    }
+
+    .biblical-overlay-content {
+      position: relative;
+      width: 90%;
+      max-width: 900px;
+      max-height: 85vh;
+      background: var(--parchment-light);
+      box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(154, 123, 48, 0.3),
+        inset 0 0 100px rgba(139, 69, 50, 0.04);
+      overflow: hidden;
+      transform: translateY(20px) scale(0.98);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .biblical-overlay.visible .biblical-overlay-content {
+      transform: translateY(0) scale(1);
+    }
+
+    /* Decorative border frame */
+    .biblical-overlay-content::before {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(154, 123, 48, 0.25);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .biblical-overlay-content::after {
+      content: '';
+      position: absolute;
+      inset: 16px;
+      border: 1px solid rgba(154, 123, 48, 0.12);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .overlay-header {
+      padding: 40px 50px 30px;
+      text-align: center;
+      border-bottom: 1px solid var(--parchment-edge);
+      position: relative;
+      background: linear-gradient(180deg, rgba(255, 252, 245, 0.5) 0%, transparent 100%);
+    }
+
+    .overlay-header::after {
+      content: '◆ ◆ ◆';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--parchment-light);
+      padding: 0 20px;
+      color: var(--gold);
+      font-size: 0.5rem;
+      letter-spacing: 0.5em;
+    }
+
+    .overlay-close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      background: none;
+      border: none;
+      color: var(--ink-light);
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 5px 10px;
+      transition: color 0.2s ease;
+      font-family: serif;
+      z-index: 10;
+    }
+
+    .overlay-close:hover {
+      color: var(--ink-dark);
+    }
+
+    .overlay-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      color: var(--ink-dark);
+      letter-spacing: 0.15em;
+      margin-bottom: 8px;
+    }
+
+    .overlay-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--ink-light);
+    }
+
+    .overlay-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 35px 50px 50px;
+    }
+
+    /* Foundation verse section */
+    .foundation-verse {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 35px;
+      border-bottom: 1px solid var(--parchment-edge);
+    }
+
+    .foundation-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .foundation-hebrew {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--ink-dark);
+      line-height: 2;
+      direction: rtl;
+      margin-bottom: 15px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(154, 123, 48, 0.05) 0%, transparent 100%);
+      border-radius: 4px;
+    }
+
+    .foundation-kjv {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--ink-dark);
+      line-height: 1.8;
+      margin-bottom: 15px;
+      padding: 0 20px;
+      text-align: justify;
+    }
+
+    .foundation-kjv em {
+      font-style: italic;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .foundation-ref {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      color: var(--ink-mid);
+      letter-spacing: 0.1em;
+    }
+
+    /* Sephirot mapping table */
+    .mapping-section h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .mapping-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .mapping-table th {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--ink-mid);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 12px 15px;
+      border-bottom: 2px solid var(--parchment-edge);
+    }
+
+    .mapping-table td {
+      padding: 14px 15px;
+      border-bottom: 1px solid rgba(201, 168, 108, 0.3);
+      font-size: 0.95rem;
+      color: var(--ink-dark);
+      vertical-align: middle;
+    }
+
+    .mapping-table tr:hover td {
+      background: rgba(154, 123, 48, 0.04);
+    }
+
+    .mapping-table .hebrew-cell {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1rem;
+      direction: rtl;
+    }
+
+    .mapping-table .count-cell {
+      color: var(--ink-mid);
+      font-size: 0.9rem;
+    }
+
+    /* Expandable table rows */
+    .mapping-table tbody tr.expandable-row {
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .mapping-table tbody tr.expandable-row:hover td {
+      background: rgba(154, 123, 48, 0.06);
+    }
+
+    .mapping-table tbody tr.expandable-row td:first-child {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .mapping-table tbody tr.expandable-row td:first-child::before {
+      content: '+';
+      position: absolute;
+      left: 10px;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 1rem;
+      transition: transform 0.2s ease;
+    }
+
+    .mapping-table tbody tr.expandable-row.expanded td:first-child::before {
+      content: '−';
+    }
+
+    .verses-row {
+      display: none;
+    }
+
+    .verses-row.visible {
+      display: table-row;
+    }
+
+    .verses-row td {
+      padding: 0 !important;
+      background: rgba(154, 123, 48, 0.03);
+    }
+
+    .verses-cell-content {
+      padding: 15px 20px;
+      border-left: 3px solid var(--gold);
+      margin: 10px 15px;
+    }
+
+    .verses-cell-content .verse-item {
+      display: flex;
+      gap: 12px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(154, 123, 48, 0.1);
+      align-items: baseline;
+    }
+
+    .verses-cell-content .verse-item:last-child {
+      border-bottom: none;
+    }
+
+    .verses-cell-content .verse-ref-inline {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      color: var(--gold);
+      min-width: 120px;
+      white-space: nowrap;
+    }
+
+    .verses-cell-content .verse-text-inline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--ink-dark);
+    }
+
+    .verses-cell-content .verse-text-inline em {
+      color: var(--gold);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* Deep dive expandables */
+    .deep-dives-section {
+      margin-top: 35px;
+    }
+
+    .deep-dives-section > h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .deep-dive {
+      border: 1px solid var(--parchment-edge);
+      margin-bottom: 12px;
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .deep-dive-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .deep-dive-header:hover {
+      background: rgba(154, 123, 48, 0.05);
+    }
+
+    .deep-dive-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink-dark);
+    }
+
+    .deep-dive-toggle {
+      font-size: 1.2rem;
+      color: var(--gold);
+      transition: transform 0.3s ease;
+    }
+
+    .deep-dive.expanded .deep-dive-toggle {
+      transform: rotate(45deg);
+    }
+
+    .deep-dive-content {
+      display: none;
+      padding: 0 20px 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--ink-dark);
+    }
+
+    .deep-dive.expanded .deep-dive-content {
+      display: block;
+      animation: fadeSlideIn 0.3s ease;
+    }
+
+    .deep-dive-content p {
+      margin-bottom: 12px;
+    }
+
+    .deep-dive-content strong {
+      color: var(--ink-dark);
+    }
+
+    .deep-dive-content em {
+      font-style: italic;
+    }
+
+    .vocab-comparison {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 15px 0;
+    }
+
+    .vocab-item {
+      background: rgba(154, 123, 48, 0.05);
+      padding: 12px 15px;
+      border-left: 3px solid var(--gold);
+    }
+
+    .vocab-hebrew {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.1rem;
+      color: var(--ink-dark);
+      margin-bottom: 4px;
+    }
+
+    .vocab-trans {
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+    }
+
+    /* Scroll trigger button */
+    .biblical-trigger {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 56px;
+      height: 56px;
+      background: var(--parchment-light);
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.15),
+        inset 0 0 20px rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .biblical-trigger:hover {
+      transform: scale(1.08);
+      box-shadow:
+        0 6px 30px rgba(154, 123, 48, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+
+    .biblical-trigger svg {
+      width: 26px;
+      height: 26px;
+      color: var(--gold);
+    }
+
+    .biblical-trigger-label {
+      position: absolute;
+      right: 70px;
+      background: var(--parchment-light);
+      border: 1px solid var(--parchment-edge);
+      padding: 8px 14px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--ink-dark);
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .biblical-trigger:hover .biblical-trigger-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @media (max-width: 768px) {
+      .overlay-body {
+        padding: 25px 30px 40px;
+      }
+
+      .overlay-header {
+        padding: 30px 30px 25px;
+      }
+
+      .biblical-trigger {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+      }
+
+      .biblical-trigger-label {
+        display: none;
+      }
+
+      .mapping-table {
+        font-size: 0.85rem;
+      }
+
+      .mapping-table th,
+      .mapping-table td {
+        padding: 10px 8px;
+      }
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: fixed;
+      z-index: 1000;
+      width: 280px;
+      padding: 20px 22px;
+      background: var(--parchment-light);
+      border: 1px solid var(--parchment-edge);
+      box-shadow:
+        0 8px 30px rgba(0,0,0,0.2),
+        inset 0 0 30px rgba(139, 69, 50, 0.04);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .tooltip.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tooltip::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 1px solid rgba(154, 123, 48, 0.12);
+      pointer-events: none;
+    }
+
+    .tooltip-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .tooltip-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: var(--ink-dark);
+    }
+
+    .tooltip-hebrew {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1rem;
+      color: var(--ink-mid);
+    }
+
+    .tooltip-meaning {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--gold);
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+
+    .tooltip-pronunciation {
+      font-size: 0.85rem;
+      color: var(--ink-light);
+      margin-bottom: 12px;
+      font-style: italic;
+      letter-spacing: 0.02em;
+    }
+
+    .tooltip-pronunciation::before {
+      content: '/ ';
+      opacity: 0.5;
+    }
+
+    .tooltip-pronunciation::after {
+      content: ' /';
+      opacity: 0.5;
+    }
+
+    .tooltip-summary {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--ink-dark);
+    }
+
+    .tooltip-hint {
+      font-size: 0.8rem;
+      color: var(--ink-faint);
+      margin-top: 14px;
+      text-align: center;
+      font-style: italic;
+      border-top: 1px solid var(--parchment-edge);
+      padding-top: 12px;
+    }
+
+    /* ========================================
+       DARK MODE OVERRIDES - "Midnight Codex"
+       ======================================== */
+
+    /* Body background in dark mode */
+    [data-theme="dark"] body {
+      background: radial-gradient(ellipse at 50% 0%, #0a0806 0%, #000000 100%);
+    }
+
+    /* Parchment texture adjustment - reduced noise opacity */
+    [data-theme="dark"] .parchment {
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+        radial-gradient(ellipse at 20% 10%, rgba(40,35,30,0.3) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 90%, rgba(20, 15, 10, 0.2) 0%, transparent 35%),
+        linear-gradient(180deg, #1e1a16 0%, var(--parchment-light) 15%, var(--parchment-mid) 85%, #0f0d0b 100%);
+      box-shadow:
+        0 0 60px rgba(0,0,0,0.8),
+        inset 0 0 100px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Worn edge overlay in dark mode */
+    [data-theme="dark"] .parchment::before {
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.15) 0%, transparent 2.5%, transparent 97.5%, rgba(0,0,0,0.15) 100%),
+        linear-gradient(180deg, rgba(0,0,0,0.1) 0%, transparent 1.5%, transparent 98.5%, rgba(0,0,0,0.12) 100%);
+    }
+
+    /* SVG path lines - more visible in dark mode */
+    [data-theme="dark"] .path-line {
+      stroke: #3a3228;
+      opacity: 0.85;
+    }
+
+    /* Sephirah nodes - glow instead of shadow */
+    [data-theme="dark"] .sephirah-circle {
+      box-shadow:
+        0 0 12px rgba(212, 168, 75, 0.1),
+        inset 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    [data-theme="dark"] .sephirah:hover .sephirah-circle {
+      box-shadow:
+        0 0 25px rgba(212, 168, 75, 0.25),
+        inset 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    [data-theme="dark"] .sephirah.active .sephirah-circle {
+      box-shadow:
+        0 0 35px rgba(212, 168, 75, 0.4),
+        inset 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    /* Da'at dashed border in dark mode */
+    [data-theme="dark"] .sephirah.daat .sephirah-circle {
+      border-color: var(--ink-faint);
+    }
+
+    /* Info section border */
+    [data-theme="dark"] .info-section {
+      border-left-color: #2a2420;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.1) 0%, transparent 30%),
+        linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment-mid) 100%);
+    }
+
+    /* Detail header border */
+    [data-theme="dark"] .detail-header {
+      border-bottom-color: #2a2420;
+    }
+
+    [data-theme="dark"] .detail-header::after {
+      background: var(--parchment-mid);
+    }
+
+    /* Detail section borders */
+    [data-theme="dark"] .detail-section h3 {
+      color: var(--gold-bright);
+    }
+
+    /* Tooltip dark mode */
+    [data-theme="dark"] .tooltip {
+      background: #1e1a16;
+      border-color: #3a3228;
+      box-shadow:
+        0 8px 30px rgba(0,0,0,0.6),
+        inset 0 0 30px rgba(0, 0, 0, 0.2);
+    }
+
+    [data-theme="dark"] .tooltip::before {
+      border-color: rgba(212, 168, 75, 0.15);
+    }
+
+    /* Biblical sources section */
+    [data-theme="dark"] .biblical-sources {
+      border-top-color: #2a2420;
+    }
+
+    [data-theme="dark"] .biblical-sources::before {
+      background: var(--parchment-mid);
+    }
+
+    [data-theme="dark"] .verses-list {
+      background: linear-gradient(135deg, rgba(212, 168, 75, 0.05) 0%, rgba(20, 18, 16, 0.3) 100%);
+      border-color: rgba(212, 168, 75, 0.15);
+    }
+
+    [data-theme="dark"] .verse-item {
+      border-bottom-color: rgba(212, 168, 75, 0.1);
+    }
+
+    [data-theme="dark"] .key-verse {
+      background: linear-gradient(135deg, rgba(212, 168, 75, 0.08) 0%, rgba(20, 18, 16, 0.2) 100%);
+      border-color: rgba(212, 168, 75, 0.2);
+    }
+
+    /* Biblical overlay dark mode */
+    [data-theme="dark"] .biblical-overlay-backdrop {
+      background: rgba(0, 0, 0, 0.92);
+    }
+
+    [data-theme="dark"] .biblical-overlay-content {
+      box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(212, 168, 75, 0.3),
+        inset 0 0 100px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="dark"] .biblical-overlay-content::before {
+      border-color: rgba(212, 168, 75, 0.2);
+    }
+
+    [data-theme="dark"] .biblical-overlay-content::after {
+      border-color: rgba(212, 168, 75, 0.1);
+    }
+
+    [data-theme="dark"] .overlay-header {
+      border-bottom-color: #2a2420;
+      background: linear-gradient(180deg, rgba(30, 26, 22, 0.5) 0%, transparent 100%);
+    }
+
+    [data-theme="dark"] .overlay-header::after {
+      background: var(--parchment-light);
+    }
+
+    [data-theme="dark"] .foundation-verse {
+      border-bottom-color: #2a2420;
+    }
+
+    [data-theme="dark"] .foundation-hebrew {
+      background: linear-gradient(135deg, rgba(212, 168, 75, 0.08) 0%, transparent 100%);
+    }
+
+    [data-theme="dark"] .mapping-table th {
+      border-bottom-color: #2a2420;
+    }
+
+    [data-theme="dark"] .mapping-table td {
+      border-bottom-color: rgba(42, 36, 32, 0.5);
+    }
+
+    [data-theme="dark"] .mapping-table tr:hover td {
+      background: rgba(212, 168, 75, 0.06);
+    }
+
+    /* Deep dive sections */
+    [data-theme="dark"] .deep-dive {
+      border-color: #2a2420;
+      background: rgba(30, 26, 22, 0.3);
+    }
+
+    [data-theme="dark"] .deep-dive-header:hover {
+      background: rgba(212, 168, 75, 0.08);
+    }
+
+    [data-theme="dark"] .vocab-item {
+      background: rgba(212, 168, 75, 0.08);
+      border-left-color: var(--gold);
+    }
+
+    /* Match badges - adjusted for dark mode contrast */
+    [data-theme="dark"] .match-badge.exact {
+      background: rgba(106, 154, 106, 0.2);
+      border-color: #6a9a6a;
+      color: #8aba8a;
+    }
+
+    [data-theme="dark"] .match-badge.substituted {
+      background: rgba(212, 168, 75, 0.15);
+      border-color: var(--gold);
+      color: var(--gold-bright);
+    }
+
+    [data-theme="dark"] .match-badge.derived {
+      background: rgba(154, 106, 106, 0.2);
+      border-color: #9a6a6a;
+      color: #ba8a8a;
+    }
+
+    [data-theme="dark"] .match-badge.coded {
+      background: rgba(138, 106, 154, 0.2);
+      border-color: #8a6a9a;
+      color: #aa8aba;
+    }
+
+    /* Biblical trigger button */
+    [data-theme="dark"] .biblical-trigger {
+      background: #1e1a16;
+      border-color: var(--gold);
+      box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.4),
+        0 0 15px rgba(212, 168, 75, 0.15),
+        inset 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    [data-theme="dark"] .biblical-trigger:hover {
+      box-shadow:
+        0 6px 30px rgba(0, 0, 0, 0.5),
+        0 0 25px rgba(212, 168, 75, 0.3),
+        inset 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    [data-theme="dark"] .biblical-trigger-label {
+      background: #1e1a16;
+      border-color: #2a2420;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Expanded table rows in dark mode */
+    [data-theme="dark"] .verses-row td {
+      background: rgba(212, 168, 75, 0.03);
+    }
+
+    [data-theme="dark"] .verses-cell-content {
+      border-left-color: var(--gold);
+    }
+
+    /* ========================================
+       THEME TOGGLE BUTTON
+       ======================================== */
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 40px;
+      height: 40px;
+      background: var(--parchment-light);
+      border: 1.5px solid var(--parchment-edge);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      z-index: 50;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 15px rgba(154, 123, 48, 0.2);
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      color: var(--gold);
+      transition: transform 0.4s ease, opacity 0.3s ease;
+    }
+
+    .theme-toggle .sun-icon {
+      position: absolute;
+    }
+
+    .theme-toggle .moon-icon {
+      position: absolute;
+      opacity: 0;
+      transform: rotate(-90deg);
+    }
+
+    [data-theme="dark"] .theme-toggle {
+      background: #1e1a16;
+      border-color: #3a3228;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212, 168, 75, 0.1);
+    }
+
+    [data-theme="dark"] .theme-toggle:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 15px rgba(212, 168, 75, 0.2);
+    }
+
+    [data-theme="dark"] .theme-toggle .sun-icon {
+      opacity: 0;
+      transform: rotate(90deg);
+    }
+
+    [data-theme="dark"] .theme-toggle .moon-icon {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+
+    /* ========================================
+       SMOOTH TRANSITIONS
+       ======================================== */
+
+    body,
+    .parchment,
+    .parchment::before,
+    .sephirah-circle,
+    .info-section,
+    .detail-header,
+    .tooltip,
+    .biblical-overlay-content,
+    .biblical-overlay-backdrop,
+    .overlay-header,
+    .biblical-trigger,
+    .theme-toggle,
+    .deep-dive,
+    .verses-list,
+    .key-verse,
+    .mapping-table td,
+    .mapping-table th {
+      transition:
+        background 0.3s ease,
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        color 0.3s ease;
+    }
+
+    .path-line {
+      transition: stroke 0.3s ease, opacity 0.3s ease;
+    }
+
+    @media (max-width: 1000px) {
+      .theme-toggle {
+        top: 15px;
+        left: 15px;
+        width: 36px;
+        height: 36px;
+      }
+
+      .theme-toggle svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="parchment">
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+      </svg>
+      <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+    <div class="container">
+      <section class="tree-section">
+        <header class="tree-title">
+          <h1>The Tree of Life</h1>
+          <div class="hebrew-title">עץ החיים</div>
+        </header>
+
+        <div class="tree-diagram">
+          <div class="tree-wrapper">
+            <!-- Pillar labels -->
+            <div class="pillar-labels">
+              <span>Severity</span>
+              <span>Balance</span>
+              <span>Mercy</span>
+            </div>
+
+            <!-- SVG paths connecting the Sefirot -->
+            <svg class="paths-svg" viewBox="0 0 380 570">
+              <!-- Vertical paths -->
+              <line x1="190" y1="85" x2="190" y2="148" class="path-line"/>
+              <line x1="190" y1="202" x2="190" y2="269" class="path-line"/>
+              <line x1="190" y1="341" x2="190" y2="410" class="path-line"/>
+              <line x1="190" y1="473" x2="190" y2="517" class="path-line"/>
+              <line x1="70" y1="145" x2="70" y2="200" class="path-line"/>
+              <line x1="70" y1="270" x2="70" y2="340" class="path-line"/>
+              <line x1="310" y1="145" x2="310" y2="200" class="path-line"/>
+              <line x1="310" y1="270" x2="310" y2="340" class="path-line"/>
+
+              <!-- Horizontal paths -->
+              <line x1="105" y1="110" x2="275" y2="110" class="path-line"/>
+              <line x1="105" y1="235" x2="275" y2="235" class="path-line"/>
+              <line x1="105" y1="375" x2="275" y2="375" class="path-line"/>
+
+              <!-- Diagonal paths from Keter -->
+              <line x1="165" y1="68" x2="95" y2="90" class="path-line"/>
+              <line x1="215" y1="68" x2="285" y2="90" class="path-line"/>
+
+              <!-- Paths through Da'at (from above) -->
+              <line x1="95" y1="130" x2="165" y2="162" class="path-line"/>
+              <line x1="285" y1="130" x2="215" y2="162" class="path-line"/>
+
+              <!-- Paths from Da'at to Chesed/Gevurah -->
+              <line x1="165" y1="192" x2="95" y2="215" class="path-line"/>
+              <line x1="215" y1="192" x2="285" y2="215" class="path-line"/>
+
+              <!-- Long diagonals to Tiphareth -->
+              <line x1="88" y1="133" x2="168" y2="282" class="path-line"/>
+              <line x1="292" y1="133" x2="212" y2="282" class="path-line"/>
+
+              <!-- Paths from Chesed/Gevurah to Tiphareth -->
+              <line x1="95" y1="255" x2="163" y2="287" class="path-line"/>
+              <line x1="285" y1="255" x2="217" y2="287" class="path-line"/>
+
+              <!-- Paths from Tiphareth to Netzach/Hod -->
+              <line x1="168" y1="323" x2="95" y2="355" class="path-line"/>
+              <line x1="212" y1="323" x2="285" y2="355" class="path-line"/>
+
+              <!-- Paths from Netzach/Hod to Yesod -->
+              <line x1="95" y1="395" x2="160" y2="425" class="path-line"/>
+              <line x1="285" y1="395" x2="220" y2="425" class="path-line"/>
+            </svg>
+
+            <!-- Sephirah nodes -->
+            <div class="sephirah middle" data-sephirah="keter">
+              <div class="sephirah-circle">
+                <span class="seph-number">1</span>
+                <span class="seph-name">Keter</span>
+                <span class="seph-hebrew">כתר</span>
+              </div>
+            </div>
+
+            <div class="sephirah mercy" data-sephirah="chokmah">
+              <div class="sephirah-circle">
+                <span class="seph-number">2</span>
+                <span class="seph-name">Chokmah</span>
+                <span class="seph-hebrew">חכמה</span>
+              </div>
+            </div>
+
+            <div class="sephirah severity" data-sephirah="binah">
+              <div class="sephirah-circle">
+                <span class="seph-number">3</span>
+                <span class="seph-name">Binah</span>
+                <span class="seph-hebrew">בינה</span>
+              </div>
+            </div>
+
+            <div class="sephirah daat middle" data-sephirah="daat">
+              <div class="sephirah-circle">
+                <span class="seph-name">Da'at</span>
+                <span class="seph-hebrew">דעת</span>
+              </div>
+            </div>
+
+            <div class="sephirah mercy" data-sephirah="chesed">
+              <div class="sephirah-circle">
+                <span class="seph-number">4</span>
+                <span class="seph-name">Chesed</span>
+                <span class="seph-hebrew">חסד</span>
+              </div>
+            </div>
+
+            <div class="sephirah severity" data-sephirah="gevurah">
+              <div class="sephirah-circle">
+                <span class="seph-number">5</span>
+                <span class="seph-name">Gevurah</span>
+                <span class="seph-hebrew">גבורה</span>
+              </div>
+            </div>
+
+            <div class="sephirah middle" data-sephirah="tiphareth">
+              <div class="sephirah-circle">
+                <span class="seph-number">6</span>
+                <span class="seph-name">Tiphareth</span>
+                <span class="seph-hebrew">תפארת</span>
+              </div>
+            </div>
+
+            <div class="sephirah mercy" data-sephirah="netzach">
+              <div class="sephirah-circle">
+                <span class="seph-number">7</span>
+                <span class="seph-name">Netzach</span>
+                <span class="seph-hebrew">נצח</span>
+              </div>
+            </div>
+
+            <div class="sephirah severity" data-sephirah="hod">
+              <div class="sephirah-circle">
+                <span class="seph-number">8</span>
+                <span class="seph-name">Hod</span>
+                <span class="seph-hebrew">הוד</span>
+              </div>
+            </div>
+
+            <div class="sephirah middle" data-sephirah="yesod">
+              <div class="sephirah-circle">
+                <span class="seph-number">9</span>
+                <span class="seph-name">Yesod</span>
+                <span class="seph-hebrew">יסוד</span>
+              </div>
+            </div>
+
+            <div class="sephirah middle" data-sephirah="malkuth">
+              <div class="sephirah-circle">
+                <span class="seph-number">10</span>
+                <span class="seph-name">Malkuth</span>
+                <span class="seph-hebrew">מלכות</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-section">
+        <div class="panel-placeholder" id="placeholder">
+          <svg class="placeholder-icon" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="35"/>
+            <circle cx="40" cy="40" r="20"/>
+            <circle cx="40" cy="40" r="5"/>
+          </svg>
+          <p>Select a Sephirah to explore its deeper meaning</p>
+          <span class="hint">Hover for summary, click for full description</span>
+        </div>
+        <div class="sephirah-detail" id="detail-content"></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Tooltip -->
+  <div class="tooltip" id="tooltip">
+    <div class="tooltip-header">
+      <span class="tooltip-name"></span>
+      <span class="tooltip-hebrew"></span>
+    </div>
+    <div class="tooltip-meaning"></div>
+    <div class="tooltip-pronunciation"></div>
+    <div class="tooltip-summary"></div>
+    <div class="tooltip-hint">Click to read more</div>
+  </div>
+
+  <!-- Biblical Sources Trigger Button -->
+  <button class="biblical-trigger" id="biblicalTrigger" aria-label="View Biblical Sources">
+    <span class="biblical-trigger-label">Biblical Sources</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      <path d="M8 7h8"/>
+      <path d="M8 11h8"/>
+      <path d="M8 15h5"/>
+    </svg>
+  </button>
+
+  <!-- Biblical Sources Overlay -->
+  <div class="biblical-overlay" id="biblicalOverlay">
+    <div class="biblical-overlay-backdrop" id="biblicalBackdrop"></div>
+    <div class="biblical-overlay-content">
+      <header class="overlay-header">
+        <button class="overlay-close" id="overlayClose" aria-label="Close">&times;</button>
+        <h2 class="overlay-title">Biblical Sources</h2>
+        <p class="overlay-subtitle">The Scriptural Foundations of the Sephirot</p>
+      </header>
+      <div class="overlay-body">
+        <!-- Foundation Verse -->
+        <div class="foundation-verse">
+          <div class="foundation-label">The Foundational Verse</div>
+          <div class="foundation-hebrew">לְךָ יְהוָה הַגְּדֻלָּה וְהַגְּבוּרָה וְהַתִּפְאֶרֶת וְהַנֵּצַח וְהַהוֹד כִּי־כֹל בַּשָּׁמַיִם וּבָאָרֶץ לְךָ יְהוָה הַמַּמְלָכָה</div>
+          <div class="foundation-kjv">Thine, O LORD, is the <em>greatness</em>, and the <em>power</em>, and the <em>glory</em>, and the <em>victory</em>, and the <em>majesty</em>: for all that is in the heaven and in the earth is thine; thine is the <em>kingdom</em>, O LORD, and thou art exalted as head above all.</div>
+          <div class="foundation-ref">1 Chronicles 29:11 (KJV)</div>
+        </div>
+
+        <!-- Mapping Table -->
+        <div class="mapping-section">
+          <h3>Sephirot Biblical Attestation</h3>
+          <p style="font-size: 0.9rem; color: var(--ink-light); margin-bottom: 15px; font-style: italic;">Click any row to view biblical verses</p>
+          <table class="mapping-table" id="mappingTable">
+            <thead>
+              <tr>
+                <th>Sephirah</th>
+                <th>Hebrew</th>
+                <th>Occurrences</th>
+                <th>Match Type</th>
+              </tr>
+            </thead>
+            <tbody id="mappingTableBody">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Deep Dives -->
+        <div class="deep-dives-section">
+          <h3>Vocabulary Distinctions</h3>
+
+          <div class="deep-dive" data-dive="gedulah">
+            <div class="deep-dive-header">
+              <span class="deep-dive-title">Why Gedulah (גְּדֻלָּה) Maps to Chesed (חֶסֶד)</span>
+              <span class="deep-dive-toggle">+</span>
+            </div>
+            <div class="deep-dive-content">
+              <p>1 Chronicles 29:11 uses <strong>גְּדֻלָּה</strong> (gedulah, "greatness"), not <strong>חֶסֶד</strong> (chesed, "loving-kindness"). These are semantically distinct words.</p>
+              <p>Isaac the Blind originally called this Sephirah "Gedulah" based on the verse. Later Kabbalists renamed it "Chesed" to emphasize its functional quality—unbounded loving-kindness—rather than merely its magnitude.</p>
+              <p><strong>The theological rationale:</strong> Gedulah captures the <em>magnitude</em> of divine giving; Chesed captures its <em>character</em>. The Sephirah's association with Abraham—whose defining characteristic was hospitality (chesed)—reinforced the preference for the functional name.</p>
+              <div class="vocab-comparison">
+                <div class="vocab-item">
+                  <div class="vocab-hebrew">גְּדֻלָּה</div>
+                  <div class="vocab-trans">Gedulah — Greatness (magnitude)</div>
+                </div>
+                <div class="vocab-item">
+                  <div class="vocab-hebrew">חֶסֶד</div>
+                  <div class="vocab-trans">Chesed — Loving-kindness (character)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="deep-dive" data-dive="binah">
+            <div class="deep-dive-header">
+              <span class="deep-dive-title">Binah (בִּינָה) versus Tevunah (תְּבוּנָה)</span>
+              <span class="deep-dive-toggle">+</span>
+            </div>
+            <div class="deep-dive-content">
+              <p>Both derive from root <strong>ב-י-נ</strong> (B-Y-N, "to discern between"). Binah appears 38 times; Tevunah appears 43 times in the Hebrew Bible.</p>
+              <p><strong>Zohar III:291a</strong> explicitly states: "Binah surpasses Tevunah"—indicating a hierarchical distinction where Binah is the higher form.</p>
+              <p><strong>The Vilna Gaon's distinction:</strong> Binah means understanding something on one's own terms; Tevunah means understanding so thoroughly one can explain it to others.</p>
+              <div class="vocab-comparison">
+                <div class="vocab-item">
+                  <div class="vocab-hebrew">בִּינָה</div>
+                  <div class="vocab-trans">Binah — Power to "grasp" insights</div>
+                </div>
+                <div class="vocab-item">
+                  <div class="vocab-hebrew">תְּבוּנָה</div>
+                  <div class="vocab-trans">Tevunah — Power to "assimilate" understanding</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="deep-dive" data-dive="glory">
+            <div class="deep-dive-header">
+              <span class="deep-dive-title">Three Hebrew Words for "Glory"</span>
+              <span class="deep-dive-toggle">+</span>
+            </div>
+            <div class="deep-dive-content">
+              <p>English translations collapse three distinct Hebrew concepts into "glory":</p>
+              <div class="vocab-comparison">
+                <div class="vocab-item">
+                  <div class="vocab-hebrew">תִּפְאֶרֶת</div>
+                  <div class="vocab-trans">Tiferet — Beauty, harmonious glory (6th Sephirah)</div>
+                </div>
+                <div class="vocab-item">
+                  <div class="vocab-hebrew">הוֹד</div>
+                  <div class="vocab-trans">Hod — Splendor, majesty (8th Sephirah)</div>
+                </div>
+                <div class="vocab-item">
+                  <div class="vocab-hebrew">כָּבוֹד</div>
+                  <div class="vocab-trans">Kavod — Weighty glory (NOT a Sephirah)</div>
+                </div>
+              </div>
+              <p><strong>Tiferet</strong> emphasizes aesthetic beauty and harmonious integration—the "golden mean" balancing opposing forces. <strong>Hod</strong> emphasizes radiating splendor from humble acknowledgment. <strong>Kavod</strong> (from "heavy") implies intrinsic, weighty substance—the manifest presence of God in theophanies.</p>
+            </div>
+          </div>
+
+          <div class="deep-dive" data-dive="malkuth">
+            <div class="deep-dive-header">
+              <span class="deep-dive-title">Malkuth (מַלְכוּת) versus Mamlakah (מַמְלָכָה)</span>
+              <span class="deep-dive-toggle">+</span>
+            </div>
+            <div class="deep-dive-content">
+              <p>1 Chronicles 29:11 uses <strong>הַמַּמְלָכָה</strong> (ha-mamlakah), NOT <strong>מַלְכוּת</strong> (malkuth). These are grammatically and semantically distinct:</p>
+              <div class="vocab-comparison">
+                <div class="vocab-item">
+                  <div class="vocab-hebrew">מַלְכוּת</div>
+                  <div class="vocab-trans">Malkuth — Royal sovereignty (abstract quality)</div>
+                </div>
+                <div class="vocab-item">
+                  <div class="vocab-hebrew">מַמְלָכָה</div>
+                  <div class="vocab-trans">Mamlakah — Kingdom as realm/territory</div>
+                </div>
+                <div class="vocab-item">
+                  <div class="vocab-hebrew">מְלוּכָה</div>
+                  <div class="vocab-trans">Melukhah — The office of kingship</div>
+                </div>
+              </div>
+              <p>Kabbalists chose <strong>Malkuth</strong> because it better captures the abstract manifestation of divine sovereignty—the <em>Shekhinah</em> as experienced presence. The Zohar consistently uses "Malkuth" with Shekhinah as its primary alternate name.</p>
+            </div>
+          </div>
+
+          <div class="deep-dive" data-dive="yesod">
+            <div class="deep-dive-header">
+              <span class="deep-dive-title">Yesod (יְסוֹד) versus Machon (מָכוֹן)</span>
+              <span class="deep-dive-toggle">+</span>
+            </div>
+            <div class="deep-dive-content">
+              <p>Three Hebrew words for "foundation" serve different functions:</p>
+              <div class="vocab-comparison">
+                <div class="vocab-item">
+                  <div class="vocab-hebrew">יְסוֹד</div>
+                  <div class="vocab-trans">Yesod — General foundation, base</div>
+                </div>
+                <div class="vocab-item">
+                  <div class="vocab-hebrew">מָכוֹן</div>
+                  <div class="vocab-trans">Machon — Fixed/established dwelling place</div>
+                </div>
+                <div class="vocab-item">
+                  <div class="vocab-hebrew">מוּסָד</div>
+                  <div class="vocab-trans">Mussad — Architectural foundation</div>
+                </div>
+              </div>
+              <p><strong>The key verse:</strong> Proverbs 10:25 uses <em>yesod</em>: "וְצַדִּיק יְסוֹד עוֹלָם" ("the righteous is an everlasting foundation"). The Zohar specifically cites this to connect the Tzaddik archetype to the ninth Sephirah.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sephirothData = {
+      keter: {
+        number: 1,
+        name: "Keter",
+        hebrew: "כתר",
+        meaning: "Crown",
+        pronunciation: "KEH-tehr",
+        pillar: "Middle Pillar (Balance)",
+        triad: "Supernal Triad",
+        summary: "Pure being. The first stirring of existence from nothingness — not yet 'something,' but the potential for something.",
+        etymology: "From Hebrew <em>kether</em>, 'crown' — that which sits above and encompasses.",
+        core: "Pure being. The first stirring of existence from nothingness. Not yet 'something,' but the potential for something. The dimensionless point from which everything else unfolds.",
+        represents: [
+          "The initial divine impulse — 'I will be'",
+          "Unity before division",
+          "The source that remains unknowable because knowing requires a knower and a known (duality)"
+        ],
+        experience: "Moments of pure awareness before thought arises. The space between breaths. What mystics describe as 'emptiness' that is paradoxically full.",
+        additional: "A crown sits above the head (above thought), marks sovereignty, and is the highest point. It touches the wearer but isn't <em>part</em> of them.<br><br><strong>Keter and Ratzon:</strong> Traditional Kabbalistic sources frequently associate Keter with Ratzon (רָצוֹן), Will. The Zohar describes Keter as the first stirring of divine will — 'I will' before 'I will [specific thing].' The progression: Keter/Ratzon is the will to act (intent exists but is undirected); Chokmah is the flash of <em>what</em> (inspiration arrives); Binah is the understanding of <em>how</em> and <em>why</em>.",
+        biblical: {
+          verses: [
+            { ref: "Esther 1:11", english: "To bring Vashti the queen before the king with the royal <em>crown</em>" },
+            { ref: "Esther 2:17", english: "He set the royal <em>crown</em> upon her head" },
+            { ref: "Esther 6:8", english: "The <em>crown</em> royal which is set upon his head" }
+          ],
+          occurrences: 3,
+          matchType: "derived",
+          matchLabel: "Rare",
+          note: "Appears only in Esther. Kabbalists rely on conceptual associations rather than direct citation."
+        }
+      },
+      chokmah: {
+        number: 2,
+        name: "Chokmah",
+        hebrew: "חכמה",
+        meaning: "Wisdom",
+        pronunciation: "khokh-MAH · guttural kh as in 'Bach'",
+        pillar: "Pillar of Mercy (Right)",
+        triad: "Supernal Triad",
+        summary: "The first flash of undifferentiated creative force. Pure dynamic energy seeking expression — the 'lightning bolt' of inspiration.",
+        etymology: "From Hebrew root Ch-K-M, related to skill, cleverness, and insight. Cognate with Arabic <em>ḥikma</em> (wisdom, philosophy).",
+        core: "The first flash of undifferentiated creative force. Pure dynamic energy seeking expression. The 'lightning bolt' of inspiration before it takes shape.",
+        represents: [
+          "The active, projecting, initiating principle",
+          "Raw creative power without form",
+          "The seed that contains everything but has defined nothing yet",
+          "'Father' energy in traditional Kabbalistic language"
+        ],
+        experience: "The moment of inspiration — you <em>have</em> an idea but haven't articulated it yet. The sudden knowing that precedes explanation. Intuitive insight that arrives whole.",
+        additional: "Chokmah is the flash; Binah is the vessel. Chokmah radiates outward; Binah draws inward and gives structure.",
+        biblical: {
+          verses: [
+            { ref: "Proverbs 3:19", english: "The LORD by <em>wisdom</em> founded the earth" },
+            { ref: "Proverbs 8:1", english: "Does not <em>wisdom</em> cry out?" },
+            { ref: "Proverbs 9:10", english: "The fear of the LORD is the beginning of <em>wisdom</em>" },
+            { ref: "Job 28:12", english: "But where shall <em>wisdom</em> be found?" },
+            { ref: "Exodus 31:3", english: "I have filled him with the spirit of God, in <em>wisdom</em>, understanding, and knowledge" }
+          ],
+          occurrences: 149,
+          matchType: "exact",
+          matchLabel: "Exact Match"
+        }
+      },
+      binah: {
+        number: 3,
+        name: "Binah",
+        hebrew: "בינה",
+        meaning: "Understanding",
+        pronunciation: "bee-NAH",
+        pillar: "Pillar of Severity (Left)",
+        triad: "Supernal Triad",
+        summary: "The receptive, structuring, form-giving principle. Takes Chokmah's undifferentiated energy and gives it boundaries and definition.",
+        etymology: "From Hebrew root B-Y-N, 'to discern, distinguish, separate.' Related to <em>bein</em> (between) — understanding comes from distinguishing one thing from another.",
+        core: "The receptive, structuring, form-giving principle. Takes Chokmah's undifferentiated energy and gives it boundaries, categories, and definition.",
+        represents: [
+          "The womb that receives and gestates",
+          "Analysis, distinction, limitation (in the sense of defining limits)",
+          "'Mother' energy — not passive, but actively shaping",
+          "Time, space, and structure as concepts"
+        ],
+        experience: "The process of working out <em>what</em> your inspiration means. Taking the flash of insight and giving it language, structure, logic. Understanding <em>why</em> something is true, not just that it is.",
+        additional: "Wisdom (Chokmah) <em>knows</em>; Understanding (Binah) <em>comprehends</em>. You can have wisdom without being able to explain it. Understanding is wisdom made articulable.<br><br><strong>Binah and Tevunah:</strong> Tevunah (תבונה) comes from the same root (B-Y-N) but denotes understanding <em>applied</em> or <em>in action</em>. In Lurianic Kabbalah, Binah is the 'Upper Mother' — transcendent and concealed — while Tevunah is the 'Lower Mother,' the aspect that descends to nurture the lower Sefirot. Binah is the faculty; Tevunah is its expression. 'Binah surpasses Tevunah' — the source transcends its application.",
+        biblical: {
+          verses: [
+            { ref: "Proverbs 4:5", english: "Get wisdom, get <em>understanding</em>" },
+            { ref: "Proverbs 4:7", english: "With all your getting, get <em>understanding</em>" },
+            { ref: "Isaiah 11:2", english: "The spirit of wisdom and <em>understanding</em>" },
+            { ref: "Job 28:12", english: "Where shall wisdom be found? Where is the place of <em>understanding</em>?" },
+            { ref: "Job 28:28", english: "To depart from evil is <em>understanding</em>" }
+          ],
+          occurrences: 38,
+          matchType: "exact",
+          matchLabel: "Exact Match"
+        }
+      },
+      daat: {
+        number: null,
+        name: "Da'at",
+        hebrew: "דעת",
+        meaning: "Knowledge (Hidden)",
+        pronunciation: "DAH-aht",
+        pillar: "Middle Pillar",
+        triad: "Between the Supernal and Lower Sefirot",
+        summary: "Not a separate emanation but the integration of Chokmah and Binah. Where wisdom and understanding unite, knowledge emerges. A fact: 'fire is hot.' Da'at: having touched fire — you know it in your body, and you are changed by the knowing.",
+        etymology: "From Hebrew root Y-D-A, 'to know' — but in the intimate, experiential sense (as in 'Adam knew Eve').",
+        core: "Not a separate emanation but the <em>integration</em> of Chokmah and Binah. Where wisdom and understanding unite, knowledge emerges. Da'at occupies the place where the three transcendent Sefirot meet the seven lower ones — the point of transition between what cannot be grasped and what can be known.",
+        represents: [
+          "The unification of opposites — wisdom and understanding joined",
+          "What cannot be transmitted — only experienced directly",
+          "The crossing point where the transcendent becomes accessible",
+          "The point where internal becomes external, thought becomes speech"
+        ],
+        experience: "Da'at represents knowledge that cannot be transmitted — only experienced directly. It is the threshold between the incomprehensible and the comprehensible, the place where intellectual understanding becomes lived reality. A fact states 'fire is hot' — you can read this and accept it. Da'at is having touched fire and knowing its heat in your body. You are changed by this knowing; knower and known have met.  Da'at, interestingly is almost the opposite of Data.  Data is what's handed to you; Da'at is what you become",
+        additional: "Da'at is not counted among the ten Sefirot because it is not a separate emanation but a state of union. Some teach that Da'at appears when Keter is hidden — they occupy the same position on the Tree but represent different perspectives: Keter as the unknowable source, Da'at as the knowable interface.",
+        biblical: {
+          verses: [
+            { ref: "Genesis 2:9", english: "The tree of <em>knowledge</em> of good and evil" },
+            { ref: "Exodus 31:3", english: "In wisdom, understanding, and <em>knowledge</em>" },
+            { ref: "Isaiah 11:2", english: "The spirit of <em>knowledge</em> and fear of the LORD" },
+            { ref: "Proverbs 2:6", english: "Out of his mouth comes <em>knowledge</em>" },
+            { ref: "Hosea 4:6", english: "My people are destroyed for lack of <em>knowledge</em>" }
+          ],
+          occurrences: 93,
+          matchType: "exact",
+          matchLabel: "Exact Match"
+        }
+      },
+      chesed: {
+        number: 4,
+        name: "Chesed",
+        hebrew: "חסד",
+        meaning: "Mercy / Loving-kindness",
+        pronunciation: "KHEH-sed · guttural kh",
+        pillar: "Pillar of Mercy (Right)",
+        triad: "Ethical Triad",
+        summary: "Unconditional giving. Expansion without limit. The force that says 'yes' to everything, that wants to bestow, include, embrace, grow.",
+        etymology: "One of the most significant Hebrew words — often translated as mercy, loving-kindness, grace, or covenant loyalty. It implies love that acts, kindness that commits, generosity that doesn't calculate.",
+        core: "Unconditional giving. Expansion without limit. The force that says 'yes' to everything, that wants to bestow, include, embrace, grow.",
+        represents: [
+          "Generosity, benevolence, abundance",
+          "The desire to give without restriction",
+          "Grace — receiving what you haven't earned",
+          "Expansion, growth, inclusion",
+          "The right arm — reaching out to embrace"
+        ],
+        experience: "Unconditional love. Generosity that doesn't keep score. The impulse to help, give, include. Optimism. Saying yes.",
+        additional: "The problem with pure Chesed: Unlimited giving without discernment becomes enabling, smothering, or chaotic. A parent who never says no. Chesed without Gevurah is formless and ultimately destructive.<br><br><strong>Chesed and Gedulah:</strong> This Sefirah is also called Gedulah (גדולה), meaning 'Greatness.' Older texts like Sefer Yetzirah use Gedulah; the Zohar and later tradition favor Chesed. They are the same Sefirah — 'Greatness' emphasizes the expansive magnitude, 'Loving-kindness' emphasizes the quality of that expansion. Both names capture the overflowing, unbounded nature of this force.",
+        biblical: {
+          verses: [
+            { ref: "Psalm 89:2", english: "The world is built with <em>loving-kindness</em>" },
+            { ref: "Exodus 34:6–7", english: "Abundant in <em>goodness</em> and truth, keeping <em>mercy</em> for thousands" },
+            { ref: "Micah 6:8", english: "What does the LORD require... but to love <em>mercy</em>" },
+            { ref: "Genesis 24:27", english: "Who has not forsaken his <em>mercy</em> and truth" },
+            { ref: "Psalm 136:1", english: "For his <em>mercy</em> endures forever" }
+          ],
+          occurrences: 248,
+          matchType: "substituted",
+          matchLabel: "Substituted",
+          note: "1 Chronicles uses Gedulah (גְּדֻלָּה); Kabbalists renamed it Chesed to emphasize its character."
+        }
+      },
+      gevurah: {
+        number: 5,
+        name: "Gevurah",
+        hebrew: "גבורה",
+        meaning: "Severity / Strength / Judgment",
+        pronunciation: "geh-boo-RAH",
+        pillar: "Pillar of Severity (Left)",
+        triad: "Ethical Triad",
+        summary: "Restraint, limitation, judgment, discipline. The force that says 'no,' that sets boundaries, that discriminates between what should and shouldn't be.",
+        etymology: "From Hebrew root G-B-R, 'to be strong, mighty, prevail.' Related to <em>gever</em> (man, hero) and <em>gevurah</em> (heroism, power).",
+        core: "Restraint, limitation, judgment, discipline. The force that says 'no,' that sets boundaries, that discriminates between what should and shouldn't be.",
+        represents: [
+          "Justice, judgment, discrimination",
+          "Necessary limitation and pruning",
+          "Strength to withhold, to say no",
+          "Discipline, rigor, awe",
+          "The left arm — pushing away what shouldn't approach"
+        ],
+        experience: "Setting boundaries. Discipline. The courage to cut away what's harmful. Judgment that discerns. Saying no to protect something valuable. The surgeon's cut that heals.",
+        additional: "Gevurah is often misunderstood as harsh or punitive. But consider: a surgeon must cut to heal, a teacher must correct to educate, a gardener must prune for growth. Gevurah is the <em>strength</em> to do what's difficult but necessary. Gevurah without Chesed is death; Chesed without Gevurah is chaos.",
+        biblical: {
+          verses: [
+            { ref: "1 Chronicles 29:11", english: "Yours, O LORD, is the greatness and the <em>power</em>" },
+            { ref: "Psalm 145:11–12", english: "Speak of the glory of your kingdom, talk of your <em>power</em>" },
+            { ref: "Isaiah 11:2", english: "The spirit of counsel and <em>might</em>" },
+            { ref: "Job 12:13", english: "With him is wisdom and <em>strength</em>" },
+            { ref: "Deuteronomy 3:24", english: "Who can do according to your works and your <em>might</em>?" }
+          ],
+          occurrences: 62,
+          matchType: "exact",
+          matchLabel: "Exact Match"
+        }
+      },
+      tiphareth: {
+        number: 6,
+        name: "Tiphareth",
+        hebrew: "תפארת",
+        meaning: "Beauty / Harmony",
+        pronunciation: "tif-EH-ret",
+        pillar: "Middle Pillar (Balance)",
+        triad: "Ethical Triad",
+        summary: "The harmonious integration of all the forces above it. Not 'prettiness' but the beauty of perfect balance, of everything in right relationship.",
+        etymology: "From Hebrew root P-A-R, 'to beautify, glorify, adorn.' The word implies splendor, glory, and ornament.",
+        core: "The harmonious integration of all the forces above it. Not 'prettiness' but the beauty of perfect balance, of everything in right relationship.",
+        represents: [
+          "Balance, harmony, integration",
+          "The self/ego in its healthy, centered form",
+          "Mediation between higher and lower",
+          "The heart center — where all paths converge",
+          "The 'Son' in relation to the Supernal 'Father' and 'Mother'"
+        ],
+        experience: "Being centered. Acting from your authentic self rather than extremes. Moments when you feel integrated, whole, balanced. Compassion (which combines love and discrimination).",
+        additional: "True beauty is not decoration. Beauty is proportion, harmony, rightness. A beautiful solution to a problem. A beautiful life. The beauty of something working exactly as it should. Tiphareth sits at the center, receiving from all above and transmitting to all below. It is the balancing point where Chesed and Gevurah reconcile.",
+        biblical: {
+          verses: [
+            { ref: "1 Chronicles 29:11", english: "The greatness, power, and <em>glory</em>" },
+            { ref: "Exodus 28:2", english: "Priestly garments for glory and for <em>beauty</em>" },
+            { ref: "Isaiah 49:3", english: "Israel, in whom I will be <em>glorified</em>" },
+            { ref: "Proverbs 16:31", english: "A hoary head is a crown of <em>glory</em>" },
+            { ref: "Isaiah 28:5", english: "The LORD of hosts shall be for a crown of <em>glory</em>" }
+          ],
+          occurrences: 51,
+          matchType: "exact",
+          matchLabel: "Exact Match"
+        }
+      },
+      netzach: {
+        number: 7,
+        name: "Netzach",
+        hebrew: "נצח",
+        meaning: "Victory / Eternity / Endurance",
+        pronunciation: "NEH-tsakh · final kh guttural",
+        pillar: "Pillar of Mercy (Right)",
+        triad: "Lower Triad",
+        summary: "The driving force that pushes forward despite obstacles. Desire, passion, emotion, the will to continue and prevail.",
+        etymology: "From Hebrew root N-Tz-Ch, meaning 'to be victorious, endure, be perpetual.' The word carries senses of both winning and lasting.",
+        core: "The driving force that pushes forward despite obstacles. Desire, passion, emotion, the will to continue and prevail. The instinctive, feeling-based engagement with life. The assertion of will onto reality.",
+        represents: [
+          "Emotion, passion, desire",
+          "Artistic and creative impulse",
+          "Instinct and gut feeling",
+          "Endurance, persistence, the refusal to quit",
+          "Nature, cycles, organic growth",
+          "Assertion — imposing your will on circumstances"
+        ],
+        experience: "Passion that keeps you going. Emotional engagement with life. Artistic inspiration. The feeling of wanting something strongly enough to persist. The decision to push through rather than adapt. The warrior's refusal to yield.",
+        additional: "Both meanings connect — victory is achieved through endurance, and what truly endures has 'won' against time. Netzach is the life-force that keeps pushing, keeps desiring, keeps going despite setbacks. It is the force that says 'I will make this happen' regardless of obstacles.",
+        biblical: {
+          verses: [
+            { ref: "1 Chronicles 29:11", english: "The glory, <em>victory</em>, and majesty" },
+            { ref: "1 Samuel 15:29", english: "The <em>Eternity</em> of Israel does not lie" },
+            { ref: "Lamentations 3:18", english: "My <em>endurance</em> has perished" },
+            { ref: "Psalm 13:2", english: "How long, LORD, will you forget me <em>forever</em>?" },
+            { ref: "Amos 1:11", english: "Nurtured his grudge <em>forever</em>" }
+          ],
+          occurrences: 44,
+          matchType: "exact",
+          matchLabel: "Exact Match"
+        }
+      },
+      hod: {
+        number: 8,
+        name: "Hod",
+        hebrew: "הוד",
+        meaning: "Glory / Splendor / Majesty",
+        pronunciation: "HOHD",
+        pillar: "Pillar of Severity (Left)",
+        triad: "Lower Triad",
+        summary: "Structure, form, intellect, communication. The capacity to analyze, systematize, and articulate. Where Netzach feels, Hod thinks.",
+        etymology: "From Hebrew root H-W-D, meaning 'to be glorious, majestic, splendid.' Critically related to <em>hodah</em> (הודה) — to thank, acknowledge, confess, praise.",
+        core: "Structure, form, intellect, communication. The capacity to analyze, systematize, and articulate. Where Netzach feels, Hod thinks. But more fundamentally: <em>acknowledgment of what is</em> — submission not as defeat, but as recognition of reality, truth, or something greater than oneself.",
+        represents: [
+          "Intellect, reason, logic",
+          "Language, communication, symbolism",
+          "Prayer, ritual, formal systems",
+          "Learning, scholarship, methodology",
+          "Submission — yielding to truth, adapting to circumstances",
+          "Acknowledgment — recognizing what is outside yourself"
+        ],
+        experience: "Analytical thinking. Writing, speaking, explaining. Creating systems and categories. The satisfaction of a well-constructed argument. The willingness to change your view when evidence demands it. The diplomat's flexibility. Knowing when to yield rather than push.",
+        additional: "Hod's glory is the glory of <em>making manifest</em>, of <em>articulating clearly</em>. The splendor of the <em>well-articulated</em> — the elegant proof, the precise definition, the perfect formulation. It is the glory of <em>logos</em>. The scholar's virtue lies not in cleverness, but in willingness to submit to truth.",
+        biblical: {
+          verses: [
+            { ref: "1 Chronicles 29:11", english: "The victory and the <em>majesty</em>" },
+            { ref: "Numbers 27:20", english: "Place some of your <em>majesty</em> upon him" },
+            { ref: "Psalm 96:6", english: "<em>Splendor</em> and majesty are before Him" },
+            { ref: "Psalm 104:1", english: "You are clothed with <em>splendor</em> and majesty" },
+            { ref: "Psalm 8:2", english: "You whose <em>majesty</em> is set above the heavens" }
+          ],
+          occurrences: 24,
+          matchType: "exact",
+          matchLabel: "Exact Match"
+        }
+      },
+      yesod: {
+        number: 9,
+        name: "Yesod",
+        hebrew: "יסוד",
+        meaning: "Foundation",
+        pronunciation: "yeh-SOHD",
+        pillar: "Middle Pillar (Balance)",
+        triad: "Lower Triad",
+        summary: "The gathering point that collects all forces above and transmits them to physical reality. The interface between the formed and the manifest.",
+        etymology: "From Hebrew root Y-S-D, 'to found, establish, base.' Related to <em>yesod</em> as in foundational principle or fundamental element.",
+        core: "The gathering point that collects all the forces above and transmits them to physical reality. The interface between the formed and the manifest. The realm of image, dream, and imagination.",
+        represents: [
+          "Foundation, basis, infrastructure",
+          "The subconscious mind",
+          "Dreams, images, imagination",
+          "Sexual and generative energy",
+          "The channel through which divine influence flows into the physical",
+          "Tzaddik (the righteous one) — the conduit of blessing"
+        ],
+        experience: "Your imagination, dreams, fantasies. The subconscious patterns that shape perception. The layer between 'you' and 'raw reality' — you never experience reality directly, but always through the filter of Yesod.",
+        additional: "Yesod is the foundation upon which Malkuth (physical reality) rests. Everything that manifests must first pass through Yesod — must first exist as image, pattern, or template. Change Yesod, and you change what manifests.",
+        biblical: {
+          verses: [
+            { ref: "Proverbs 10:25", english: "The righteous is an everlasting <em>foundation</em>" },
+            { ref: "Exodus 29:12", english: "Pour at the <em>base</em> of the altar" },
+            { ref: "Leviticus 4:7", english: "Pour at the <em>base</em> of the altar" },
+            { ref: "Psalm 137:7", english: "Raze it to its <em>foundation</em>" },
+            { ref: "Micah 1:6", english: "I will lay bare her <em>foundations</em>" }
+          ],
+          occurrences: 20,
+          matchType: "derived",
+          matchLabel: "Derived",
+          note: "In 1 Chronicles, 'ki kol' (כִּי כֹל) has same gematria as Yesod — a coded reading."
+        }
+      },
+      malkuth: {
+        number: 10,
+        name: "Malkuth",
+        hebrew: "מלכות",
+        meaning: "Kingdom",
+        pronunciation: "mahl-KHOOT · final kh guttural",
+        pillar: "Middle Pillar (Balance)",
+        triad: "Culmination",
+        summary: "Physical reality. The manifest world. The 'lowest' point not because it's degraded, but because it's the fullest expression of all principles above.",
+        etymology: "From Hebrew root M-L-K, 'to rule, reign, be king.' Malkuth is the noun form — kingdom, sovereignty, realm.",
+        core: "Physical reality. The manifest world. The 'lowest' point not because it's degraded, but because it's the fullest expression — where all the abstract principles above become concrete, tangible, actual.",
+        represents: [
+          "The physical body",
+          "The material world",
+          "Earth, nature, matter",
+          "The present moment",
+          "The end that is also a beginning",
+          "The Shekhinah — the divine presence dwelling in the world",
+          "The Bride, the Daughter, the Queen"
+        ],
+        experience: "Being here, now, in a body. Sensory experience. The physical world in all its detail and density. Actually doing things rather than thinking about them.",
+        additional: "Though it seems 'lowest,' Malkuth is the manifestation of all the other Sephiroth.   Malkuth is Keter materialised. Matter is spirit made dense. The physical world is sacred, not fallen. And paradoxically, Malkuth is also Keter from below — the end becomes the beginning, and the one who truly knows Malkuth knows Keter.",
+        biblical: {
+          verses: [
+            { ref: "Numbers 24:7", english: "His <em>kingdom</em> shall be exalted" },
+            { ref: "1 Samuel 20:31", english: "Neither you nor your <em>kingdom</em> will be established" },
+            { ref: "Psalm 103:19", english: "His <em>kingdom</em> rules over all" },
+            { ref: "Psalm 145:11–13", english: "The glory of your <em>kingdom</em>" },
+            { ref: "Daniel 4:3", english: "His <em>kingdom</em> is an everlasting kingdom" }
+          ],
+          occurrences: 91,
+          matchType: "substituted",
+          matchLabel: "Same Root",
+          note: "1 Chronicles uses Mamlakah (מַמְלָכָה); Kabbalists use Malkuth for the abstract sovereignty."
+        }
+      }
+    };
+
+    // DOM elements
+    const tooltip = document.getElementById('tooltip');
+    const placeholder = document.getElementById('placeholder');
+    const detailContent = document.getElementById('detail-content');
+    const sephirot = document.querySelectorAll('.sephirah');
+
+    let activeSephirah = null;
+
+    // Tooltip positioning
+    function positionTooltip(e) {
+      const padding = 18;
+      const tooltipRect = tooltip.getBoundingClientRect();
+      let x = e.clientX + padding;
+      let y = e.clientY + padding;
+
+      // Keep tooltip in viewport
+      if (x + tooltipRect.width > window.innerWidth - 10) {
+        x = e.clientX - tooltipRect.width - padding;
+      }
+      if (y + tooltipRect.height > window.innerHeight - 10) {
+        y = e.clientY - tooltipRect.height - padding;
+      }
+      if (x < 10) x = 10;
+      if (y < 10) y = 10;
+
+      tooltip.style.left = x + 'px';
+      tooltip.style.top = y + 'px';
+    }
+
+    // Show tooltip
+    function showTooltip(key, e) {
+      const data = sephirothData[key];
+      if (!data) return;
+
+      tooltip.querySelector('.tooltip-name').textContent = data.name;
+      tooltip.querySelector('.tooltip-hebrew').textContent = data.hebrew;
+      tooltip.querySelector('.tooltip-meaning').textContent = data.meaning;
+      tooltip.querySelector('.tooltip-pronunciation').textContent = data.pronunciation;
+      tooltip.querySelector('.tooltip-summary').textContent = data.summary;
+
+      positionTooltip(e);
+      tooltip.classList.add('visible');
+    }
+
+    // Hide tooltip
+    function hideTooltip() {
+      tooltip.classList.remove('visible');
+    }
+
+    // Show detail panel
+    function showDetail(key) {
+      const data = sephirothData[key];
+      if (!data) return;
+
+      // Update active state
+      if (activeSephirah) {
+        activeSephirah.classList.remove('active');
+      }
+      activeSephirah = document.querySelector(`[data-sephirah="${key}"]`);
+      activeSephirah.classList.add('active');
+
+      // Build content
+      const numberText = data.number
+        ? `Sephirah ${data.number} · ${data.triad}`
+        : `Hidden · ${data.triad}`;
+
+      const representsHtml = data.represents.map(item => `<li>${item}</li>`).join('');
+
+      // Build biblical sources section
+      let biblicalHtml = '';
+      if (data.biblical) {
+        const b = data.biblical;
+        const versesHtml = b.verses.map(v => `
+          <div class="verse-item">
+            <span class="verse-ref-inline">${v.ref}</span>
+            <span class="verse-text-inline">${v.english}</span>
+          </div>
+        `).join('');
+
+        biblicalHtml = `
+        <div class="biblical-sources">
+          <h3>Biblical Sources</h3>
+          <div class="verses-list">
+            ${versesHtml}
+          </div>
+          <div class="biblical-meta">
+            <span class="occurrence-count">Appears <strong>${b.occurrences}</strong> times in Hebrew Bible</span>
+            <span class="match-badge ${b.matchType}">${b.matchLabel}</span>
+          </div>
+          ${b.note ? `<p style="font-size: 0.9rem; color: var(--ink-light); margin-top: 12px; font-style: italic;">${b.note}</p>` : ''}
+          <a class="sources-link" onclick="openBiblicalOverlay()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            View full biblical reference
+          </a>
+        </div>`;
+      }
+
+      detailContent.innerHTML = `
+        <div class="detail-header">
+          <button class="close-btn" onclick="hideDetail()" title="Close">&times;</button>
+          <div class="detail-number">${numberText}</div>
+          <div class="detail-name">${data.name}</div>
+          <div class="detail-hebrew">${data.hebrew}</div>
+          <div class="detail-meaning">${data.meaning}</div>
+          <div class="detail-pillar">${data.pillar}</div>
+        </div>
+        <div class="detail-section">
+          <h3>Etymology</h3>
+          <p>${data.etymology}</p>
+        </div>
+        <div class="detail-section">
+          <h3>Core Meaning</h3>
+          <p>${data.core}</p>
+        </div>
+        <div class="detail-section">
+          <h3>What It Represents</h3>
+          <ul>${representsHtml}</ul>
+        </div>
+        <div class="detail-section">
+          <h3>In Human Experience</h3>
+          <p>${data.experience}</p>
+        </div>
+        <div class="detail-section">
+          <h3>Further Understanding</h3>
+          <p>${data.additional}</p>
+        </div>
+        ${biblicalHtml}
+      `;
+
+      placeholder.style.display = 'none';
+      detailContent.classList.add('visible');
+    }
+
+    // Hide detail panel
+    function hideDetail() {
+      if (activeSephirah) {
+        activeSephirah.classList.remove('active');
+        activeSephirah = null;
+      }
+      detailContent.classList.remove('visible');
+      placeholder.style.display = 'flex';
+    }
+
+    // Event listeners for each Sephirah
+    sephirot.forEach(seph => {
+      const key = seph.dataset.sephirah;
+
+      seph.addEventListener('mouseenter', (e) => {
+        showTooltip(key, e);
+      });
+
+      seph.addEventListener('mousemove', (e) => {
+        positionTooltip(e);
+      });
+
+      seph.addEventListener('mouseleave', () => {
+        hideTooltip();
+      });
+
+      seph.addEventListener('click', () => {
+        hideTooltip();
+        showDetail(key);
+      });
+    });
+
+    // Keyboard: Escape to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        hideDetail();
+        closeBiblicalOverlay();
+      }
+    });
+
+    // Biblical Overlay functionality
+    const biblicalOverlay = document.getElementById('biblicalOverlay');
+    const biblicalTrigger = document.getElementById('biblicalTrigger');
+    const biblicalBackdrop = document.getElementById('biblicalBackdrop');
+    const overlayClose = document.getElementById('overlayClose');
+
+    function openBiblicalOverlay() {
+      biblicalOverlay.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeBiblicalOverlay() {
+      biblicalOverlay.classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+
+    biblicalTrigger.addEventListener('click', openBiblicalOverlay);
+    biblicalBackdrop.addEventListener('click', closeBiblicalOverlay);
+    overlayClose.addEventListener('click', closeBiblicalOverlay);
+
+    // Deep dive expandable sections
+    const deepDives = document.querySelectorAll('.deep-dive');
+    deepDives.forEach(dive => {
+      const header = dive.querySelector('.deep-dive-header');
+      header.addEventListener('click', () => {
+        dive.classList.toggle('expanded');
+      });
+    });
+
+    // Populate the mapping table with expandable rows
+    const mappingTableBody = document.getElementById('mappingTableBody');
+    const sephirotOrder = ['keter', 'chokmah', 'binah', 'daat', 'chesed', 'gevurah', 'tiphareth', 'netzach', 'hod', 'yesod', 'malkuth'];
+
+    sephirotOrder.forEach(key => {
+      const data = sephirothData[key];
+      if (!data || !data.biblical) return;
+
+      const b = data.biblical;
+
+      // Create main row
+      const mainRow = document.createElement('tr');
+      mainRow.className = 'expandable-row';
+      mainRow.dataset.sephirah = key;
+      mainRow.innerHTML = `
+        <td>${data.name}</td>
+        <td class="hebrew-cell">${data.hebrew}</td>
+        <td class="count-cell">${b.occurrences}</td>
+        <td><span class="match-badge ${b.matchType}">${b.matchLabel}</span></td>
+      `;
+
+      // Create verses row
+      const versesRow = document.createElement('tr');
+      versesRow.className = 'verses-row';
+      versesRow.dataset.sephirah = key;
+
+      const versesHtml = b.verses.map(v => `
+        <div class="verse-item">
+          <span class="verse-ref-inline">${v.ref}</span>
+          <span class="verse-text-inline">${v.english}</span>
+        </div>
+      `).join('');
+
+      versesRow.innerHTML = `
+        <td colspan="4">
+          <div class="verses-cell-content">
+            ${versesHtml}
+            ${b.note ? `<p style="font-size: 0.85rem; color: var(--ink-light); margin-top: 10px; font-style: italic;">${b.note}</p>` : ''}
+          </div>
+        </td>
+      `;
+
+      mappingTableBody.appendChild(mainRow);
+      mappingTableBody.appendChild(versesRow);
+
+      // Add click handler
+      mainRow.addEventListener('click', () => {
+        mainRow.classList.toggle('expanded');
+        versesRow.classList.toggle('visible');
+      });
+    });
+
+    // ===============================
+    // Theme Toggle (Dark Mode)
+    // ===============================
+
+    // Check for saved preference or system preference
+    function getPreferredTheme() {
+      const saved = localStorage.getItem('theme');
+      if (saved) return saved;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // Apply theme to document
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    }
+
+    // Initialize theme on page load
+    applyTheme(getPreferredTheme());
+
+    // Toggle button handler
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+
+    // Listen for system preference changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      // Only auto-switch if user hasn't manually set a preference
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+  </script>
+</body>
+</html>
