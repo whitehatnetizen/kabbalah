@@ -874,6 +874,35 @@
       font-weight: 500;
     }
 
+    .foundation-hebrew em {
+      font-style: normal;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .foundation-verse em[data-sephirah] {
+      position: relative;
+      cursor: help;
+    }
+
+    .foundation-verse em[data-sephirah]:hover::after {
+      content: attr(data-sephirah);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ink-dark);
+      color: var(--parchment-light);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-style: normal;
+      font-family: 'Cinzel', serif;
+      white-space: nowrap;
+      z-index: 10;
+      margin-bottom: 5px;
+    }
+
     .foundation-ref {
       font-family: 'Cinzel', serif;
       font-size: 0.8rem;
@@ -1863,8 +1892,8 @@
         <!-- Foundation Verse -->
         <div class="foundation-verse">
           <div class="foundation-label">The Foundational Verse</div>
-          <div class="foundation-hebrew">לְךָ יְהוָה הַגְּדֻלָּה וְהַגְּבוּרָה וְהַתִּפְאֶרֶת וְהַנֵּצַח וְהַהוֹד כִּי־כֹל בַּשָּׁמַיִם וּבָאָרֶץ לְךָ יְהוָה הַמַּמְלָכָה</div>
-          <div class="foundation-kjv">Thine, O LORD, is the <em>greatness</em>, and the <em>power</em>, and the <em>glory</em>, and the <em>victory</em>, and the <em>majesty</em>: for all that is in the heaven and in the earth is thine; thine is the <em>kingdom</em>, O LORD, and thou art exalted as head above all.</div>
+          <div class="foundation-hebrew">לְךָ יְהוָה <em data-sephirah="Gedulah (Chesed)">הַגְּדֻלָּה</em> <em data-sephirah="Gevurah">וְהַגְּבוּרָה</em> <em data-sephirah="Tiferet">וְהַתִּפְאֶרֶת</em> <em data-sephirah="Netzach">וְהַנֵּצַח</em> <em data-sephirah="Hod">וְהַהוֹד</em> כִּי־כֹל בַּשָּׁמַיִם וּבָאָרֶץ לְךָ יְהוָה <em data-sephirah="Malkuth">הַמַּמְלָכָה</em></div>
+          <div class="foundation-kjv">Thine, O LORD, is the <em data-sephirah="Gedulah (Chesed)">greatness</em>, and the <em data-sephirah="Gevurah">power</em>, and the <em data-sephirah="Tiferet">glory</em>, and the <em data-sephirah="Netzach">victory</em>, and the <em data-sephirah="Hod">majesty</em>: for all that is in the heaven and in the earth is thine; thine is the <em data-sephirah="Malkuth">kingdom</em>, O LORD, and thou art exalted as head above all.</div>
           <div class="foundation-ref">1 Chronicles 29:11 (KJV)</div>
         </div>
 
