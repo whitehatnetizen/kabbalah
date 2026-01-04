@@ -132,6 +132,12 @@
       color: var(--ink-dark);
       letter-spacing: 0.2em;
       margin-bottom: 4px;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .tree-title h1:hover {
+      color: var(--gold);
     }
 
     .tree-title .hebrew-title {
@@ -175,17 +181,55 @@
     /* Pillar labels */
     .pillar-labels {
       position: absolute;
-      top: 0;
+      top: -25px;
       left: 0;
       right: 0;
       display: flex;
       justify-content: space-between;
-      padding: 0 15px;
-      font-size: 0.75rem;
-      font-style: italic;
-      color: var(--ink-faint);
-      letter-spacing: 0.05em;
+      padding: 0 10px;
     }
+
+    .pillar-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink-mid);
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      position: relative;
+      padding: 5px 10px;
+      transition: color 0.2s ease;
+    }
+
+    .pillar-label:hover {
+      color: var(--gold);
+    }
+
+    .pillar-label[data-pillar-tip]:hover::after {
+      content: attr(data-pillar-tip);
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ink-dark);
+      color: var(--parchment-light);
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-style: italic;
+      z-index: 10;
+      margin-top: 5px;
+      width: 200px;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .pillar-label.left { text-align: left; }
+    .pillar-label.center { text-align: center; }
+    .pillar-label.right { text-align: right; }
 
     /* Sephirah nodes */
     .sephirah {
@@ -1690,7 +1734,7 @@
     <div class="container">
       <section class="tree-section">
         <header class="tree-title">
-          <h1>The Tree of Life</h1>
+          <h1 id="treeTitle">The Tree of Life</h1>
           <div class="hebrew-title">עץ החיים</div>
         </header>
 
@@ -1698,9 +1742,9 @@
           <div class="tree-wrapper">
             <!-- Pillar labels -->
             <div class="pillar-labels">
-              <span>Severity</span>
-              <span>Balance</span>
-              <span>Mercy</span>
+              <span class="pillar-label left" data-pillar="severity" data-pillar-tip="The constraining force: judgment, boundaries, and necessary limitation.">Severity</span>
+              <span class="pillar-label center" data-pillar="balance" data-pillar-tip="The harmonising centre: integration, equilibrium, and the path of ascent.">Balance</span>
+              <span class="pillar-label right" data-pillar="mercy" data-pillar-tip="The expansive force: love, generosity, and unbounded giving.">Mercy</span>
             </div>
 
             <!-- SVG paths connecting the Sefirot -->
@@ -2668,6 +2712,142 @@
         versesRow.classList.toggle('visible');
       });
     });
+
+    // ===============================
+    // Pillar Detail System
+    // ===============================
+
+    const pillarData = {
+      severity: {
+        name: "The Pillar of Severity",
+        hebrew: "עמוד הדין",
+        hebrewTranslit: "Amud HaDin",
+        summary: "The constraining force: judgment, boundaries, and necessary limitation.",
+        content: `
+          <p>The left pillar represents the limiting, defining, form-giving tendency in God. The 16th-century Kabbalist Moses Cordovero taught that "judgement means the imposition of limits and the correct determination of things. The quality of judgement is inherent in everything insofar as everything wishes to remain what it is, to stay within its boundaries."</p>
+          <p>Its nature is to restrain, to define boundaries, to preserve form through discipline. Isaac, who submitted to the binding, embodies this pillar. The Tanya explains: "The attribute of Gevurah is to withhold from diffusing so much, or from diffusing altogether... 'Left' represents the middah of Gevurah, which evokes fear and awe."</p>
+          <p>Gevurah is often misunderstood as harsh or punitive. But consider: a surgeon must cut to heal, a teacher must correct to educate, a gardener must prune for growth. The immune system destroying cancer cells is Gevurah in action: preservation through limitation.</p>
+          <p><strong>Contains:</strong> Binah (Understanding), Gevurah (Strength), Hod (Glory)</p>
+        `
+      },
+      balance: {
+        name: "The Middle Pillar",
+        hebrew: "עמוד האמצע",
+        hebrewTranslit: "Amud HaEmtza",
+        summary: "The harmonising centre: integration, equilibrium, and the path of ascent.",
+        content: `
+          <p>The central pillar reconciles mercy and severity into compassion: mercy informed by wisdom. The Tanya explains it as the attribute that "leans toward kindness" while acknowledging that not all recipients are equally worthy: "When Chesed does not insist on unlimited revelation of kindness, and Gevurah insists only on withholding from those unworthy, then the mediating attribute of mercy declares that while a particular recipient may not be strictly worthy, he is at least worthy of being granted it out of compassion."</p>
+          <p>Jacob, who "dwelt in tents" studying how to balance the extremes of his father Isaac (Severity) and grandfather Abraham (Mercy), embodies this pillar. It is the direct path of ascent from Malkuth to Keter, like Jacob's Ladder connecting earth to heaven.</p>
+          <p>This attribute is called Tiferet ("beauty") because "it is made up of the two colours white and red": the blending of Chesed (white/mercy) and Gevurah (red/judgement) produces the beauty of balanced compassion. The Tanya states: "Gevurah and Chesed are joined in a state of mutual incorporation. What makes this fusion possible is that they are both united with the light of the Ein Sof."</p>
+          <p><strong>Contains:</strong> Keter (Crown), Da'at (Knowledge), Tiferet (Beauty), Yesod (Foundation), Malkuth (Kingdom)</p>
+        `
+      },
+      mercy: {
+        name: "The Pillar of Mercy",
+        hebrew: "עמוד החסד",
+        hebrewTranslit: "Amud HaChesed",
+        summary: "The expansive force: love, generosity, and unbounded giving.",
+        content: `
+          <p>The right pillar represents the outflowing, creative, life-giving tendency in God. The Zohar calls it "the right arm of God": the extension of divine mercy into the world. Its nature is to give without limit, to include, to expand.</p>
+          <p>Abraham, the patriarch of hospitality who welcomed strangers and argued with God to spare Sodom, embodies this pillar. The Tanya teaches: "The attribute of Chesed is to diffuse without limit... Because the attribute of Chesed is unlimited, it desires to benefit even someone who lacks nothing."</p>
+          <p>However, the Zohar warns that mercy without restriction can result in indulgence. The uncontrolled growth of a cancer corresponds to Chesed without Gevurah: creation without limit becomes destructive. A parent who never says "no" ultimately harms the child. This is why Chesed requires the balance of Gevurah.</p>
+          <p><strong>Contains:</strong> Chokmah (Wisdom), Chesed (Loving-kindness), Netzach (Victory/Endurance)</p>
+        `
+      }
+    };
+
+    // Show pillar detail
+    function showPillarDetail(pillarKey) {
+      const data = pillarData[pillarKey];
+      if (!data) return;
+
+      // Clear any active sephirah
+      if (activeSephirah) {
+        activeSephirah.classList.remove('active');
+        activeSephirah = null;
+      }
+
+      detailContent.innerHTML = `
+        <div class="detail-header">
+          <button class="close-btn" onclick="hideDetail()" title="Close">&times;</button>
+          <div class="detail-number">Pillar · ${data.hebrewTranslit}</div>
+          <div class="detail-name">${data.name}</div>
+          <div class="detail-hebrew">${data.hebrew}</div>
+          <div class="detail-meaning">${data.summary}</div>
+        </div>
+        <div class="detail-section">
+          <h3>About This Pillar</h3>
+          ${data.content}
+        </div>
+      `;
+
+      placeholder.style.display = 'none';
+      detailContent.style.display = 'block';
+    }
+
+    // Add click handlers to pillar labels
+    document.querySelectorAll('.pillar-label').forEach(label => {
+      label.addEventListener('click', () => {
+        const pillarKey = label.dataset.pillar;
+        showPillarDetail(pillarKey);
+      });
+    });
+
+    // ===============================
+    // Tree of Life Overview
+    // ===============================
+
+    const treeOverview = {
+      name: "The Tree of Life",
+      hebrew: "עץ החיים",
+      hebrewTranslit: "Etz HaChayim",
+      content: `
+        <p>The Tree of Life is divided into three vertical pillars, representing the fundamental polarities through which divine energy flows into creation. The Zohar describes creation as a delicate balance (<em>metheqela</em>) between two opposing tendencies: the mercy of God (outflowing, creative, life-giving) and the severity of God (limiting, defining, form-giving). The Middle Pillar reconciles these forces.</p>
+        <p>The Tanya (foundational Chabad text) associates these pillars with the three Patriarchs:</p>
+        <ul>
+          <li><strong>Abraham</strong> epitomises Chesed (kindness/mercy)</li>
+          <li><strong>Isaac</strong> epitomises Gevurah (severity/strength)</li>
+          <li><strong>Jacob</strong> epitomises Tiferet/Rachamim (beauty/compassion)</li>
+        </ul>
+        <p>Both mercy and judgement are needed in balance. The Tanya teaches: "The right and left hand are cooperating by acting in a counter fashion! Chesed and Gevurah are acting simultaneously towards the same goal, by exerting forces in opposite directions."</p>
+        <p>The physical representation mirrors the human form:</p>
+        <ul>
+          <li><strong>Chesed</strong> (Mercy) is the right arm</li>
+          <li><strong>Gevurah</strong> (Severity) is the left arm</li>
+          <li><strong>Rachamim/Tiferet</strong> (Compassion) is the body and heart</li>
+        </ul>
+        <p>Generosity without discernment becomes enabling and chaotic. Judgement without warmth becomes cold and harsh. When heart and mind act together in harmony, beauty emerges.</p>
+      `
+    };
+
+    // Show tree overview
+    function showTreeOverview() {
+      // Clear any active sephirah
+      if (activeSephirah) {
+        activeSephirah.classList.remove('active');
+        activeSephirah = null;
+      }
+
+      detailContent.innerHTML = `
+        <div class="detail-header">
+          <button class="close-btn" onclick="hideDetail()" title="Close">&times;</button>
+          <div class="detail-number">Overview · ${treeOverview.hebrewTranslit}</div>
+          <div class="detail-name">${treeOverview.name}</div>
+          <div class="detail-hebrew">${treeOverview.hebrew}</div>
+          <div class="detail-meaning">The Structure of Divine Emanation</div>
+        </div>
+        <div class="detail-section">
+          <h3>The Three Pillars</h3>
+          ${treeOverview.content}
+        </div>
+      `;
+
+      placeholder.style.display = 'none';
+      detailContent.style.display = 'block';
+    }
+
+    // Add click handler to tree title
+    document.getElementById('treeTitle').addEventListener('click', showTreeOverview);
 
     // ===============================
     // Theme Toggle (Dark Mode)
