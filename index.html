@@ -724,28 +724,6 @@
       color: #7a5a8a;
     }
 
-    .sources-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.9rem;
-      color: var(--gold);
-      cursor: pointer;
-      transition: color 0.2s ease;
-      margin-top: 15px;
-      text-decoration: none;
-    }
-
-    .sources-link:hover {
-      color: var(--gold-bright);
-    }
-
-    .sources-link svg {
-      width: 16px;
-      height: 16px;
-    }
-
     /* Featured Verse Cards in Panel */
     .featured-verses-list {
       display: flex;
@@ -4674,13 +4652,6 @@
             View ${additionalCount} additional verse${additionalCount !== 1 ? 's' : ''}
           </button>
           ` : ''}
-          <a class="sources-link" onclick="openBiblicalOverlay()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
-            View full biblical reference
-          </a>
         </div>`;
       }
 
