@@ -1880,6 +1880,17 @@
       letter-spacing: 0.08em;
     }
 
+    .verse-card-header .supplementary-badge {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      background: var(--ink-light);
+      color: var(--parchment-light);
+      padding: 3px 8px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
     .verse-card-body {
       padding: 18px;
     }
@@ -2620,6 +2631,7 @@
       <input type="text" class="drawer-search" id="drawerSearch" placeholder="Search verses...">
       <button class="drawer-filter active" data-filter="all">All</button>
       <button class="drawer-filter" data-filter="featured">Featured</button>
+      <button class="drawer-filter" data-filter="supplementary">Supplementary</button>
     </div>
     <div class="drawer-content" id="drawerContent">
       <!-- Verses will be populated dynamically -->
@@ -3063,6 +3075,7 @@
           },
           {
             ref: "1 Kings 4:29",
+            featured: true,
             hebrew: "וַיִּתֵּן֩ אֱלֹהִ֨ים חָכְמָ֧ה לִשְׁלֹמֹ֛ה וּתְבוּנָ֖ה הַרְבֵּ֣ה מְאֹ֑ד וְרֹ֣חַב לֵ֔ב כַּח֕וֹל אֲשֶׁ֖ר עַל־שְׂפַ֥ת הַיָּֽם",
             english: "And God gave Solomon <em>wisdom</em> and understanding exceeding much, and largeness of heart, even as the sand that is on the sea shore.",
             notes: [
@@ -3073,6 +3086,7 @@
           },
           {
             ref: "Daniel 1:20",
+            featured: true,
             hebrew: "וְכֹ֗ל דְּבַר֙ חָכְמַ֣ת בִּינָ֔ה אֲשֶׁר־בִּקֵּ֥שׁ מֵהֶ֖ם הַמֶּ֑לֶךְ וַֽיִּמְצָאֵ֞ם עֶ֣שֶׂר יָד֗וֹת עַ֤ל כָּל־הַֽחַרְטֻמִּים֙ הָֽאַשָּׁפִ֔ים",
             english: "And in all matters of <em>wisdom</em> and understanding, that the king inquired of them, he found them ten times better than all the magicians and astrologers.",
             notes: [
@@ -3083,6 +3097,7 @@
           },
           {
             ref: "Ecclesiastes 1:16",
+            featured: true,
             hebrew: "אֲנִי הִנֵּה הִגְדַּלְתִּי וְהוֹסַפְתִּי חָכְמָה עַל כָּל־אֲשֶׁר־הָיָה לְפָנַי עַל־יְרוּשָׁלָם וְלִבִּי רָאָה הַרְבֵּה חָכְמָה וָדָעַת",
             english: "I am come to great estate, and have gotten more <em>wisdom</em> than all they that have been before me in Jerusalem: yea, my heart had great experience of wisdom and knowledge.",
             notes: [
@@ -3093,6 +3108,7 @@
           },
           {
             ref: "Exodus 31:3",
+            featured: true,
             hebrew: "וָאֲמַלֵּא אֹתוֹ רוּחַ אֱלֹהִים בְּחָכְמָה וּבִתְבוּנָה וּבְדַעַת וּבְכָל־מְלָאכָה",
             english: "And I have filled him with the spirit of God, in <em>wisdom</em>, and in understanding, and in knowledge, and in all manner of workmanship.",
             notes: [
@@ -3103,6 +3119,7 @@
           },
           {
             ref: "2 Chronicles 1:10",
+            featured: true,
             hebrew: "עַתָּ֗ה חָכְמָ֤ה וּמַדָּע֙ תֶּן־לִ֔י וְאֵֽצְאָ֛ה לִפְנֵ֥י הָֽעָם־הַזֶּ֖ה וְאָב֑וֹאָה כִּֽי־מִ֣י יִשְׁפֹּ֔ט אֶת־עַמְּךָ֥ הַזֶּ֖ה הַגָּדֽוֹל",
             english: "Give me now <em>wisdom</em> and knowledge, that I may go out and come in before this people: for who can judge this thy people, that is so great?",
             notes: [
@@ -3113,6 +3130,7 @@
           },
           {
             ref: "1 Kings 4:30",
+            featured: true,
             hebrew: "וַתֵּ֙רֶב֙ חָכְמַ֣ת שְׁלֹמֹ֔ה מֵֽחָכְמַ֖ת כָּל־בְּנֵי־קֶ֑דֶם וּמִכֹּ֖ל חָכְמַ֥ת מִצְרָֽיִם",
             english: "And Solomon's <em>wisdom</em> excelled the wisdom of all the children of the east country, and all the wisdom of Egypt.",
             notes: [
@@ -3122,6 +3140,7 @@
           },
           {
             ref: "Daniel 1:17",
+            featured: true,
             hebrew: "וְהַיְלָדִים הָאֵלֶּה אַרְבַּעְתָּם נָתַן לָהֶם הָאֱלֹהִים מַדָּע וְהַשְׂכֵּל בְּכָל־סֵפֶר וְחָכְמָה",
             english: "As for these four children, God gave them knowledge and skill in all learning and <em>wisdom</em>: and Daniel had understanding in all visions and dreams.",
             notes: [
@@ -3132,6 +3151,7 @@
           },
           {
             ref: "Daniel 5:11 (Aramaic)",
+            featured: true,
             hebrew: "אִיתַי גְּבַר בְּמַלְכוּתָךְ דִּי רוּחַ אֱלָהִין קַדִּישִׁין בֵּהּ... וְחָכְמָה כְּחָכְמַת־אֱלָהִין הִשְׁתְּכַחַת בֵּהּ",
             english: "There is a man in thy kingdom, in whom is the spirit of the holy gods... and <em>wisdom</em>, like the wisdom of the gods, was found in him.",
             notes: [
@@ -3142,6 +3162,7 @@
           },
           {
             ref: "Daniel 2:20, 23 (Aramaic)",
+            featured: true,
             hebrew: "דִּ֧י חָכְמְתָ֛א וּגְבוּרְתָ֖א דִּ֥י לֵֽהּ־הִֽיא... דִּ֧י חָכְמְתָ֛א וּגְבוּרְתָ֖א יְהַ֣בְתְּ לִ֑י",
             english: "For <em>wisdom</em> and might are his... who hast given me wisdom and might.",
             notes: [
@@ -3152,6 +3173,7 @@
           },
           {
             ref: "Ecclesiastes 1:13",
+            featured: true,
             hebrew: "וְנָתַתִּי אֶת־לִבִּי לִדְרוֹשׁ וְלָתוּר בַּחָכְמָה עַל כָּל־אֲשֶׁר נַעֲשָׂה תַּחַת הַשָּׁמָיִם",
             english: "And I gave my heart to seek and search out by <em>wisdom</em> concerning all things that are done under heaven.",
             notes: [
@@ -3161,6 +3183,7 @@
           },
           {
             ref: "Ecclesiastes 1:17-18",
+            featured: true,
             hebrew: "וָאֶתְּנָה לִבִּי לָדַעַת חָכְמָה... כִּי בְּרֹב חָכְמָה רָב־כָּעַס וְיוֹסִיף דַּעַת יוֹסִיף מַכְאוֹב",
             english: "And I gave my heart to know <em>wisdom</em>... For in much wisdom is much grief: and he that increaseth knowledge increaseth sorrow.",
             notes: [
@@ -3171,6 +3194,7 @@
           },
           {
             ref: "Ecclesiastes 2:13",
+            featured: true,
             hebrew: "וְרָאִיתִי אָנִי שֶׁיֵּשׁ יִתְרוֹן לַחָכְמָה מִן־הַסִּכְלוּת כִּיתְרוֹן הָאוֹר מִן־הַחֹשֶׁךְ",
             english: "Then I saw that <em>wisdom</em> excelleth folly, as far as light excelleth darkness.",
             notes: [
@@ -3181,6 +3205,7 @@
           },
           {
             ref: "Ecclesiastes 2:26",
+            featured: true,
             hebrew: "כִּי לְאָדָם שֶׁטּוֹב לְפָנָיו נָתַן חָכְמָה וְדַעַת וְשִׂמְחָה",
             english: "For God giveth to a man that is good in his sight <em>wisdom</em>, and knowledge, and joy.",
             notes: [
@@ -3191,6 +3216,7 @@
           },
           {
             ref: "Ecclesiastes 7:12",
+            featured: true,
             hebrew: "כִּי בְּצֵל הַחָכְמָה בְּצֵל הַכָּסֶף וְיִתְרוֹן דַּעַת הַחָכְמָה תְּחַיֶּה בְעָלֶיהָ",
             english: "For <em>wisdom</em> is a defence, and money is a defence: but the excellency of knowledge is, that wisdom giveth life to them that have it.",
             notes: [
@@ -3201,6 +3227,7 @@
           },
           {
             ref: "Ecclesiastes 9:16",
+            featured: true,
             hebrew: "וְאָמַרְתִּי אָנִי טוֹבָה חָכְמָה מִגְּבוּרָה וְחָכְמַת הַמִּסְכֵּן בְּזוּיָה",
             english: "Then said I, <em>Wisdom</em> is better than strength; nevertheless the poor man's wisdom is despised.",
             notes: [
@@ -3211,6 +3238,7 @@
           },
           {
             ref: "Exodus 31:6",
+            featured: true,
             hebrew: "וּבְלֵב כָּל־חֲכַם־לֵב נָתַתִּי חָכְמָה וְעָשׂוּ אֵת כָּל־אֲשֶׁר צִוִּיתִךָ",
             english: "And in the hearts of all that are wise hearted I have put <em>wisdom</em>, that they may make all that I have commanded thee.",
             notes: [
@@ -3221,6 +3249,7 @@
           },
           {
             ref: "Job 11:6",
+            featured: true,
             hebrew: "וְיַגֶּד־לְךָ תַּעֲלֻמוֹת חָכְמָה כִּי־כִפְלַיִם לְתוּשִׁיָּה",
             english: "And that he would shew thee the secrets of <em>wisdom</em>, that they are double to that which is!",
             notes: [
@@ -3231,6 +3260,7 @@
           },
           {
             ref: "Job 12:12-13",
+            featured: true,
             hebrew: "בִּישִׁישִׁים חָכְמָה... עִמּוֹ חָכְמָה וּגְבוּרָה לוֹ עֵצָה וּתְבוּנָה",
             english: "With the ancient is <em>wisdom</em>... With him is wisdom and strength, he hath counsel and understanding.",
             notes: [
@@ -3241,6 +3271,7 @@
           },
           {
             ref: "Job 28:12, 20",
+            featured: true,
             hebrew: "וְהַחָכְמָה מֵאַיִן תִּמָּצֵא וְאֵי זֶה מְקוֹם בִּינָה",
             english: "But where shall <em>wisdom</em> be found? and where is the place of understanding?",
             notes: [
@@ -3251,6 +3282,7 @@
           },
           {
             ref: "Job 38:36-37",
+            featured: true,
             hebrew: "מִי־שָׁת בַּטֻּחוֹת חָכְמָה אוֹ מִי־נָתַן לַשֶּׂכְוִי בִינָה... מִי־יְסַפֵּר שְׁחָקִים בְּחָכְמָה",
             english: "Who hath put <em>wisdom</em> in the inward parts? or who hath given understanding to the heart? Who can number the clouds in wisdom?",
             notes: [
@@ -3261,6 +3293,7 @@
           },
           {
             ref: "Psalm 104:24",
+            featured: true,
             hebrew: "מָה־רַבּוּ מַעֲשֶׂיךָ יְהוָה כֻּלָּם בְּחָכְמָה עָשִׂיתָ מָלְאָה הָאָרֶץ קִנְיָנֶךָ",
             english: "O LORD, how manifold are thy works! in <em>wisdom</em> hast thou made them all: the earth is full of thy riches.",
             notes: [
@@ -3271,12 +3304,77 @@
           },
           {
             ref: "Psalm 111:10",
+            featured: true,
             hebrew: "רֵאשִׁית חָכְמָה יִרְאַת יְהוָה שֵׂכֶל טוֹב לְכָל־עֹשֵׂיהֶם תְּהִלָּתוֹ עֹמֶדֶת לָעַד",
             english: "The fear of the LORD is the beginning of <em>wisdom</em>: a good understanding have all they that do his commandments.",
             notes: [
               "<strong>רֵאשִׁית חָכְמָה</strong> (reshit chokmah) - 'beginning of wisdom'",
               "Parallel to Proverbs 9:10 and Job 28:28",
               "<strong>יִרְאַת יְהוָה</strong> (yirat YHWH) as foundation of wisdom"
+            ]
+          },
+          {
+            ref: "Daniel 2:30 (Aramaic)",
+            supplementary: true,
+            hebrew: "וַאֲנָה לָא בְחָכְמָה דִּי־אִיתַי בִּי מִן־כָּל־חַיַּיָּא רָזָא דְנָה גֱּלִי לִי",
+            english: "But as for me, this secret is not revealed to me for any <em>wisdom</em> that I have more than any living.",
+            notes: [
+              "<strong>בְחָכְמָה</strong> (b'chokmah) - Aramaic cognate of Chokmah",
+              "<strong>Reason not featured:</strong> Daniel is disclaiming wisdom here. The verse does not demonstrate embodiment - rather, Daniel attributes the revelation to God, not to his own wisdom."
+            ]
+          },
+          {
+            ref: "Psalm 90:12",
+            supplementary: true,
+            hebrew: "לִמְנוֹת יָמֵינוּ כֵּן הוֹדַע וְנָבִא לְבַב חָכְמָה",
+            english: "So teach us to number our days, that we may apply our hearts unto <em>wisdom</em>.",
+            notes: [
+              "<strong>לְבַב חָכְמָה</strong> (l'vav chokmah) - 'a heart of wisdom'",
+              "<strong>Reason not featured:</strong> A prayer/request asking God to grant wisdom. Seeking wisdom, not embodiment of it."
+            ]
+          },
+          {
+            ref: "Job 39:17",
+            supplementary: true,
+            hebrew: "כִּי־הִשָּׁהּ אֱלוֹהַּ חָכְמָה וְלֹא־חָלַק לָהּ בַּבִּינָה",
+            english: "Because God hath deprived her of <em>wisdom</em>, neither hath he imparted to her understanding.",
+            notes: [
+              "Contains both <strong>חָכְמָה</strong> (Chokmah) and <strong>בִּינָה</strong> (Binah)",
+              "Describes the ostrich - God deliberately withheld wisdom and understanding from her",
+              "<strong>Reason not featured:</strong> Wisdom and Binah mentioned in context of their absence, not embodiment."
+            ]
+          },
+          {
+            ref: "Exodus 28:3",
+            supplementary: true,
+            hebrew: "וְאַתָּה תְּדַבֵּר אֶל־כָּל־חַכְמֵי־לֵב אֲשֶׁר מִלֵּאתִיו רוּחַ חָכְמָה",
+            english: "And thou shalt speak unto all that are wise hearted, whom I have filled with the spirit of <em>wisdom</em>, that they may make Aaron's garments.",
+            notes: [
+              "<strong>רוּחַ חָכְמָה</strong> (ruach chokmah) - 'spirit of wisdom'",
+              "<strong>חַכְמֵי־לֵב</strong> (chakhmei-lev) - 'wise of heart'",
+              "<strong>Reason not featured:</strong> Wisdom here refers to practical craftsmanship skill for making priestly garments rather than divine wisdom as a Sefirah."
+            ]
+          },
+          {
+            ref: "Jeremiah 49:7",
+            supplementary: true,
+            hebrew: "לֶאֱדוֹם כֹּה אָמַר יְהוָה צְבָאוֹת הַאֵין עוֹד חָכְמָה בְּתֵימָן אָבְדָה עֵצָה מִבָּנִים נִסְרְחָה חָכְמָתָם",
+            english: "Concerning Edom, thus saith the LORD of hosts; Is <em>wisdom</em> no more in Teman? is counsel perished from the prudent? is their wisdom vanished?",
+            notes: [
+              "<strong>הַאֵין עוֹד חָכְמָה</strong> (ha-ein od chokmah) - 'Is there no more wisdom?'",
+              "<strong>עֵצָה</strong> (etzah) - 'counsel' (same word paired with Gevurah in Isaiah 11:2)",
+              "<strong>Reason not featured:</strong> Prophecy against Edom. Wisdom mentioned in rhetorical questions about its absence/loss. Describes judgment, not embodiment."
+            ]
+          },
+          {
+            ref: "Ezekiel 28:12",
+            supplementary: true,
+            hebrew: "בֶּן־אָדָם שָׂא קִינָה עַל־מֶלֶךְ צוֹר וְאָמַרְתָּ לּוֹ... אַתָּה חוֹתֵם תָּכְנִית מָלֵא חָכְמָה וּכְלִיל יֹפִי",
+            english: "Son of man, take up a lamentation upon the king of Tyrus... Thou sealest up the sum, full of <em>wisdom</em>, and perfect in beauty.",
+            notes: [
+              "<strong>מָלֵא חָכְמָה</strong> (male chokmah) - 'full of wisdom'",
+              "<strong>וּכְלִיל יֹפִי</strong> (u-khlil yofi) - 'and perfect in beauty'",
+              "<strong>Reason not featured:</strong> Describes the King of Tyre in a lamentation. The passage (often interpreted as referring to a fallen figure) describes wisdom in a fallen/condemned context, not positive embodiment."
             ]
           }
         ],
@@ -3370,6 +3468,7 @@
           },
           {
             ref: "Daniel 1:20",
+            featured: true,
             hebrew: "וְכֹ֗ל דְּבַר֙ חָכְמַ֣ת בִּינָ֔ה אֲשֶׁר־בִּקֵּ֥שׁ מֵהֶ֖ם הַמֶּ֑לֶךְ",
             english: "And in all matters of wisdom and <em>understanding</em>, that the king inquired of them...",
             notes: [
@@ -3380,6 +3479,7 @@
           },
           {
             ref: "1 Chronicles 12:32",
+            featured: true,
             hebrew: "וּמִבְּנֵ֣י יִשָּׂשכָ֗ר יוֹדְעֵ֤י בִינָה֙ לַֽעִתִּ֔ים לָדַ֖עַת מַה־יַּעֲשֶׂ֣ה יִשְׂרָאֵ֑ל",
             english: "And of the children of Issachar, which were men that had <em>understanding</em> of the times, to know what Israel ought to do.",
             notes: [
@@ -3390,6 +3490,7 @@
           },
           {
             ref: "1 Chronicles 22:12",
+            featured: true,
             hebrew: "אַ֣ךְ יִֽתֶּן־לְּךָ֤ יְהוָה֙ שֵׂ֣כֶל וּבִינָ֔ה וִֽיצַוְּךָ֖ עַל־יִשְׂרָאֵ֑ל",
             english: "Only the LORD give thee wisdom and <em>understanding</em>, and give thee charge concerning Israel.",
             notes: [
@@ -3400,6 +3501,7 @@
           },
           {
             ref: "Job 38:36",
+            featured: true,
             hebrew: "מִי־שָׁת בַּטֻּחוֹת חָכְמָה אוֹ מִי־נָתַן לַשֶּׂכְוִי בִינָה",
             english: "Who hath put wisdom in the inward parts? or who hath given <em>understanding</em> to the heart?",
             notes: [
@@ -3408,6 +3510,26 @@
               "God as source who 'gives' (נָתַן) understanding"
             ]
           },
+          {
+            ref: "Daniel 9:22",
+            supplementary: true,
+            hebrew: "וַיָּבֶן וַיְדַבֵּר עִמִּי וַיֹּאמַר דָּנִיֵּאל עַתָּה יָצָאתִי לְהַשְׂכִּילְךָ בִינָה",
+            english: "And he informed me, and talked with me, and said, O Daniel, I am now come forth to give thee skill and <em>understanding</em>.",
+            notes: [
+              "<strong>לְהַשְׂכִּילְךָ בִינָה</strong> (l'haskilkha binah) - 'to give you insight in Binah'",
+              "<strong>Reason not featured:</strong> Gabriel coming to impart understanding to Daniel. The Binah is being given/transmitted rather than embodied."
+            ]
+          },
+          {
+            ref: "Isaiah 33:19",
+            supplementary: true,
+            hebrew: "אֶת־עַם נוֹעָז לֹא תִרְאֶה עַם עִמְקֵי שָׂפָה מִשְּׁמוֹעַ נִלְעַג לָשׁוֹן אֵין בִּינָה",
+            english: "Thou shalt not see a fierce people, a people of a deeper speech than thou canst perceive; of a stammering tongue, that thou canst not <em>understand</em>.",
+            notes: [
+              "<strong>אֵין בִּינָה</strong> (ein binah) - 'no understanding' / 'without Binah'",
+              "<strong>Reason not featured:</strong> Negative context - describes a foreign oppressor's incomprehensible speech as 'without Binah.'"
+            ]
+          }
         ],
         bulkReferences: {
           title: "References in Proverbs",
@@ -3443,6 +3565,7 @@
           },
           {
             ref: "2 Chronicles 20:6",
+            featured: true,
             hebrew: "וַיֹּאמַר יְהוָה אֱלֹהֵי אֲבֹתֵינוּ הֲלֹא אַתָּה־הוּא אֱלֹהִים בַּשָּׁמַיִם וְאַתָּה מוֹשֵׁל בְּכֹל מַמְלְכוֹת הַגּוֹיִם וּבְיָדְךָ כֹּחַ וּגְבוּרָה וְאֵין עִמְּךָ לְהִתְיַצֵּב",
             english: "And said, O LORD God of our fathers, art not thou God in heaven? and rulest not thou over all the kingdoms of the heathen? and in thine hand is there not power and <em>might</em>, so that none is able to withstand thee?",
             notes: [
@@ -3464,6 +3587,7 @@
           },
           {
             ref: "Isaiah 28:6",
+            featured: true,
             hebrew: "וּלְרוּחַ מִשְׁפָּט לַיּוֹשֵׁב עַל־הַמִּשְׁפָּט וְלִגְבוּרָה מְשִׁיבֵי מִלְחָמָה שָׁעְרָה",
             english: "And for a spirit of judgment to him that sitteth in judgment, and for <em>strength</em> to them that turn the battle to the gate.",
             notes: [
@@ -3485,6 +3609,7 @@
           },
           {
             ref: "Micah 3:8",
+            featured: true,
             hebrew: "וְאוּלָם אָנֹכִי מָלֵאתִי כֹחַ אֶת־רוּחַ יְהוָה וּמִשְׁפָּט וּגְבוּרָה לְהַגִּיד לְיַעֲקֹב פִּשְׁעוֹ וּלְיִשְׂרָאֵל חַטָּאתוֹ",
             english: "But truly I am full of power by the spirit of the LORD, and of judgment, and of <em>might</em>, to declare unto Jacob his transgression, and to Israel his sin.",
             notes: [
@@ -3495,6 +3620,7 @@
           },
           {
             ref: "Psalm 65:7",
+            featured: true,
             hebrew: "מֵכִין הָרִים בְּכֹחוֹ נֶאְזָר בִּגְבוּרָה",
             english: "Which by his strength setteth fast the mountains; being girded with <em>power</em>.",
             notes: [
@@ -3505,6 +3631,7 @@
           },
           {
             ref: "Job 12:13",
+            featured: true,
             hebrew: "עִמּוֹ חָכְמָה וּגְבוּרָה לוֹ עֵצָה וּתְבוּנָה",
             english: "With him is wisdom and <em>strength</em>, he hath counsel and understanding.",
             notes: [
@@ -3545,6 +3672,36 @@
               "v.20: Wisdom and might belong to God",
               "v.23: Given to Daniel - 'who hast given me wisdom and might'"
             ]
+          },
+          {
+            ref: "Exodus 32:18",
+            supplementary: true,
+            hebrew: "וַיֹּאמֶר אֵין קוֹל עֲנוֹת גְּבוּרָה וְאֵין קוֹל עֲנוֹת חֲלוּשָׁה קוֹל עַנּוֹת אָנֹכִי שֹׁמֵעַ",
+            english: "And he said, It is not the voice of them that shout for <em>mastery</em>, neither is it the voice of them that cry for being overcome.",
+            notes: [
+              "<strong>עֲנוֹת גְּבוּרָה</strong> (anot gevurah) - 'shout for mastery/victory'",
+              "<strong>Reason not featured:</strong> Idiomatic expression for victory shout in battle. The word גְּבוּרָה here refers to military victory, not the divine attribute."
+            ]
+          },
+          {
+            ref: "Job 39:19",
+            supplementary: true,
+            hebrew: "הֲתִתֵּן לַסּוּס גְּבוּרָה הֲתַלְבִּישׁ צַוָּארוֹ רַעְמָה",
+            english: "Hast thou given the horse <em>strength</em>? hast thou clothed his neck with thunder?",
+            notes: [
+              "<strong>גְּבוּרָה</strong> here refers to physical animal strength",
+              "<strong>Reason not featured:</strong> God questioning Job about the horse's strength. Gevurah belongs to the horse, not a person embodying the divine quality."
+            ]
+          },
+          {
+            ref: "Ecclesiastes 10:17",
+            supplementary: true,
+            hebrew: "אַשְׁרֵיךְ אֶרֶץ שֶׁמַּלְכֵּךְ בֶּן־חוֹרִים וְשָׂרַיִךְ בָּעֵת יֹאכֵלוּ בִּגְבוּרָה וְלֹא בַשְּׁתִי",
+            english: "Blessed art thou, O land, when thy king is the son of nobles, and thy princes eat in due season, for <em>strength</em>, and not for drunkenness!",
+            notes: [
+              "<strong>בִּגְבוּרָה</strong> (bi-gevurah) here means 'for strength' (nourishment)",
+              "<strong>Reason not featured:</strong> Practical/ethical advice about moderation, not embodiment of the divine attribute."
+            ]
           }
         ]
       },
@@ -3566,6 +3723,7 @@
           },
           {
             ref: "2 Samuel 9:3",
+            featured: true,
             hebrew: "וַיֹּאמֶר הַמֶּלֶךְ הַאֶפֶס עוֹד אִישׁ לְבֵית שָׁאוּל וְאֶעֱשֶׂה עִמּוֹ חֶסֶד אֱלֹהִים",
             english: "And the king said, Is there not yet any of the house of Saul, that I may shew the <em>kindness</em> of God unto him?",
             notes: [
@@ -3587,6 +3745,7 @@
           },
           {
             ref: "Ruth 3:10",
+            featured: true,
             hebrew: "וַיֹּאמֶר בְּרוּכָה אַתְּ לַיהוָה בִּתִּי הֵיטַבְתְּ חַסְדֵּךְ הָאַחֲרוֹן מִן־הָרִאשׁוֹן",
             english: "And he said, Blessed be thou of the LORD, my daughter: for thou hast shewed more <em>kindness</em> in the latter end than at the beginning.",
             notes: [
@@ -3597,6 +3756,7 @@
           },
           {
             ref: "1 Chronicles 16:34",
+            featured: true,
             hebrew: "הוֹדוּ לַיהוָה כִּי טוֹב כִּי לְעוֹלָם חַסְדּוֹ",
             english: "O give thanks unto the LORD; for he is good; for his <em>mercy</em> endureth for ever.",
             notes: [
@@ -3607,6 +3767,7 @@
           },
           {
             ref: "1 Chronicles 17:13",
+            featured: true,
             hebrew: "אֲנִי אֶהְיֶה־לּוֹ לְאָב וְהוּא יִהְיֶה־לִּי לְבֵן וְחַסְדִּי לֹא־אָסִיר מֵעִמּוֹ",
             english: "I will be his father, and he shall be my son: and I will not take my <em>mercy</em> away from him.",
             notes: [
@@ -3639,6 +3800,7 @@
           },
           {
             ref: "Psalm 130:7",
+            featured: true,
             hebrew: "יַחֵל יִשְׂרָאֵל אֶל־יְהוָה כִּי־עִם־יְהוָה הַחֶסֶד וְהַרְבֵּה עִמּוֹ פְדוּת",
             english: "Let Israel hope in the LORD: for with the LORD there is <em>mercy</em>, and with him is plenteous redemption.",
             notes: [
@@ -3671,6 +3833,7 @@
           },
           {
             ref: "Proverbs 31:26",
+            featured: true,
             hebrew: "פִּיהָ פָּתְחָה בְחָכְמָה וְתוֹרַת חֶסֶד עַל־לְשׁוֹנָהּ",
             english: "She openeth her mouth with wisdom; and in her tongue is the law of <em>kindness</em>.",
             notes: [
@@ -3681,6 +3844,7 @@
           },
           {
             ref: "Zechariah 7:9",
+            featured: true,
             hebrew: "כֹּה אָמַר יְהוָה צְבָאוֹת לֵאמֹר מִשְׁפַּט אֱמֶת שְׁפֹטוּ וְחֶסֶד וְרַחֲמִים עֲשׂוּ אִישׁ אֶת־אָחִיו",
             english: "Thus speaketh the LORD of hosts, saying, Execute true judgment, and shew <em>mercy</em> and compassions every man to his brother.",
             notes: [
@@ -3719,6 +3883,7 @@
           },
           {
             ref: "Exodus 28:40",
+            featured: true,
             hebrew: "וְלִבְנֵי אַהֲרֹן תַּעֲשֶׂה כֻתֳּנֹת וְעָשִׂיתָ לָהֶם אַבְנֵטִים וּמִגְבָּעוֹת תַּעֲשֶׂה לָהֶם לְכָבוֹד וּלְתִפְאָרֶת",
             english: "And for Aaron's sons thou shalt make coats, and thou shalt make for them girdles, and bonnets shalt thou make for them, for glory and for <em>beauty</em>.",
             notes: [
@@ -3740,6 +3905,7 @@
           },
           {
             ref: "1 Chronicles 22:5",
+            featured: true,
             hebrew: "וַיֹּאמֶר דָּוִיד שְׁלֹמֹה בְנִי נַעַר וָרָךְ וְהַבַּיִת לִבְנוֹת לַיהוָה לְהַגְדִּיל לְמַעְלָה לְשֵׁם וּלְתִפְאֶרֶת לְכָל־הָאֲרָצוֹת",
             english: "And David said, Solomon my son is young and tender, and the house that is to be builded for the LORD must be exceeding magnifical, of fame and of <em>glory</em> throughout all countries.",
             notes: [
@@ -3750,6 +3916,7 @@
           },
           {
             ref: "1 Chronicles 29:13",
+            featured: true,
             hebrew: "וְעַתָּה אֱלֹהֵינוּ מוֹדִים אֲנַחְנוּ לָךְ וּמְהַלְּלִים לְשֵׁם תִּפְאַרְתֶּךָ",
             english: "Now therefore, our God, we thank thee, and praise thy <em>glorious</em> name.",
             notes: [
@@ -3771,6 +3938,7 @@
           },
           {
             ref: "Isaiah 46:13",
+            featured: true,
             hebrew: "קֵרַבְתִּי צִדְקָתִי לֹא תִרְחָק וּתְשׁוּעָתִי לֹא תְאַחֵר וְנָתַתִּי בְצִיּוֹן תְּשׁוּעָה לְיִשְׂרָאֵל תִּפְאַרְתִּי",
             english: "I bring near my righteousness; it shall not be far off, and my salvation shall not tarry: and I will place salvation in Zion for Israel my <em>glory</em>.",
             notes: [
@@ -3792,6 +3960,7 @@
           },
           {
             ref: "Isaiah 62:3",
+            featured: true,
             hebrew: "וְהָיִיתְ עֲטֶרֶת תִּפְאֶרֶת בְּיַד־יְהוָה וּצְנִיף מְלוּכָה בְּכַף־אֱלֹהָיִךְ",
             english: "Thou shalt also be a <em>crown of glory</em> in the hand of the LORD, and a royal diadem in the hand of thy God.",
             notes: [
@@ -3802,6 +3971,7 @@
           },
           {
             ref: "Isaiah 63:12",
+            featured: true,
             hebrew: "מוֹלִיךְ לִימִין מֹשֶׁה זְרוֹעַ תִּפְאַרְתּוֹ בּוֹקֵעַ מַיִם מִפְּנֵיהֶם לַעֲשׂוֹת לוֹ שֵׁם עוֹלָם",
             english: "That led them by the right hand of Moses with his <em>glorious</em> arm, dividing the water before them, to make himself an everlasting name?",
             notes: [
@@ -3812,6 +3982,7 @@
           },
           {
             ref: "Jeremiah 13:11",
+            featured: true,
             hebrew: "כִּי כַּאֲשֶׁר יִדְבַּק הָאֵזוֹר אֶל־מָתְנֵי־אִישׁ כֵּן הִדְבַּקְתִּי אֵלַי אֶת־כָּל־בֵּית יִשְׂרָאֵל וְאֶת־כָּל־בֵּית יְהוּדָה נְאֻם־יְהוָה לִהְיוֹת לִי לְעָם וּלְשֵׁם וְלִתְהִלָּה וּלְתִפְאָרֶת וְלֹא שָׁמֵעוּ",
             english: "For as the girdle cleaveth to the loins of a man, so have I caused to cleave unto me the whole house of Israel... that they might be unto me for a people, and for a name, and for a praise, and for a <em>glory</em>: but they would not hear.",
             notes: [
@@ -3822,6 +3993,7 @@
           },
           {
             ref: "Jeremiah 33:9",
+            featured: true,
             hebrew: "וְהָיְתָה לִּי לְשֵׁם שָׂשׂוֹן לִתְהִלָּה וּלְתִפְאֶרֶת לְכֹל גּוֹיֵי הָאָרֶץ",
             english: "And it shall be to me a name of joy, a praise and an <em>honour</em> before all the nations of the earth.",
             notes: [
@@ -3832,6 +4004,7 @@
           },
           {
             ref: "Psalm 71:8",
+            featured: true,
             hebrew: "יִמָּלֵא פִי תְּהִלָּתֶךָ כָּל־הַיּוֹם תִּפְאַרְתֶּךָ",
             english: "Let my mouth be filled with thy praise and with thy <em>honour</em> all the day.",
             notes: [
@@ -3853,6 +4026,7 @@
           },
           {
             ref: "Proverbs 4:9",
+            featured: true,
             hebrew: "תִּתֵּן לְרֹאשְׁךָ לִוְיַת־חֵן עֲטֶרֶת תִּפְאֶרֶת תְּמַגְּנֶךָּ",
             english: "She shall give to thine head an ornament of grace: a <em>crown of glory</em> shall she deliver to thee.",
             notes: [
@@ -3863,6 +4037,7 @@
           },
           {
             ref: "Proverbs 16:31",
+            featured: true,
             hebrew: "עֲטֶרֶת תִּפְאֶרֶת שֵׂיבָה בְּדֶרֶךְ צְדָקָה תִּמָּצֵא",
             english: "The hoary head is a <em>crown of glory</em>, if it be found in the way of righteousness.",
             notes: [
@@ -3873,6 +4048,7 @@
           },
           {
             ref: "Proverbs 17:6",
+            featured: true,
             hebrew: "עֲטֶרֶת זְקֵנִים בְּנֵי בָנִים וְתִפְאֶרֶת בָּנִים אֲבוֹתָם",
             english: "Children's children are the crown of old men; and the <em>glory</em> of children are their fathers.",
             notes: [
@@ -3883,6 +4059,7 @@
           },
           {
             ref: "Proverbs 19:11",
+            featured: true,
             hebrew: "שֵׂכֶל אָדָם הֶאֱרִיךְ אַפּוֹ וְתִפְאַרְתּוֹ עֲבֹר עַל־פָּשַׁע",
             english: "The discretion of a man deferreth his anger; and it is his <em>glory</em> to pass over a transgression.",
             notes: [
@@ -3893,6 +4070,7 @@
           },
           {
             ref: "Proverbs 20:29",
+            featured: true,
             hebrew: "תִּפְאֶרֶת בַּחוּרִים כֹּחָם וַהֲדַר זְקֵנִים שֵׂיבָה",
             english: "The <em>glory</em> of young men is their strength: and the beauty of old men is the gray head.",
             notes: [
@@ -3903,12 +4081,53 @@
           },
           {
             ref: "Proverbs 28:12",
+            featured: true,
             hebrew: "בַּעֲלֹץ צַדִּיקִים רַבָּה תִפְאָרֶת וּבְקוּם רְשָׁעִים יְחֻפַּשׂ אָדָם",
             english: "When righteous men do rejoice, there is great <em>glory</em>: but when the wicked rise, a man is hidden.",
             notes: [
               "<strong>רַבָּה תִפְאָרֶת</strong> (rabah tifaret) - 'great Tiferet'",
               "Collective righteousness manifests Tiferet",
               "Contrast: wickedness hides/obscures"
+            ]
+          },
+          {
+            ref: "Esther 1:4",
+            supplementary: true,
+            hebrew: "בְּהַרְאֹתוֹ אֶת־עֹשֶׁר כְּבוֹד מַלְכוּתוֹ וְאֶת־יְקָר תִּפְאֶרֶת גְּדוּלָּתוֹ",
+            english: "When he shewed the riches of his glorious kingdom and the honour of his excellent <em>majesty</em> many days.",
+            notes: [
+              "<strong>תִּפְאֶרֶת גְּדוּלָּתוֹ</strong> - 'honour of his majesty'",
+              "<strong>Reason not featured:</strong> King Ahasuerus displaying wealth. Pagan king's self-aggrandizing display, not divine Tiferet."
+            ]
+          },
+          {
+            ref: "Isaiah 13:19",
+            supplementary: true,
+            hebrew: "וְהָיְתָה בָבֶל צְבִי מַמְלָכוֹת תִּפְאֶרֶת גְּאוֹן כַּשְׂדִּים כְּמַהְפֵּכַת אֱלֹהִים אֶת־סְדֹם וְאֶת־עֲמֹרָה",
+            english: "And Babylon, the glory of kingdoms, the <em>beauty</em> of the Chaldees' excellency, shall be as when God overthrew Sodom and Gomorrah.",
+            notes: [
+              "<strong>תִּפְאֶרֶת גְּאוֹן כַּשְׂדִּים</strong> - 'beauty of the Chaldees' pride'",
+              "<strong>Reason not featured:</strong> Babylon described as Tiferet - immediately followed by prophecy of destruction like Sodom."
+            ]
+          },
+          {
+            ref: "Lamentations 2:1",
+            supplementary: true,
+            hebrew: "אֵיכָה יָעִיב בְּאַפּוֹ אֲדֹנָי אֶת־בַּת־צִיּוֹן הִשְׁלִיךְ מִשָּׁמַיִם אֶרֶץ תִּפְאֶרֶת יִשְׂרָאֵל",
+            english: "How hath the Lord covered the daughter of Zion with a cloud in his anger, and cast down from heaven unto the earth the <em>beauty</em> of Israel.",
+            notes: [
+              "<strong>תִּפְאֶרֶת יִשְׂרָאֵל</strong> - 'beauty of Israel'",
+              "<strong>Reason not featured:</strong> Lament over destruction - God has cast down Tiferet from heaven. This is Tiferet being removed, not embodied."
+            ]
+          },
+          {
+            ref: "Judges 4:9",
+            supplementary: true,
+            hebrew: "וַתֹּאמֶר הָלֹךְ אֵלֵךְ עִמָּךְ אֶפֶס כִּי לֹא תִהְיֶה תִּפְאַרְתְּךָ עַל־הַדֶּרֶךְ אֲשֶׁר אַתָּה הוֹלֵךְ",
+            english: "And she said, I will surely go with thee: notwithstanding the journey that thou takest shall not be for thine <em>honour</em>.",
+            notes: [
+              "<strong>לֹא תִהְיֶה תִּפְאַרְתְּךָ</strong> - 'it shall not be for your honor'",
+              "<strong>Reason not featured:</strong> Deborah tells Barak his Tiferet is being denied. Barak will not receive the glory because Jael will kill Sisera."
             ]
           }
         ]
@@ -3942,6 +4161,7 @@
           },
           {
             ref: "Ecclesiastes 1:18",
+            featured: true,
             hebrew: "כִּי בְּרֹב חָכְמָה רָב־כָּעַס וְיוֹסִיף דַּעַת יוֹסִיף מַכְאוֹב",
             english: "For in much wisdom is much grief: and he that increaseth <em>knowledge</em> increaseth sorrow.",
             notes: [
@@ -3952,6 +4172,7 @@
           },
           {
             ref: "Ecclesiastes 1:16",
+            featured: true,
             hebrew: "וְלִבִּי רָאָה הַרְבֵּה חָכְמָה וָדָעַת",
             english: "Yea, my heart had great experience of wisdom and <em>knowledge</em>.",
             notes: [
@@ -3962,6 +4183,7 @@
           },
           {
             ref: "Ecclesiastes 2:21",
+            featured: true,
             hebrew: "כִּי־יֵשׁ אָדָם שֶׁעֲמָלוֹ בְּחָכְמָה וּבְדַעַת וּבְכִשְׁרוֹן",
             english: "For there is a man whose labour is in wisdom, and in <em>knowledge</em>, and in equity.",
             notes: [
@@ -3972,6 +4194,7 @@
           },
           {
             ref: "Ecclesiastes 2:26",
+            featured: true,
             hebrew: "כִּי לְאָדָם שֶׁטּוֹב לְפָנָיו נָתַן חָכְמָה וְדַעַת וְשִׂמְחָה",
             english: "For God giveth to a man that is good in his sight wisdom, and <em>knowledge</em>, and joy.",
             notes: [
@@ -3982,6 +4205,7 @@
           },
           {
             ref: "Ecclesiastes 7:12",
+            featured: true,
             hebrew: "וְיִתְרוֹן דַּעַת הַחָכְמָה תְּחַיֶּה בְעָלֶיהָ",
             english: "But the excellency of <em>knowledge</em> is, that wisdom giveth life to them that have it.",
             notes: [
@@ -4054,6 +4278,36 @@
               "יָמִין (right hand) associated with Netzach in Kabbalah",
               "Psalm of trust and confidence in God"
             ]
+          },
+          {
+            ref: "Amos 1:11",
+            supplementary: true,
+            hebrew: "וַיִּטְרֹף לָעַד אַפּוֹ וְעֶבְרָתוֹ שְׁמָרָה נֶצַח",
+            english: "His anger did tear perpetually, and he kept his wrath <em>for ever</em>.",
+            notes: [
+              "<strong>נֶצַח</strong> here is temporal 'forever'",
+              "<strong>Reason not featured:</strong> Describes Edom's perpetual wrath against Israel. Negative context - Edom's anger is condemned."
+            ]
+          },
+          {
+            ref: "Lamentations 3:18",
+            supplementary: true,
+            hebrew: "וָאֹמַר אָבַד נִצְחִי וְתוֹחַלְתִּי מֵיְהוָה",
+            english: "And I said, My <em>strength</em> and my hope is perished from the LORD.",
+            notes: [
+              "<strong>אָבַד נִצְחִי</strong> - 'my strength/endurance has perished'",
+              "<strong>Reason not featured:</strong> The speaker declares their נֶצַח lost - this is despair, the opposite of embodiment."
+            ]
+          },
+          {
+            ref: "Psalm 13:2",
+            supplementary: true,
+            hebrew: "עַד־אָנָה יְהוָה תִּשְׁכָּחֵנִי נֶצַח עַד־אָנָה תַּסְתִּיר אֶת־פָּנֶיךָ מִמֶּנִּי",
+            english: "How long wilt thou forget me, O LORD? <em>for ever</em>? how long wilt thou hide thy face from me?",
+            notes: [
+              "<strong>תִּשְׁכָּחֵנִי נֶצַח</strong> - 'forget me forever?'",
+              "<strong>Reason not featured:</strong> Lament psalm using נֶצַח temporally. Expression of despair and plea, not embodiment of divine victory."
+            ]
           }
         ],
         thematicNote: "See 1 Chronicles 29:11 in Multi-Sefirah section for the major Netzach verse."
@@ -4098,6 +4352,7 @@
           },
           {
             ref: "Job 37:22",
+            featured: true,
             hebrew: "מִצָּפוֹן זָהָב יֶאֱתֶה עַל־אֱלוֹהַּ נוֹרָא הוֹד",
             english: "Fair weather cometh out of the north: with God is terrible <em>majesty</em>.",
             notes: [
@@ -4108,6 +4363,7 @@
           },
           {
             ref: "Job 40:10",
+            featured: true,
             hebrew: "עֲדֵה נָא גָאוֹן וָגֹבַהּ וְהוֹד וְהָדָר תִּלְבָּשׁ",
             english: "Deck thyself now with majesty and excellency; and array thyself with <em>glory</em> and beauty.",
             notes: [
@@ -4119,6 +4375,7 @@
           },
           {
             ref: "Psalm 8:2",
+            featured: true,
             hebrew: "יְהוָה אֲדֹנֵינוּ מָה־אַדִּיר שִׁמְךָ בְּכָל־הָאָרֶץ אֲשֶׁר תְּנָה הוֹדְךָ עַל־הַשָּׁמָיִם",
             english: "O LORD our Lord, how excellent is thy name in all the earth! who hast set thy <em>glory</em> above the heavens.",
             notes: [
@@ -4130,6 +4387,7 @@
           },
           {
             ref: "Psalm 21:6",
+            featured: true,
             hebrew: "גָּדוֹל כְּבוֹדוֹ בִּישׁוּעָתֶךָ הוֹד וְהָדָר תְּשַׁוֶּה עָלָיו",
             english: "His glory is great in thy salvation: <em>honour</em> and majesty hast thou laid upon him.",
             notes: [
@@ -4141,6 +4399,7 @@
           },
           {
             ref: "Psalm 45:4",
+            featured: true,
             hebrew: "חֲגוֹר־חַרְבְּךָ עַל־יָרֵךְ גִּבּוֹר הוֹדְךָ וַהֲדָרֶךָ",
             english: "Gird thy sword upon thy thigh, O most mighty, with thy <em>glory</em> and thy majesty.",
             notes: [
@@ -4162,6 +4421,7 @@
           },
           {
             ref: "Psalm 145:5",
+            featured: true,
             hebrew: "הֲדַר כְּבוֹד הוֹדֶךָ וְדִבְרֵי נִפְלְאוֹתֶיךָ אָשִׂיחָה",
             english: "I will speak of the glorious honour of thy <em>majesty</em>, and of thy wondrous works.",
             notes: [
@@ -4178,6 +4438,36 @@
               "<strong>יִשָּׂא הוֹד</strong> (yisa Hod) - 'he shall bear/carry Hod'",
               "Messianic prophecy: the Branch (צֶמַח) carries Hod",
               "Combines royal and priestly functions"
+            ]
+          },
+          {
+            ref: "Daniel 10:8",
+            supplementary: true,
+            hebrew: "וָאֶרְאֶה אֶת־הַמַּרְאָה הַגְּדֹלָה הַזֹּאת וְלֹא נִשְׁאַר־בִּי כֹּחַ וְהוֹדִי נֶהְפַּךְ עָלַי לְמַשְׁחִית",
+            english: "I saw this great vision, and there remained no strength in me: for my <em>comeliness</em> was turned in me into corruption.",
+            notes: [
+              "<strong>וְהוֹדִי נֶהְפַּךְ</strong> - 'my comeliness/splendor was turned'",
+              "<strong>Reason not featured:</strong> Daniel's הוֹד is being lost/corrupted when overwhelmed by the angelic vision. Hod departing, not being embodied."
+            ]
+          },
+          {
+            ref: "Daniel 11:21",
+            supplementary: true,
+            hebrew: "וְעָמַד עַל־כַּנּוֹ נִבְזֶה וְלֹא־נָתְנוּ עָלָיו הוֹד מַלְכוּת",
+            english: "And in his estate shall stand up a vile person, to whom they shall not give the <em>honour</em> of the kingdom.",
+            notes: [
+              "<strong>הוֹד מַלְכוּת</strong> - 'royal majesty'",
+              "<strong>Reason not featured:</strong> A vile person to whom they shall NOT give Hod. Traditionally Antiochus IV. Hod denied, not embodied."
+            ]
+          },
+          {
+            ref: "Proverbs 5:9",
+            supplementary: true,
+            hebrew: "פֶּן־תִּתֵּן לַאֲחֵרִים הוֹדֶךָ וּשְׁנֹתֶיךָ לְאַכְזָרִי",
+            english: "Lest thou give thine <em>honour</em> unto others, and thy years unto the cruel.",
+            notes: [
+              "<strong>הוֹדֶךָ</strong> - 'your honor/vigor'",
+              "<strong>Reason not featured:</strong> Warning against giving away Hod to the strange woman. Hod being lost through folly, not embodied through virtue."
             ]
           }
         ]
@@ -4209,6 +4499,36 @@
               "<strong>יְסוּדָתוֹ</strong> (y'sudato) - 'His Yesod/foundation'",
               "God's foundation (or Zion's) in holy mountains",
               "Psalm praising Zion as city of God"
+            ]
+          },
+          {
+            ref: "Habakkuk 3:13",
+            supplementary: true,
+            hebrew: "מָחַצְתָּ רֹאשׁ מִבֵּית רָשָׁע עָרוֹת יְסוֹד עַד־צַוָּאר סֶלָה",
+            english: "Thou wentest forth for the salvation of thy people... by discovering the <em>foundation</em> unto the neck.",
+            notes: [
+              "<strong>עָרוֹת יְסוֹד</strong> - 'laying bare the foundation'",
+              "<strong>Reason not featured:</strong> God exposing the foundation of the wicked house in judgment. This is יְסוֹד as literal foundation being destroyed."
+            ]
+          },
+          {
+            ref: "Psalm 137:7",
+            supplementary: true,
+            hebrew: "זְכֹר יְהוָה לִבְנֵי אֱדוֹם אֵת יוֹם יְרוּשָׁלַם הָאֹמְרִים עָרוּ עָרוּ עַד הַיְסוֹד בָּהּ",
+            english: "Remember, O LORD, the children of Edom in the day of Jerusalem; who said, Rase it, rase it, even to the <em>foundation</em> thereof.",
+            notes: [
+              "<strong>עַד הַיְסוֹד</strong> - 'to the foundation'",
+              "<strong>Reason not featured:</strong> Edom calling for Jerusalem's destruction 'to the foundation.' Lament/curse context, not embodiment."
+            ]
+          },
+          {
+            ref: "Job 4:19",
+            supplementary: true,
+            hebrew: "אַף שֹׁכְנֵי בָתֵּי־חֹמֶר אֲשֶׁר־בֶּעָפָר יְסוֹדָם יְדַכְּאוּם לִפְנֵי־עָשׁ",
+            english: "How much less in them that dwell in houses of clay, whose <em>foundation</em> is in the dust, which are crushed before the moth?",
+            notes: [
+              "<strong>יְסוֹדָם</strong> - 'their foundation'",
+              "<strong>Reason not featured:</strong> Describes יְסוֹד as fragile human foundation - in dust (mortality). Emphasizes human frailty, not embodiment."
             ]
           }
         ],
@@ -4276,6 +4596,7 @@
           },
           {
             ref: "Daniel 7:14",
+            featured: true,
             hebrew: "וְלֵהּ יְהִיב שָׁלְטָן וִיקָר וּמַלְכוּ... וּמַלְכוּתֵהּ דִּי־לָא תִתְחַבַּל",
             english: "And there was given him dominion, and glory, and a <em>kingdom</em>... his kingdom that which shall not be destroyed.",
             notes: [
@@ -4387,9 +4708,9 @@
         let versesContentHtml = '';
 
         if (hasCurated) {
-          // Use featured curated verses as cards
-          const featuredVerses = curatedVersesData[key].verses.filter(v => v.featured);
-          const versesToShow = featuredVerses.length > 0 ? featuredVerses : curatedVersesData[key].verses.slice(0, 3);
+          // Use featured curated verses as cards (limit to 2 in panel, exclude supplementary)
+          const featuredVerses = curatedVersesData[key].verses.filter(v => v.featured && !v.supplementary);
+          const versesToShow = featuredVerses.slice(0, 2);
 
           versesContentHtml = `
           <div class="featured-verses-list">
@@ -4436,20 +4757,18 @@
         }
 
         const totalVerses = hasCurated ? curatedVersesData[key].verses.length : 0;
-        const featuredCount = hasCurated ? curatedVersesData[key].verses.filter(v => v.featured).length : 0;
-        const additionalCount = totalVerses - featuredCount;
 
         biblicalHtml = `
         <div class="biblical-sources">
           <h3>Biblical Sources</h3>
           ${versesContentHtml}
           ${b.note ? `<p style="font-size: 0.9rem; color: var(--ink-light); margin-top: 12px; font-style: italic;">${b.note}</p>` : ''}
-          ${hasCurated && additionalCount > 0 ? `
+          ${hasCurated && totalVerses > 2 ? `
           <button class="view-curated-btn" onclick="openVersesDrawer('${key}')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
             </svg>
-            View ${additionalCount} additional verse${additionalCount !== 1 ? 's' : ''}
+            View all verses (${totalVerses})
           </button>
           ` : ''}
         </div>`;
@@ -4762,15 +5081,27 @@
       currentDrawerSephirah = sephirahKey;
       currentFilter = 'all';
 
+      // Calculate counts for each filter
+      const allCount = data.verses.length;
+      const featuredCount = data.verses.filter(v => v.featured && !v.supplementary).length;
+      const supplementaryCount = data.verses.filter(v => v.supplementary).length;
+
       // Update header
       drawerTitle.textContent = data.name + ' Verses';
       drawerHebrew.textContent = data.hebrew;
       drawerMeaning.textContent = data.meaning;
-      drawerCount.textContent = data.verses.length + ' verses';
+      drawerCount.textContent = allCount + ' verses';
 
-      // Reset filter buttons
+      // Reset filter buttons and update labels with counts
       drawerFilters.forEach(btn => {
         btn.classList.toggle('active', btn.dataset.filter === 'all');
+        if (btn.dataset.filter === 'all') {
+          btn.textContent = `All (${allCount})`;
+        } else if (btn.dataset.filter === 'featured') {
+          btn.textContent = `Featured (${featuredCount})`;
+        } else if (btn.dataset.filter === 'supplementary') {
+          btn.textContent = `Supplementary (${supplementaryCount})`;
+        }
       });
 
       // Reset search
@@ -4797,7 +5128,9 @@
 
       // Apply filter
       if (currentFilter === 'featured') {
-        filteredVerses = verses.filter(v => v.featured);
+        filteredVerses = verses.filter(v => v.featured && !v.supplementary);
+      } else if (currentFilter === 'supplementary') {
+        filteredVerses = verses.filter(v => v.supplementary);
       }
 
       // Apply search
@@ -4816,10 +5149,10 @@
         const notesHtml = verse.notes ? verse.notes.map(n => `<li>${n}</li>`).join('') : '';
 
         return `
-          <div class="verse-card ${verse.featured ? 'featured' : ''}">
+          <div class="verse-card ${verse.featured ? 'featured' : ''} ${verse.supplementary ? 'supplementary' : ''}">
             <div class="verse-card-header">
               <span class="verse-ref">${verse.ref}</span>
-              ${verse.featured ? '<span class="featured-badge">Featured</span>' : ''}
+              ${verse.supplementary ? '<span class="supplementary-badge">Supplementary</span>' : (verse.featured ? '<span class="featured-badge">Featured</span>' : '')}
             </div>
             <div class="verse-card-body">
               <div class="verse-hebrew">${verse.hebrew}</div>
