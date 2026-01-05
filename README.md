@@ -10,7 +10,9 @@ This is a standalone HTML page featuring an interactive Tree of Life (Etz Chaim)
 
 - **Interactive Sefirot**: Hover for summaries, click for detailed explanations
 - **Three Pillars**: Clickable pillar labels with traditional commentary
-- **Biblical Sources**: 1 Chronicles 29:11 as the foundation verse, with Hebrew highlighting
+- **Curated Biblical Verses**: Each Sefirah includes hand-selected verses that embody its qualities, with Hebrew text and English translations
+- **Verse Drawer**: Expandable panel with filtering (Featured/Supplementary) and detailed analysis for each verse
+- **Linguistic Notes**: Hebrew vocabulary and etymology for each Sefirah's root word
 - **Light/Dark Mode**: Toggle between parchment and midnight themes
 
 ## Traditional Approach
