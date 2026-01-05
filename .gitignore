@@ -1,1 +1,8 @@
-pillar-content-draft.md
+# Ignore everything
+*
+
+# Except these files
+!.gitignore
+!index.html
+!README.md
+!LICENSE

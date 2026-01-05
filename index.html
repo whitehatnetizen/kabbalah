@@ -746,6 +746,149 @@
       height: 16px;
     }
 
+    /* Featured Verse Cards in Panel */
+    .featured-verses-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .panel-verse-card {
+      background: linear-gradient(135deg, rgba(154, 123, 48, 0.06) 0%, rgba(139, 90, 50, 0.03) 100%);
+      border: 1px solid rgba(154, 123, 48, 0.2);
+      border-radius: 6px;
+      padding: 14px 16px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .panel-verse-card:hover {
+      border-color: rgba(154, 123, 48, 0.35);
+      box-shadow: 0 2px 8px rgba(154, 123, 48, 0.1);
+    }
+
+    .panel-verse-card.featured {
+      border-left: 3px solid var(--gold);
+    }
+
+    .panel-verse-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .panel-verse-ref {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .panel-featured-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .panel-featured-badge svg {
+      width: 12px;
+      height: 12px;
+      fill: var(--gold);
+    }
+
+    .panel-verse-hebrew {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.05rem;
+      color: var(--ink-dark);
+      line-height: 1.8;
+      direction: rtl;
+      text-align: right;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(154, 123, 48, 0.1);
+    }
+
+    .panel-verse-english {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--ink-mid);
+      line-height: 1.6;
+    }
+
+    .panel-verse-english em {
+      color: var(--gold);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .panel-notes-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--ink-light);
+      cursor: pointer;
+      padding: 8px 0 0 0;
+      transition: color 0.2s ease;
+    }
+
+    .panel-notes-toggle:hover {
+      color: var(--gold);
+    }
+
+    .panel-notes-toggle svg {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.2s ease;
+    }
+
+    .panel-notes-toggle.expanded svg {
+      transform: rotate(180deg);
+    }
+
+    .panel-verse-notes {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(154, 123, 48, 0.2);
+    }
+
+    .panel-verse-notes.visible {
+      display: block;
+    }
+
+    .panel-verse-notes ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .panel-verse-notes li {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+
+    .panel-verse-notes li:last-child {
+      margin-bottom: 0;
+    }
+
+    .panel-verse-notes strong {
+      color: var(--ink-dark);
+    }
+
     /* Biblical Sources Overlay */
     .biblical-overlay {
       position: fixed;
@@ -1485,6 +1628,28 @@
       border-color: rgba(212, 168, 75, 0.2);
     }
 
+    [data-theme="dark"] .panel-verse-card {
+      background: linear-gradient(135deg, rgba(212, 168, 75, 0.06) 0%, rgba(20, 18, 16, 0.3) 100%);
+      border-color: rgba(212, 168, 75, 0.2);
+    }
+
+    [data-theme="dark"] .panel-verse-card:hover {
+      border-color: rgba(212, 168, 75, 0.35);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="dark"] .panel-verse-card.featured {
+      border-left-color: var(--gold);
+    }
+
+    [data-theme="dark"] .panel-verse-hebrew {
+      border-bottom-color: rgba(212, 168, 75, 0.15);
+    }
+
+    [data-theme="dark"] .panel-verse-notes {
+      border-top-color: rgba(212, 168, 75, 0.15);
+    }
+
     /* Biblical overlay dark mode */
     [data-theme="dark"] .biblical-overlay-backdrop {
       background: rgba(0, 0, 0, 0.92);
@@ -1715,6 +1880,578 @@
       .theme-toggle svg {
         width: 18px;
         height: 18px;
+      }
+    }
+
+    /* ========================================
+       VERSES DRAWER (Option B)
+       ======================================== */
+
+    .verses-drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(26, 15, 8, 0.7);
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 2500;
+    }
+
+    .verses-drawer-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .verses-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 580px;
+      max-width: 95vw;
+      height: 100vh;
+      background: var(--parchment-light);
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2501;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -10px 0 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .verses-drawer.active {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      padding: 28px 35px 22px;
+      border-bottom: 1px solid var(--parchment-edge);
+      background: linear-gradient(180deg, rgba(154, 123, 48, 0.06) 0%, transparent 100%);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .drawer-header .drawer-close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      width: 36px;
+      height: 36px;
+      background: transparent;
+      border: 1px solid var(--parchment-edge);
+      color: var(--ink-light);
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      font-family: serif;
+    }
+
+    .drawer-header .drawer-close:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .drawer-header h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      color: var(--ink-dark);
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .drawer-header .drawer-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--ink-light);
+    }
+
+    .drawer-header .drawer-subtitle .hebrew {
+      font-family: 'Frank Ruhl Libre', serif;
+      color: var(--ink-mid);
+    }
+
+    .drawer-controls {
+      padding: 12px 35px;
+      border-bottom: 1px solid var(--parchment-edge);
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+      background: rgba(154, 123, 48, 0.02);
+    }
+
+    .drawer-search {
+      flex: 1;
+      background: var(--parchment-light);
+      border: 1px solid var(--parchment-edge);
+      border-radius: 4px;
+      padding: 8px 14px;
+      color: var(--ink-dark);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+    }
+
+    .drawer-search::placeholder {
+      color: var(--ink-faint);
+    }
+
+    .drawer-filter {
+      background: transparent;
+      border: 1px solid var(--parchment-edge);
+      color: var(--ink-light);
+      padding: 8px 14px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .drawer-filter:hover,
+    .drawer-filter.active {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .drawer-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 25px 35px 40px;
+    }
+
+    /* Verse Card */
+    .verse-card {
+      background: linear-gradient(135deg, rgba(154, 123, 48, 0.04) 0%, rgba(139, 90, 50, 0.02) 100%);
+      border: 1px solid var(--parchment-edge);
+      border-radius: 6px;
+      margin-bottom: 18px;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .verse-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 15px rgba(154, 123, 48, 0.1);
+    }
+
+    .verse-card.featured {
+      border-left: 3px solid var(--gold);
+    }
+
+    .verse-card-header {
+      padding: 14px 18px;
+      background: linear-gradient(135deg, rgba(154, 123, 48, 0.06) 0%, transparent 100%);
+      border-bottom: 1px solid var(--parchment-edge);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .verse-card-header .verse-ref {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .verse-card-header .featured-badge {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      background: var(--gold);
+      color: var(--parchment-light);
+      padding: 3px 8px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .verse-card-body {
+      padding: 18px;
+    }
+
+    .verse-card .verse-hebrew {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.2rem;
+      line-height: 1.9;
+      color: var(--ink-dark);
+      direction: rtl;
+      text-align: right;
+      padding: 12px 14px;
+      background: rgba(154, 123, 48, 0.04);
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .verse-card .verse-kjv {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--ink-mid);
+      font-style: italic;
+      padding-left: 14px;
+      border-left: 2px solid var(--parchment-edge);
+      margin-bottom: 12px;
+    }
+
+    .verse-card .verse-kjv em {
+      color: var(--gold);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* Notes Toggle */
+    .notes-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 10px 18px;
+      background: transparent;
+      border: none;
+      border-top: 1px solid var(--parchment-edge);
+      color: var(--ink-light);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .notes-toggle:hover {
+      background: rgba(154, 123, 48, 0.05);
+      color: var(--gold);
+    }
+
+    .notes-toggle .arrow {
+      transition: transform 0.2s ease;
+      font-size: 0.7rem;
+    }
+
+    .verse-card.notes-open .notes-toggle .arrow {
+      transform: rotate(90deg);
+    }
+
+    .notes-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .verse-card.notes-open .notes-content {
+      max-height: 600px;
+    }
+
+    .notes-inner {
+      padding: 14px 18px;
+      background: rgba(154, 123, 48, 0.04);
+      border-top: 1px solid var(--parchment-edge);
+    }
+
+    .notes-inner ul {
+      margin: 0;
+      padding-left: 18px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+    }
+
+    .notes-inner li {
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    .notes-inner strong {
+      font-family: 'Frank Ruhl Libre', serif;
+      color: var(--ink-dark);
+    }
+
+    /* Bulk References Section */
+    .bulk-references-section {
+      margin-top: 25px;
+      border: 1px solid var(--parchment-edge);
+      border-radius: 6px;
+      background: linear-gradient(135deg, rgba(154, 123, 48, 0.03) 0%, rgba(139, 90, 50, 0.02) 100%);
+      overflow: hidden;
+    }
+
+    .bulk-references-toggle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 16px 18px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .bulk-references-toggle:hover {
+      background: rgba(154, 123, 48, 0.05);
+    }
+
+    .bulk-references-toggle .arrow {
+      color: var(--gold);
+      font-size: 0.75rem;
+      transition: transform 0.2s ease;
+    }
+
+    .bulk-references-section.open .bulk-references-toggle .arrow {
+      transform: rotate(90deg);
+    }
+
+    .bulk-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink-dark);
+    }
+
+    .bulk-count {
+      margin-left: auto;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--ink-light);
+      background: rgba(154, 123, 48, 0.1);
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+
+    .bulk-references-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .bulk-references-section.open .bulk-references-content {
+      max-height: 2000px;
+    }
+
+    .bulk-description {
+      padding: 0 18px 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--ink-mid);
+      margin: 0;
+      border-top: 1px solid var(--parchment-edge);
+      padding-top: 12px;
+    }
+
+    .bulk-refs-list {
+      padding: 0 18px 18px;
+    }
+
+    .bulk-ref-item {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(154, 123, 48, 0.1);
+    }
+
+    .bulk-ref-item:last-child {
+      border-bottom: none;
+    }
+
+    .bulk-ref-reference {
+      display: inline-block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .bulk-ref-hebrew {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1rem;
+      direction: rtl;
+      text-align: right;
+      color: var(--ink-dark);
+      line-height: 1.8;
+      margin-bottom: 4px;
+    }
+
+    .bulk-ref-english {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+      line-height: 1.5;
+    }
+
+    /* Dark mode for bulk references */
+    @media (prefers-color-scheme: dark) {
+      .bulk-references-section {
+        background: linear-gradient(135deg, rgba(154, 123, 48, 0.08) 0%, rgba(139, 90, 50, 0.04) 100%);
+        border-color: rgba(154, 123, 48, 0.2);
+      }
+
+      .bulk-references-toggle:hover {
+        background: rgba(154, 123, 48, 0.1);
+      }
+
+      .bulk-ref-item {
+        border-color: rgba(154, 123, 48, 0.15);
+      }
+    }
+
+    /* Drawer Footer */
+    .drawer-footer {
+      padding: 14px 35px;
+      border-top: 1px solid var(--parchment-edge);
+      background: rgba(154, 123, 48, 0.03);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--ink-light);
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* View Curated Verses Button */
+    .view-curated-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 15px;
+      padding: 10px 18px;
+      background: linear-gradient(135deg, rgba(154, 123, 48, 0.1) 0%, rgba(139, 90, 50, 0.05) 100%);
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .view-curated-btn:hover {
+      background: var(--gold);
+      color: var(--parchment-light);
+    }
+
+    .view-curated-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Dark mode overrides for drawer */
+    [data-theme="dark"] .verses-drawer-overlay {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    [data-theme="dark"] .verses-drawer {
+      background: var(--parchment-light);
+      box-shadow: -10px 0 50px rgba(0, 0, 0, 0.6);
+    }
+
+    [data-theme="dark"] .drawer-header {
+      border-bottom-color: #2a2420;
+      background: linear-gradient(180deg, rgba(212, 168, 75, 0.08) 0%, transparent 100%);
+    }
+
+    [data-theme="dark"] .drawer-header .drawer-close {
+      border-color: #2a2420;
+    }
+
+    [data-theme="dark"] .drawer-controls {
+      border-bottom-color: #2a2420;
+      background: rgba(212, 168, 75, 0.03);
+    }
+
+    [data-theme="dark"] .drawer-search {
+      background: #1a1612;
+      border-color: #2a2420;
+    }
+
+    [data-theme="dark"] .drawer-filter {
+      border-color: #2a2420;
+    }
+
+    [data-theme="dark"] .verse-card {
+      background: linear-gradient(135deg, rgba(212, 168, 75, 0.05) 0%, rgba(20, 18, 16, 0.2) 100%);
+      border-color: #2a2420;
+    }
+
+    [data-theme="dark"] .verse-card:hover {
+      border-color: var(--gold);
+    }
+
+    [data-theme="dark"] .verse-card-header {
+      background: linear-gradient(135deg, rgba(212, 168, 75, 0.08) 0%, transparent 100%);
+      border-bottom-color: #2a2420;
+    }
+
+    [data-theme="dark"] .verse-card .verse-hebrew {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    [data-theme="dark"] .notes-toggle {
+      border-top-color: #2a2420;
+    }
+
+    [data-theme="dark"] .notes-inner {
+      background: rgba(212, 168, 75, 0.05);
+      border-top-color: #2a2420;
+    }
+
+    [data-theme="dark"] .drawer-footer {
+      border-top-color: #2a2420;
+      background: rgba(212, 168, 75, 0.03);
+    }
+
+    [data-theme="dark"] .view-curated-btn {
+      background: linear-gradient(135deg, rgba(212, 168, 75, 0.15) 0%, rgba(20, 18, 16, 0.1) 100%);
+    }
+
+    [data-theme="dark"] .view-curated-btn:hover {
+      background: var(--gold);
+      color: #1a1612;
+    }
+
+    /* Drawer scrollbar */
+    .drawer-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .drawer-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .drawer-content::-webkit-scrollbar-thumb {
+      background: var(--parchment-edge);
+      border-radius: 4px;
+    }
+
+    .drawer-content::-webkit-scrollbar-thumb:hover {
+      background: var(--gold);
+    }
+
+    @media (max-width: 700px) {
+      .verses-drawer {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .drawer-header {
+        padding: 20px 25px 18px;
+      }
+
+      .drawer-controls {
+        padding: 10px 25px;
+        flex-wrap: wrap;
+      }
+
+      .drawer-content {
+        padding: 20px 25px 30px;
+      }
+
+      .drawer-footer {
+        padding: 12px 25px;
       }
     }
   </style>
@@ -2087,6 +2824,29 @@
     </div>
   </div>
 
+  <!-- Verses Drawer -->
+  <div class="verses-drawer-overlay" id="versesDrawerOverlay"></div>
+  <div class="verses-drawer" id="versesDrawer">
+    <div class="drawer-header">
+      <button class="drawer-close" id="drawerClose" aria-label="Close">&times;</button>
+      <h2 id="drawerTitle">Chokmah Verses</h2>
+      <div class="drawer-subtitle">
+        <span class="hebrew" id="drawerHebrew">חָכְמָה</span> · <span id="drawerMeaning">Wisdom</span> · <span id="drawerCount">0 verses</span>
+      </div>
+    </div>
+    <div class="drawer-controls">
+      <input type="text" class="drawer-search" id="drawerSearch" placeholder="Search verses...">
+      <button class="drawer-filter active" data-filter="all">All</button>
+      <button class="drawer-filter" data-filter="featured">Featured</button>
+    </div>
+    <div class="drawer-content" id="drawerContent">
+      <!-- Verses will be populated dynamically -->
+    </div>
+    <div class="drawer-footer" id="drawerFooter">
+      Showing 0 verses
+    </div>
+  </div>
+
   <script>
     const sephirothData = {
       keter: {
@@ -2456,6 +3216,590 @@
       }
     };
 
+    // Curated verses data - manually selected verses with Hebrew, English, and notes
+    const curatedVersesData = {
+      chokmah: {
+        name: "Chokmah",
+        hebrew: "חָכְמָה",
+        meaning: "Wisdom",
+        verses: [
+          {
+            ref: "2 Chronicles 1:12",
+            featured: true,
+            hebrew: "הַֽחָכְמָ֥ה וְהַמַּדָּ֖ע נָת֣וּן לָ֑ךְ וְעֹ֨שֶׁר וּנְכָסִ֤ים וְכָבוֹד֙ אֶתֶּן־לָ֔ךְ אֲשֶׁ֣ר לֹא־הָ֣יָה כֵ֗ן לַמְּלָכִים֙ אֲשֶׁ֣ר לְפָנֶ֔יךָ וְאַחֲרֶ֖יךָ לֹ֥א יִֽהְיֶה־כֵּֽן",
+            english: "<em>Wisdom</em> and knowledge is granted unto thee; and I will give thee riches, and wealth, and honour, such as none of the kings have had that have been before thee, neither shall there any after thee have the like.",
+            notes: [
+              "<strong>חָכְמָה</strong> (Chokmah) paired with <strong>מַדָּע</strong> (madda) - note: madda shares root with Da'at (ידע) but is distinct",
+              "God's response to Solomon's request - wisdom granted before riches",
+              "See parallel: 1 Kings 3:12"
+            ]
+          },
+          {
+            ref: "Daniel 2:21 (Aramaic)",
+            featured: true,
+            hebrew: "יָהֵ֤ב חָכְמְתָא֙ לְחַכִּימִ֔ין וּמַנְדְּעָ֖א לְיָדְעֵ֥י בִינָֽה",
+            english: "He giveth <em>wisdom</em> unto the wise, and knowledge to them that know understanding.",
+            notes: [
+              "<strong>חָכְמְתָא</strong> (chokhm'ta) - Aramaic form of Chokmah",
+              "<strong>מַנְדְּעָא</strong> (manda'a) - Aramaic 'knowledge', related to Da'at",
+              "<strong>בִינָה</strong> (Binah) - uses Hebrew form even in Aramaic context",
+              "Three Sefirot in one verse: Chokmah, Da'at (implied), Binah"
+            ]
+          },
+          {
+            ref: "Isaiah 11:2",
+            featured: true,
+            hebrew: "וְנָחָה עָלָיו רוּחַ יְהוָה רוּחַ חָכְמָה וּבִינָה רוּחַ עֵצָה וּגְבוּרָה רוּחַ דַּעַת וְיִרְאַת יְהוָה",
+            english: "And the spirit of the LORD shall rest upon him, the spirit of <em>wisdom</em> and understanding, the spirit of counsel and might, the spirit of knowledge and of the fear of the LORD.",
+            notes: [
+              "Four Sefirot: <strong>חָכְמָה</strong> (Wisdom), <strong>בִינָה</strong> (Understanding), <strong>גְבוּרָה</strong> (Might), <strong>דַעַת</strong> (Knowledge)",
+              "Messianic prophecy - the sevenfold spirit",
+              "Three pairs: Chokmah+Binah, Etzah+Gevurah, Da'at+Yirat YHWH"
+            ]
+          },
+          {
+            ref: "Job 28:28",
+            featured: true,
+            hebrew: "וַיֹּאמֶר לָאָדָם הֵן יִרְאַת אֲדֹנָי הִיא חָכְמָה וְסוּר מֵרָע בִּינָה",
+            english: "And unto man he said, Behold, the fear of the Lord, that is <em>wisdom</em>; and to depart from evil is understanding.",
+            notes: [
+              "Wisdom Poem conclusion: defines <strong>חָכְמָה</strong> = יִרְאַת אֲדֹנָי (fear of the Lord)",
+              "Pairs with: departing from evil = Binah",
+              "Explicit definition of both Sefirot"
+            ]
+          },
+          {
+            ref: "Deuteronomy 34:9",
+            featured: true,
+            hebrew: "וִיהוֹשֻׁעַ בִּן־נוּן מָלֵא רוּחַ חָכְמָה כִּי־סָמַךְ מֹשֶׁה אֶת־יָדָיו עָלָיו",
+            english: "And Joshua the son of Nun was full of the spirit of <em>wisdom</em>; for Moses had laid his hands upon him.",
+            notes: [
+              "<strong>רוּחַ חָכְמָה</strong> (ruach chokmah) - 'spirit of wisdom'",
+              "Embodiment: Joshua <strong>מָלֵא</strong> (filled) with wisdom",
+              "Wisdom transferred through laying on of hands (סָמַךְ)"
+            ]
+          },
+          {
+            ref: "1 Kings 4:29",
+            hebrew: "וַיִּתֵּן֩ אֱלֹהִ֨ים חָכְמָ֧ה לִשְׁלֹמֹ֛ה וּתְבוּנָ֖ה הַרְבֵּ֣ה מְאֹ֑ד וְרֹ֣חַב לֵ֔ב כַּח֕וֹל אֲשֶׁ֖ר עַל־שְׂפַ֥ת הַיָּֽם",
+            english: "And God gave Solomon <em>wisdom</em> and understanding exceeding much, and largeness of heart, even as the sand that is on the sea shore.",
+            notes: [
+              "<strong>חָכְמָה</strong> (Chokmah) - Wisdom given by God",
+              "<strong>תְּבוּנָה</strong> (t'vunah) - related to Binah but distinct form",
+              "<strong>רֹחַב לֵב</strong> (rochav lev) - 'breadth of heart' - unique metaphor"
+            ]
+          },
+          {
+            ref: "Daniel 1:20",
+            hebrew: "וְכֹ֗ל דְּבַר֙ חָכְמַ֣ת בִּינָ֔ה אֲשֶׁר־בִּקֵּ֥שׁ מֵהֶ֖ם הַמֶּ֑לֶךְ וַֽיִּמְצָאֵ֞ם עֶ֣שֶׂר יָד֗וֹת עַ֤ל כָּל־הַֽחַרְטֻמִּים֙ הָֽאַשָּׁפִ֔ים",
+            english: "And in all matters of <em>wisdom</em> and understanding, that the king inquired of them, he found them ten times better than all the magicians and astrologers.",
+            notes: [
+              "<strong>חָכְמַת בִּינָה</strong> (chokhmat binah) - construct chain containing BOTH Sefirah terms",
+              "Context: Daniel and companions examined by Nebuchadnezzar",
+              "Found ten times better than all magicians"
+            ]
+          },
+          {
+            ref: "Ecclesiastes 1:16",
+            hebrew: "אֲנִי הִנֵּה הִגְדַּלְתִּי וְהוֹסַפְתִּי חָכְמָה עַל כָּל־אֲשֶׁר־הָיָה לְפָנַי עַל־יְרוּשָׁלָם וְלִבִּי רָאָה הַרְבֵּה חָכְמָה וָדָעַת",
+            english: "I am come to great estate, and have gotten more <em>wisdom</em> than all they that have been before me in Jerusalem: yea, my heart had great experience of wisdom and knowledge.",
+            notes: [
+              "<strong>חָכְמָה</strong> appears twice - Chokmah attained and experienced",
+              "<strong>דָעַת</strong> (Da'at) - knowledge, the hidden Sefirah",
+              "Both Sefirot explicitly paired"
+            ]
+          },
+          {
+            ref: "Exodus 31:3",
+            hebrew: "וָאֲמַלֵּא אֹתוֹ רוּחַ אֱלֹהִים בְּחָכְמָה וּבִתְבוּנָה וּבְדַעַת וּבְכָל־מְלָאכָה",
+            english: "And I have filled him with the spirit of God, in <em>wisdom</em>, and in understanding, and in knowledge, and in all manner of workmanship.",
+            notes: [
+              "Describes Bezalel, master craftsman of the Tabernacle",
+              "God says 'I have filled him' (וָאֲמַלֵּא אֹתוֹ) - divine endowment",
+              "Contains Chokmah, תְבוּנָה (t'vunah), and Da'at"
+            ]
+          },
+          {
+            ref: "2 Chronicles 1:10",
+            hebrew: "עַתָּ֗ה חָכְמָ֤ה וּמַדָּע֙ תֶּן־לִ֔י וְאֵֽצְאָ֛ה לִפְנֵ֥י הָֽעָם־הַזֶּ֖ה וְאָב֑וֹאָה כִּֽי־מִ֣י יִשְׁפֹּ֔ט אֶת־עַמְּךָ֥ הַזֶּ֖ה הַגָּדֽוֹל",
+            english: "Give me now <em>wisdom</em> and knowledge, that I may go out and come in before this people: for who can judge this thy people, that is so great?",
+            notes: [
+              "Solomon's request to God at Gibeon",
+              "<strong>חָכְמָה וּמַדָּע</strong> (chokmah u-madda) - wisdom and knowledge paired",
+              "<strong>מַדָּע</strong> (madda) shares root with Da'at (ידע) but is distinct term"
+            ]
+          },
+          {
+            ref: "1 Kings 4:30",
+            hebrew: "וַתֵּ֙רֶב֙ חָכְמַ֣ת שְׁלֹמֹ֔ה מֵֽחָכְמַ֖ת כָּל־בְּנֵי־קֶ֑דֶם וּמִכֹּ֖ל חָכְמַ֥ת מִצְרָֽיִם",
+            english: "And Solomon's <em>wisdom</em> excelled the wisdom of all the children of the east country, and all the wisdom of Egypt.",
+            notes: [
+              "<strong>חָכְמָה</strong> appears 3 times: Solomon's wisdom, wisdom of the east, wisdom of Egypt",
+              "Comparative wisdom - Solomon's exceeds all others"
+            ]
+          },
+          {
+            ref: "Daniel 1:17",
+            hebrew: "וְהַיְלָדִים הָאֵלֶּה אַרְבַּעְתָּם נָתַן לָהֶם הָאֱלֹהִים מַדָּע וְהַשְׂכֵּל בְּכָל־סֵפֶר וְחָכְמָה",
+            english: "As for these four children, God gave them knowledge and skill in all learning and <em>wisdom</em>: and Daniel had understanding in all visions and dreams.",
+            notes: [
+              "<strong>חָכְמָה</strong> (Chokmah) - wisdom granted by God",
+              "<strong>מַדָּע</strong> (madda) - knowledge, not דַּעַת (Da'at)",
+              "<strong>הַשְׂכֵּל</strong> (haskel) - intelligence/prudence, not a Sefirah term"
+            ]
+          },
+          {
+            ref: "Daniel 5:11 (Aramaic)",
+            hebrew: "אִיתַי גְּבַר בְּמַלְכוּתָךְ דִּי רוּחַ אֱלָהִין קַדִּישִׁין בֵּהּ... וְחָכְמָה כְּחָכְמַת־אֱלָהִין הִשְׁתְּכַחַת בֵּהּ",
+            english: "There is a man in thy kingdom, in whom is the spirit of the holy gods... and <em>wisdom</em>, like the wisdom of the gods, was found in him.",
+            notes: [
+              "<strong>חָכְמָה</strong> twice: 'wisdom' and 'like the wisdom of the gods'",
+              "Queen speaking about Daniel to Belshazzar",
+              "<strong>נַהִירוּ</strong> (nahiru) - 'light/illumination' also in this verse"
+            ]
+          },
+          {
+            ref: "Daniel 2:20, 23 (Aramaic)",
+            hebrew: "דִּ֧י חָכְמְתָ֛א וּגְבוּרְתָ֖א דִּ֥י לֵֽהּ־הִֽיא... דִּ֧י חָכְמְתָ֛א וּגְבוּרְתָ֖א יְהַ֣בְתְּ לִ֑י",
+            english: "For <em>wisdom</em> and might are his... who hast given me wisdom and might.",
+            notes: [
+              "Both verses pair <strong>חָכְמְתָא וּגְבוּרְתָא</strong> (chokhm'ta u-g'vur'ta)",
+              "v.20: Wisdom and might belong to God",
+              "v.23: Given to Daniel - divine transfer of two Sefirot"
+            ]
+          },
+          {
+            ref: "Ecclesiastes 1:13",
+            hebrew: "וְנָתַתִּי אֶת־לִבִּי לִדְרוֹשׁ וְלָתוּר בַּחָכְמָה עַל כָּל־אֲשֶׁר נַעֲשָׂה תַּחַת הַשָּׁמָיִם",
+            english: "And I gave my heart to seek and search out by <em>wisdom</em> concerning all things that are done under heaven.",
+            notes: [
+              "<strong>בַּחָכְמָה</strong> (ba-chokmah) - 'by/with wisdom' as method of inquiry",
+              "Wisdom as instrument of investigation"
+            ]
+          },
+          {
+            ref: "Ecclesiastes 1:17-18",
+            hebrew: "וָאֶתְּנָה לִבִּי לָדַעַת חָכְמָה... כִּי בְּרֹב חָכְמָה רָב־כָּעַס וְיוֹסִיף דַּעַת יוֹסִיף מַכְאוֹב",
+            english: "And I gave my heart to know <em>wisdom</em>... For in much wisdom is much grief: and he that increaseth knowledge increaseth sorrow.",
+            notes: [
+              "<strong>חָכְמָה</strong> paired with <strong>דַּעַת</strong> (Da'at)",
+              "The burden of wisdom - grief accompanies deep understanding",
+              "Parallel structure: more wisdom → more grief; more knowledge → more sorrow"
+            ]
+          },
+          {
+            ref: "Ecclesiastes 2:13",
+            hebrew: "וְרָאִיתִי אָנִי שֶׁיֵּשׁ יִתְרוֹן לַחָכְמָה מִן־הַסִּכְלוּת כִּיתְרוֹן הָאוֹר מִן־הַחֹשֶׁךְ",
+            english: "Then I saw that <em>wisdom</em> excelleth folly, as far as light excelleth darkness.",
+            notes: [
+              "Wisdom compared to light; folly to darkness",
+              "<strong>יִתְרוֹן</strong> (yitron) - 'advantage/excellence'",
+              "Light/darkness metaphor for wisdom/folly"
+            ]
+          },
+          {
+            ref: "Ecclesiastes 2:26",
+            hebrew: "כִּי לְאָדָם שֶׁטּוֹב לְפָנָיו נָתַן חָכְמָה וְדַעַת וְשִׂמְחָה",
+            english: "For God giveth to a man that is good in his sight <em>wisdom</em>, and knowledge, and joy.",
+            notes: [
+              "<strong>חָכְמָה וְדַעַת</strong> - Chokmah and Da'at paired",
+              "Divine gift to the righteous",
+              "<strong>וְשִׂמְחָה</strong> (v'simchah) - 'and joy' - wisdom brings joy"
+            ]
+          },
+          {
+            ref: "Ecclesiastes 7:12",
+            hebrew: "כִּי בְּצֵל הַחָכְמָה בְּצֵל הַכָּסֶף וְיִתְרוֹן דַּעַת הַחָכְמָה תְּחַיֶּה בְעָלֶיהָ",
+            english: "For <em>wisdom</em> is a defence, and money is a defence: but the excellency of knowledge is, that wisdom giveth life to them that have it.",
+            notes: [
+              "<strong>הַחָכְמָה</strong> twice; <strong>דַּעַת</strong> once",
+              "<strong>בְּצֵל</strong> (b'tzel) - 'in the shadow/protection of'",
+              "Wisdom gives life (תְּחַיֶּה) to its possessors"
+            ]
+          },
+          {
+            ref: "Ecclesiastes 9:16",
+            hebrew: "וְאָמַרְתִּי אָנִי טוֹבָה חָכְמָה מִגְּבוּרָה וְחָכְמַת הַמִּסְכֵּן בְּזוּיָה",
+            english: "Then said I, <em>Wisdom</em> is better than strength; nevertheless the poor man's wisdom is despised.",
+            notes: [
+              "Direct comparison: <strong>חָכְמָה מִגְּבוּרָה</strong> - 'Wisdom [better] than Gevurah'",
+              "Two Sefirot compared: Chokmah vs Gevurah",
+              "Social reality: poor man's wisdom goes unheard"
+            ]
+          },
+          {
+            ref: "Exodus 31:6",
+            hebrew: "וּבְלֵב כָּל־חֲכַם־לֵב נָתַתִּי חָכְמָה וְעָשׂוּ אֵת כָּל־אֲשֶׁר צִוִּיתִךָ",
+            english: "And in the hearts of all that are wise hearted I have put <em>wisdom</em>, that they may make all that I have commanded thee.",
+            notes: [
+              "<strong>נָתַתִּי חָכְמָה</strong> (natati chokmah) - 'I have put/given wisdom'",
+              "<strong>חֲכַם־לֵב</strong> (chakham-lev) - 'wise-hearted'",
+              "God speaking: divine endowment of wisdom for Tabernacle craftsmen"
+            ]
+          },
+          {
+            ref: "Job 11:6",
+            hebrew: "וְיַגֶּד־לְךָ תַּעֲלֻמוֹת חָכְמָה כִּי־כִפְלַיִם לְתוּשִׁיָּה",
+            english: "And that he would shew thee the secrets of <em>wisdom</em>, that they are double to that which is!",
+            notes: [
+              "<strong>תַּעֲלֻמוֹת חָכְמָה</strong> (ta'alumot chokmah) - 'secrets/hidden things of wisdom'",
+              "Wisdom has hidden depths beyond surface understanding",
+              "Zophar speaking to Job"
+            ]
+          },
+          {
+            ref: "Job 12:12-13",
+            hebrew: "בִּישִׁישִׁים חָכְמָה... עִמּוֹ חָכְמָה וּגְבוּרָה לוֹ עֵצָה וּתְבוּנָה",
+            english: "With the ancient is <em>wisdom</em>... With him is wisdom and strength, he hath counsel and understanding.",
+            notes: [
+              "v.12: Wisdom with the aged (human); v.13: pivots to God as true source",
+              "<strong>עֵצָה וּגְבוּרָה</strong> (etzah u-gevurah) - same pairing as Isaiah 11:2",
+              "Four terms in v.13: Chokmah, Gevurah, Etzah, T'vunah"
+            ]
+          },
+          {
+            ref: "Job 28:12, 20",
+            hebrew: "וְהַחָכְמָה מֵאַיִן תִּמָּצֵא וְאֵי זֶה מְקוֹם בִּינָה",
+            english: "But where shall <em>wisdom</em> be found? and where is the place of understanding?",
+            notes: [
+              "The Wisdom Poem's refrain - question asked twice (v.12 and v.20)",
+              "Pairs <strong>חָכְמָה</strong> with <strong>בִּינָה</strong> - both Sefirah nouns",
+              "Rhetorical question: wisdom's source is hidden from mortals"
+            ]
+          },
+          {
+            ref: "Job 38:36-37",
+            hebrew: "מִי־שָׁת בַּטֻּחוֹת חָכְמָה אוֹ מִי־נָתַן לַשֶּׂכְוִי בִינָה... מִי־יְסַפֵּר שְׁחָקִים בְּחָכְמָה",
+            english: "Who hath put <em>wisdom</em> in the inward parts? or who hath given understanding to the heart? Who can number the clouds in wisdom?",
+            notes: [
+              "God speaking from the whirlwind - divine speech",
+              "Contains both <strong>חָכְמָה</strong> and <strong>בִּינָה</strong>",
+              "God as source who 'puts' (שָׁת) wisdom and 'gives' (נָתַן) understanding"
+            ]
+          },
+          {
+            ref: "Psalm 104:24",
+            hebrew: "מָה־רַבּוּ מַעֲשֶׂיךָ יְהוָה כֻּלָּם בְּחָכְמָה עָשִׂיתָ מָלְאָה הָאָרֶץ קִנְיָנֶךָ",
+            english: "O LORD, how manifold are thy works! in <em>wisdom</em> hast thou made them all: the earth is full of thy riches.",
+            notes: [
+              "<strong>בְּחָכְמָה עָשִׂיתָ</strong> - 'in wisdom you made [them]'",
+              "Creation by wisdom - cosmic Chokmah",
+              "Parallel to Proverbs 3:19: 'The LORD by wisdom founded the earth'"
+            ]
+          },
+          {
+            ref: "Psalm 111:10",
+            hebrew: "רֵאשִׁית חָכְמָה יִרְאַת יְהוָה שֵׂכֶל טוֹב לְכָל־עֹשֵׂיהֶם תְּהִלָּתוֹ עֹמֶדֶת לָעַד",
+            english: "The fear of the LORD is the beginning of <em>wisdom</em>: a good understanding have all they that do his commandments.",
+            notes: [
+              "<strong>רֵאשִׁית חָכְמָה</strong> (reshit chokmah) - 'beginning of wisdom'",
+              "Parallel to Proverbs 9:10 and Job 28:28",
+              "<strong>יִרְאַת יְהוָה</strong> (yirat YHWH) as foundation of wisdom"
+            ]
+          }
+        ],
+        bulkReferences: {
+          title: "References in Proverbs",
+          description: "Proverbs is permeated with Chokmah (חָכְמָה), especially chapters 1-9 where Wisdom is personified as a woman calling out to humanity.",
+          refs: [
+            { ref: "Proverbs 1:2", hebrew: "לָדַעַת חָכְמָה וּמוּסָר לְהָבִין אִמְרֵי בִינָה", english: "To know wisdom and instruction; to perceive the words of understanding" },
+            { ref: "Proverbs 1:7", hebrew: "יִרְאַת יְהוָה רֵאשִׁית דָּעַת חָכְמָה וּמוּסָר אֱוִילִים בָּזוּ", english: "The fear of the LORD is the beginning of knowledge: but fools despise wisdom and instruction" },
+            { ref: "Proverbs 2:6", hebrew: "כִּי־יְהוָה יִתֵּן חָכְמָה מִפִּיו דַּעַת וּתְבוּנָה", english: "For the LORD giveth wisdom: out of his mouth cometh knowledge and understanding" },
+            { ref: "Proverbs 2:10", hebrew: "כִּי־תָבוֹא חָכְמָה בְלִבֶּךָ וְדַעַת לְנַפְשְׁךָ יִנְעָם", english: "When wisdom entereth into thine heart, and knowledge is pleasant unto thy soul" },
+            { ref: "Proverbs 3:13", hebrew: "אַשְׁרֵי אָדָם מָצָא חָכְמָה וְאָדָם יָפִיק תְּבוּנָה", english: "Happy is the man that findeth wisdom, and the man that getteth understanding" },
+            { ref: "Proverbs 3:19", hebrew: "יְהוָה בְּחָכְמָה יָסַד־אָרֶץ כּוֹנֵן שָׁמַיִם בִּתְבוּנָה", english: "The LORD by wisdom hath founded the earth; by understanding hath he established the heavens" },
+            { ref: "Proverbs 4:5", hebrew: "קְנֵה חָכְמָה קְנֵה בִינָה אַל־תִּשְׁכַּח", english: "Get wisdom, get understanding: forget it not" },
+            { ref: "Proverbs 4:7", hebrew: "רֵאשִׁית חָכְמָה קְנֵה חָכְמָה וּבְכָל־קִנְיָנְךָ קְנֵה בִינָה", english: "Wisdom is the principal thing; therefore get wisdom: and with all thy getting get understanding" },
+            { ref: "Proverbs 4:11", hebrew: "בְּדֶרֶךְ חָכְמָה הֹרֵתִיךָ הִדְרַכְתִּיךָ בְּמַעְגְּלֵי־יֹשֶׁר", english: "I have taught thee in the way of wisdom; I have led thee in right paths" },
+            { ref: "Proverbs 7:4", hebrew: "אֱמֹר לַחָכְמָה אֲחֹתִי אָתְּ וּמֹדָע לַבִּינָה תִקְרָא", english: "Say unto wisdom, Thou art my sister; and call understanding thy kinswoman" },
+            { ref: "Proverbs 8:11", hebrew: "כִּי־טוֹבָה חָכְמָה מִפְּנִינִים וְכָל־חֲפָצִים לֹא יִשְׁווּ־בָהּ", english: "For wisdom is better than rubies; and all the things that may be desired are not to be compared to it" },
+            { ref: "Proverbs 9:10", hebrew: "תְּחִלַּת חָכְמָה יִרְאַת יְהוָה וְדַעַת קְדֹשִׁים בִּינָה", english: "The fear of the LORD is the beginning of wisdom: and the knowledge of the holy is understanding" },
+            { ref: "Proverbs 10:13", hebrew: "בְּשִׂפְתֵי נָבוֹן תִּמָּצֵא חָכְמָה", english: "In the lips of him that hath understanding wisdom is found" },
+            { ref: "Proverbs 10:31", hebrew: "פִּי־צַדִּיק יָנוּב חָכְמָה וּלְשׁוֹן תַּהְפֻּכוֹת תִּכָּרֵת", english: "The mouth of the just bringeth forth wisdom" },
+            { ref: "Proverbs 11:2", hebrew: "בָּא־זָדוֹן וַיָּבֹא קָלוֹן וְאֶת־צְנוּעִים חָכְמָה", english: "When pride cometh, then cometh shame: but with the lowly is wisdom" },
+            { ref: "Proverbs 14:33", hebrew: "בְּלֵב נָבוֹן תָּנוּחַ חָכְמָה", english: "Wisdom resteth in the heart of him that hath understanding" },
+            { ref: "Proverbs 15:33", hebrew: "יִרְאַת יְהוָה מוּסַר חָכְמָה וְלִפְנֵי כָבוֹד עֲנָוָה", english: "The fear of the LORD is the instruction of wisdom; and before honour is humility" },
+            { ref: "Proverbs 21:30", hebrew: "אֵין חָכְמָה וְאֵין תְּבוּנָה וְאֵין עֵצָה לְנֶגֶד יְהוָה", english: "There is no wisdom nor understanding nor counsel against the LORD" },
+            { ref: "Proverbs 24:3", hebrew: "בְּחָכְמָה יִבָּנֶה בָּיִת וּבִתְבוּנָה יִתְכּוֹנָן", english: "Through wisdom is an house builded; and by understanding it is established" },
+            { ref: "Proverbs 29:3", hebrew: "אִישׁ־אֹהֵב חָכְמָה יְשַׂמַּח אָבִיו", english: "Whoso loveth wisdom rejoiceth his father" },
+            { ref: "Proverbs 31:26", hebrew: "פִּיהָ פָּתְחָה בְחָכְמָה וְתוֹרַת חֶסֶד עַל־לְשׁוֹנָהּ", english: "She openeth her mouth with wisdom; and in her tongue is the law of kindness" }
+          ]
+        }
+      },
+      binah: {
+        name: "Binah",
+        hebrew: "בִּינָה",
+        meaning: "Understanding",
+        verses: [
+          {
+            ref: "Isaiah 11:2",
+            featured: true,
+            hebrew: "וְנָחָה עָלָיו רוּחַ יְהוָה רוּחַ חָכְמָה וּבִינָה רוּחַ עֵצָה וּגְבוּרָה רוּחַ דַּעַת וְיִרְאַת יְהוָה",
+            english: "And the spirit of the LORD shall rest upon him, the spirit of wisdom and <em>understanding</em>, the spirit of counsel and might, the spirit of knowledge and of the fear of the LORD.",
+            notes: [
+              "Contains <strong>וּבִינָה</strong> (u-vinah) - the actual Sefirah noun (not תְבוּנָה)",
+              "Messianic prophecy: spirit resting on the shoot from Jesse's stump",
+              "Four Sefirot in one verse: Chokmah, Binah, Gevurah, Da'at"
+            ]
+          },
+          {
+            ref: "Job 28:12, 20, 28 (Wisdom Poem)",
+            featured: true,
+            hebrew: "וְהַחָכְמָה מֵאַיִן תִּמָּצֵא וְאֵי זֶה מְקוֹם בִּינָה",
+            english: "But where shall wisdom be found? and where is the place of <em>understanding</em>?",
+            notes: [
+              "Contains <strong>בִּינָה</strong> (Binah) - the actual noun, not תְבוּנָה",
+              "Pairs Chokmah and Binah explicitly throughout the poem",
+              "28:28 defines: departing from evil = Binah"
+            ]
+          },
+          {
+            ref: "Daniel 2:21 (Aramaic)",
+            featured: true,
+            hebrew: "יָהֵ֤ב חָכְמְתָא֙ לְחַכִּימִ֔ין וּמַנְדְּעָ֖א לְיָדְעֵ֥י בִינָֽה",
+            english: "He giveth wisdom unto the wise, and knowledge to them that know <em>understanding</em>.",
+            notes: [
+              "<strong>בִינָה</strong> (binah) - uses Hebrew form even in Aramaic context",
+              "<strong>יָדְעֵי בִינָה</strong> (yod'ei binah) - 'those who know Binah'",
+              "Part of Daniel's blessing after God reveals the dream"
+            ]
+          },
+          {
+            ref: "Isaiah 29:24",
+            featured: true,
+            hebrew: "וְיָדְע֥וּ תֹֽעֵי־ר֖וּחַ בִּינָ֑ה וְרוֹגְנִ֖ים יִלְמְדוּ־לֶֽקַח",
+            english: "They also that erred in spirit shall come to <em>understanding</em>, and they that murmured shall learn doctrine.",
+            notes: [
+              "<strong>בִּינָה</strong> (binah) - the Sefirah noun",
+              "Eschatological promise: those who erred will come to know Binah",
+              "Transformation from spiritual confusion to understanding"
+            ]
+          },
+          {
+            ref: "Jeremiah 23:20",
+            featured: true,
+            hebrew: "בְּאַֽחֲרִית֙ הַיָּמִ֔ים תִּתְבּ֥וֹנְנוּ בָ֖הּ בִּינָֽה",
+            english: "In the latter days ye shall consider it perfectly.",
+            notes: [
+              "<strong>תִּתְבּוֹנְנוּ</strong> (verb) + <strong>בִּינָה</strong> (noun) together",
+              "Adverbial construction: 'understand with understanding' = thoroughly",
+              "Why KJV translates בִּינָה as 'perfectly' rather than 'understanding'"
+            ]
+          },
+          {
+            ref: "Daniel 1:20",
+            hebrew: "וְכֹ֗ל דְּבַר֙ חָכְמַ֣ת בִּינָ֔ה אֲשֶׁר־בִּקֵּ֥שׁ מֵהֶ֖ם הַמֶּ֑לֶךְ",
+            english: "And in all matters of wisdom and <em>understanding</em>, that the king inquired of them...",
+            notes: [
+              "<strong>חָכְמַת בִּינָה</strong> (chokhmat binah) - construct chain with BOTH Sefirah terms",
+              "Daniel and companions found ten times better than magicians",
+              "See also Chokmah section for this verse"
+            ]
+          },
+          {
+            ref: "1 Chronicles 12:32",
+            hebrew: "וּמִבְּנֵ֣י יִשָּׂשכָ֗ר יוֹדְעֵ֤י בִינָה֙ לַֽעִתִּ֔ים לָדַ֖עַת מַה־יַּעֲשֶׂ֣ה יִשְׂרָאֵ֑ל",
+            english: "And of the children of Issachar, which were men that had <em>understanding</em> of the times, to know what Israel ought to do.",
+            notes: [
+              "<strong>יוֹדְעֵי בִינָה לַעִתִּים</strong> - 'those knowing understanding for the times'",
+              "Sons of Issachar: practical discernment about what Israel should do",
+              "Binah as applied wisdom - understanding the times"
+            ]
+          },
+          {
+            ref: "1 Chronicles 22:12",
+            hebrew: "אַ֣ךְ יִֽתֶּן־לְּךָ֤ יְהוָה֙ שֵׂ֣כֶל וּבִינָ֔ה וִֽיצַוְּךָ֖ עַל־יִשְׂרָאֵ֑ל",
+            english: "Only the LORD give thee wisdom and <em>understanding</em>, and give thee charge concerning Israel.",
+            notes: [
+              "<strong>שֵׂכֶל וּבִינָה</strong> (sekhel u-vinah) - 'intelligence and understanding'",
+              "Note: שֵׂכֶל (sekhel) is NOT חָכְמָה (Chokmah)",
+              "David's prayer for Solomon before his death"
+            ]
+          },
+          {
+            ref: "Job 38:36",
+            hebrew: "מִי־שָׁת בַּטֻּחוֹת חָכְמָה אוֹ מִי־נָתַן לַשֶּׂכְוִי בִינָה",
+            english: "Who hath put wisdom in the inward parts? or who hath given <em>understanding</em> to the heart?",
+            notes: [
+              "God speaking from the whirlwind - divine speech",
+              "Contains both <strong>חָכְמָה</strong> and <strong>בִינָה</strong>",
+              "God as source who 'gives' (נָתַן) understanding"
+            ]
+          },
+        ],
+        bulkReferences: {
+          title: "References in Proverbs",
+          description: "Proverbs contains numerous references to Binah (בִּינָה), often paired with Chokmah and contrasted with folly.",
+          refs: [
+            { ref: "Proverbs 1:2", hebrew: "לָדַעַת חָכְמָה וּמוּסָר לְהָבִין אִמְרֵי בִינָה", english: "To know wisdom and instruction; to perceive the words of understanding" },
+            { ref: "Proverbs 2:3", hebrew: "כִּי אִם לַבִּינָה תִקְרָא לַתְּבוּנָה תִּתֵּן קוֹלֶךָ", english: "Yea, if thou criest after knowledge, and liftest up thy voice for understanding" },
+            { ref: "Proverbs 4:5", hebrew: "קְנֵה חָכְמָה קְנֵה בִינָה אַל־תִּשְׁכַּח", english: "Get wisdom, get understanding: forget it not" },
+            { ref: "Proverbs 4:7", hebrew: "רֵאשִׁית חָכְמָה קְנֵה חָכְמָה וּבְכָל־קִנְיָנְךָ קְנֵה בִינָה", english: "Wisdom is the principal thing; therefore get wisdom: and with all thy getting get understanding" },
+            { ref: "Proverbs 7:4", hebrew: "אֱמֹר לַחָכְמָה אֲחֹתִי אָתְּ וּמֹדָע לַבִּינָה תִקְרָא", english: "Say unto wisdom, Thou art my sister; and call understanding thy kinswoman" },
+            { ref: "Proverbs 8:14", hebrew: "לִי־עֵצָה וְתוּשִׁיָּה אֲנִי בִינָה לִי גְבוּרָה", english: "Counsel is mine, and sound wisdom: I am understanding; I have strength" },
+            { ref: "Proverbs 9:6", hebrew: "וְאִשְׁרוּ בְּדֶרֶךְ בִּינָה", english: "Go in the way of understanding" },
+            { ref: "Proverbs 9:10", hebrew: "תְּחִלַּת חָכְמָה יִרְאַת יְהוָה וְדַעַת קְדֹשִׁים בִּינָה", english: "The fear of the LORD is the beginning of wisdom: and the knowledge of the holy is understanding" },
+            { ref: "Proverbs 23:23", hebrew: "אֱמֶת קְנֵה וְאַל־תִּמְכֹּר חָכְמָה וּמוּסָר וּבִינָה", english: "Buy the truth, and sell it not; also wisdom, and instruction, and understanding" }
+          ]
+        }
+      },
+      gevurah: {
+        name: "Gevurah",
+        hebrew: "גְּבוּרָה",
+        meaning: "Strength / Might",
+        verses: [
+          {
+            ref: "Isaiah 11:2",
+            featured: true,
+            hebrew: "רוּחַ עֵצָה וּגְבוּרָה",
+            english: "The spirit of counsel and <em>might</em>.",
+            notes: [
+              "<strong>וּגְבוּרָה</strong> (u-gevurah) - the Sefirah noun",
+              "Paired with עֵצָה (etzah) - counsel",
+              "Part of the messianic sevenfold spirit"
+            ]
+          },
+          {
+            ref: "Daniel 2:20, 23 (Aramaic)",
+            featured: true,
+            hebrew: "דִּ֧י חָכְמְתָ֛א וּגְבוּרְתָ֖א דִּ֥י לֵֽהּ־הִֽיא",
+            english: "For wisdom and <em>might</em> are his.",
+            notes: [
+              "<strong>חָכְמְתָא וּגְבוּרְתָא</strong> - Aramaic pairing of Chokmah + Gevurah",
+              "v.20: Wisdom and might belong to God",
+              "v.23: Given to Daniel - 'who hast given me wisdom and might'"
+            ]
+          },
+          {
+            ref: "Ecclesiastes 9:16",
+            featured: true,
+            hebrew: "טוֹבָה חָכְמָה מִגְּבוּרָה",
+            english: "<em>Wisdom</em> is better than <em>strength</em>.",
+            notes: [
+              "Direct comparison of two Sefirot",
+              "Contains both <strong>חָכְמָה</strong> (Chokmah) and <strong>גְּבוּרָה</strong> (Gevurah)",
+              "Nevertheless the poor man's wisdom is despised"
+            ]
+          }
+        ]
+      },
+      chesed: {
+        name: "Chesed",
+        hebrew: "חֶסֶד",
+        meaning: "Loving-kindness",
+        verses: [
+          {
+            ref: "Psalm 136:5",
+            featured: true,
+            hebrew: "לְעֹשֵׂ֣ה הַ֭שָּׁמַיִם בִּתְבוּנָ֑ה כִּ֖י לְעוֹלָ֣ם חַסְדּֽוֹ",
+            english: "To him that by wisdom made the heavens: for his <em>mercy</em> endureth for ever.",
+            notes: [
+              "<strong>חַסְדּוֹ</strong> (chasdo) - 'his chesed/mercy'",
+              "Uses תְּבוּנָה (t'vunah) for 'wisdom', NOT בִּינָה",
+              "Part of the great Hallel refrain: כִּי לְעוֹלָם חַסְדּוֹ (repeated 26 times)"
+            ]
+          }
+        ]
+      },
+      tiphareth: {
+        name: "Tiphareth",
+        hebrew: "תִּפְאֶרֶת",
+        meaning: "Beauty / Glory",
+        verses: [
+          {
+            ref: "Exodus 28:2",
+            featured: true,
+            hebrew: "וְעָשִׂיתָ בִגְדֵי־קֹדֶשׁ לְאַהֲרֹן אָחִיךָ לְכָבוֹד וּלְתִפְאָרֶת",
+            english: "And thou shalt make holy garments for Aaron thy brother for glory and for <em>beauty</em>.",
+            notes: [
+              "<strong>לְתִפְאָרֶת</strong> (l'tifaret) - 'for beauty'",
+              "Priestly garments: both כָבוֹד (kavod) and תִּפְאֶרֶת (tiferet)",
+              "Kavod = weighty glory; Tiferet = harmonious beauty"
+            ]
+          }
+        ]
+      },
+      daat: {
+        name: "Da'at",
+        hebrew: "דַּעַת",
+        meaning: "Knowledge",
+        verses: [
+          {
+            ref: "Isaiah 11:2",
+            featured: true,
+            hebrew: "רוּחַ דַּעַת וְיִרְאַת יְהוָה",
+            english: "The spirit of <em>knowledge</em> and of the fear of the LORD.",
+            notes: [
+              "<strong>דַּעַת</strong> (Da'at) - the hidden Sefirah",
+              "Paired with יִרְאַת יְהוָה (fear of the LORD)",
+              "Third pair in the messianic sevenfold spirit"
+            ]
+          },
+          {
+            ref: "Exodus 31:3",
+            featured: true,
+            hebrew: "בְּחָכְמָה וּבִתְבוּנָה וּבְדַעַת וּבְכָל־מְלָאכָה",
+            english: "In wisdom, and in understanding, and in <em>knowledge</em>, and in all manner of workmanship.",
+            notes: [
+              "<strong>וּבְדַעַת</strong> (u-v'da'at) - 'and in knowledge'",
+              "Bezalel filled with three intellectual qualities",
+              "Divine endowment for sacred craftsmanship"
+            ]
+          },
+          {
+            ref: "Ecclesiastes 1:18",
+            hebrew: "כִּי בְּרֹב חָכְמָה רָב־כָּעַס וְיוֹסִיף דַּעַת יוֹסִיף מַכְאוֹב",
+            english: "For in much wisdom is much grief: and he that increaseth <em>knowledge</em> increaseth sorrow.",
+            notes: [
+              "<strong>דַּעַת</strong> (Da'at) - the Sefirah noun",
+              "Paired with Chokmah in parallel structure",
+              "The burden of true knowledge"
+            ]
+          },
+          {
+            ref: "Ecclesiastes 1:16",
+            hebrew: "וְלִבִּי רָאָה הַרְבֵּה חָכְמָה וָדָעַת",
+            english: "Yea, my heart had great experience of wisdom and <em>knowledge</em>.",
+            notes: [
+              "<strong>וָדָעַת</strong> (va-da'at) - 'and knowledge'",
+              "Paired with Chokmah - both experienced by Solomon",
+              "Heart as seat of experiential knowledge"
+            ]
+          },
+          {
+            ref: "Ecclesiastes 2:21",
+            hebrew: "כִּי־יֵשׁ אָדָם שֶׁעֲמָלוֹ בְּחָכְמָה וּבְדַעַת וּבְכִשְׁרוֹן",
+            english: "For there is a man whose labour is in wisdom, and in <em>knowledge</em>, and in equity.",
+            notes: [
+              "<strong>וּבְדַעַת</strong> (u-v'da'at) - 'and in knowledge'",
+              "Labor in Da'at - knowledge as life's work",
+              "Paired with Chokmah and כִּשְׁרוֹן (equity/skill)"
+            ]
+          },
+          {
+            ref: "Ecclesiastes 2:26",
+            hebrew: "כִּי לְאָדָם שֶׁטּוֹב לְפָנָיו נָתַן חָכְמָה וְדַעַת וְשִׂמְחָה",
+            english: "For God giveth to a man that is good in his sight wisdom, and <em>knowledge</em>, and joy.",
+            notes: [
+              "<strong>וְדַעַת</strong> (v'da'at) - 'and knowledge'",
+              "Divine gift: Chokmah + Da'at + joy",
+              "Knowledge as blessing to the righteous"
+            ]
+          },
+          {
+            ref: "Ecclesiastes 7:12",
+            hebrew: "וְיִתְרוֹן דַּעַת הַחָכְמָה תְּחַיֶּה בְעָלֶיהָ",
+            english: "But the excellency of <em>knowledge</em> is, that wisdom giveth life to them that have it.",
+            notes: [
+              "<strong>יִתְרוֹן דַּעַת</strong> (yitron da'at) - 'the advantage of knowledge'",
+              "Da'at provides the 'excellency/advantage'",
+              "Wisdom gives life through knowledge"
+            ]
+          },
+        ]
+      }
+    };
+
     // DOM elements
     const tooltip = document.getElementById('tooltip');
     const placeholder = document.getElementById('placeholder');
@@ -2528,24 +3872,81 @@
       let biblicalHtml = '';
       if (data.biblical) {
         const b = data.biblical;
-        const versesHtml = b.verses.map(v => `
-          <div class="verse-item">
-            <span class="verse-ref-inline">${v.ref}</span>
-            <span class="verse-text-inline">${v.english}</span>
-          </div>
-        `).join('');
+
+        // Check if we have curated verses for this Sefirah
+        const hasCurated = curatedVersesData && curatedVersesData[key];
+        let versesContentHtml = '';
+
+        if (hasCurated) {
+          // Use featured curated verses as cards
+          const featuredVerses = curatedVersesData[key].verses.filter(v => v.featured);
+          const versesToShow = featuredVerses.length > 0 ? featuredVerses : curatedVersesData[key].verses.slice(0, 3);
+
+          versesContentHtml = `
+          <div class="featured-verses-list">
+            ${versesToShow.map((v, idx) => `
+              <div class="panel-verse-card${v.featured ? ' featured' : ''}">
+                <div class="panel-verse-header">
+                  <span class="panel-verse-ref">${v.ref}</span>
+                  ${v.featured ? `
+                  <span class="panel-featured-badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    Featured
+                  </span>
+                  ` : ''}
+                </div>
+                <div class="panel-verse-hebrew">${v.hebrew}</div>
+                <div class="panel-verse-english">${v.english}</div>
+                ${v.notes && v.notes.length > 0 ? `
+                <button class="panel-notes-toggle" onclick="togglePanelNotes(this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                  Show linguistic notes
+                </button>
+                <div class="panel-verse-notes">
+                  <ul>
+                    ${v.notes.map(note => `<li>${note}</li>`).join('')}
+                  </ul>
+                </div>
+                ` : ''}
+              </div>
+            `).join('')}
+          </div>`;
+        } else {
+          // Fall back to original simple verse list
+          versesContentHtml = `
+          <div class="verses-list">
+            ${b.verses.map(v => `
+              <div class="verse-item">
+                <span class="verse-ref-inline">${v.ref}</span>
+                <span class="verse-text-inline">${v.english}</span>
+              </div>
+            `).join('')}
+          </div>`;
+        }
+
+        const totalVerses = hasCurated ? curatedVersesData[key].verses.length : 0;
+        const featuredCount = hasCurated ? curatedVersesData[key].verses.filter(v => v.featured).length : 0;
+        const additionalCount = totalVerses - featuredCount;
 
         biblicalHtml = `
         <div class="biblical-sources">
           <h3>Biblical Sources</h3>
-          <div class="verses-list">
-            ${versesHtml}
-          </div>
+          ${versesContentHtml}
           <div class="biblical-meta">
             <span class="occurrence-count">Appears <strong>${b.occurrences}</strong> times in Hebrew Bible</span>
             <span class="match-badge ${b.matchType}">${b.matchLabel}</span>
           </div>
           ${b.note ? `<p style="font-size: 0.9rem; color: var(--ink-light); margin-top: 12px; font-style: italic;">${b.note}</p>` : ''}
+          ${hasCurated && additionalCount > 0 ? `
+          <button class="view-curated-btn" onclick="openVersesDrawer('${key}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+            View ${additionalCount} additional verse${additionalCount !== 1 ? 's' : ''}
+          </button>
+          ` : ''}
           <a class="sources-link" onclick="openBiblicalOverlay()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
@@ -2882,6 +4283,199 @@
       // Only auto-switch if user hasn't manually set a preference
       if (!localStorage.getItem('theme')) {
         applyTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+
+    // ===============================
+    // Verses Drawer System
+    // ===============================
+
+    const versesDrawer = document.getElementById('versesDrawer');
+    const versesDrawerOverlay = document.getElementById('versesDrawerOverlay');
+    const drawerClose = document.getElementById('drawerClose');
+    const drawerTitle = document.getElementById('drawerTitle');
+    const drawerHebrew = document.getElementById('drawerHebrew');
+    const drawerMeaning = document.getElementById('drawerMeaning');
+    const drawerCount = document.getElementById('drawerCount');
+    const drawerContent = document.getElementById('drawerContent');
+    const drawerFooter = document.getElementById('drawerFooter');
+    const drawerSearch = document.getElementById('drawerSearch');
+    const drawerFilters = document.querySelectorAll('.drawer-filter');
+
+    let currentDrawerSephirah = null;
+    let currentFilter = 'all';
+
+    function openVersesDrawer(sephirahKey) {
+      const data = curatedVersesData[sephirahKey];
+      if (!data) {
+        // No curated verses for this sephirah yet
+        alert('Curated verses for ' + sephirothData[sephirahKey].name + ' are not yet available.');
+        return;
+      }
+
+      currentDrawerSephirah = sephirahKey;
+      currentFilter = 'all';
+
+      // Update header
+      drawerTitle.textContent = data.name + ' Verses';
+      drawerHebrew.textContent = data.hebrew;
+      drawerMeaning.textContent = data.meaning;
+      drawerCount.textContent = data.verses.length + ' verses';
+
+      // Reset filter buttons
+      drawerFilters.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === 'all');
+      });
+
+      // Reset search
+      drawerSearch.value = '';
+
+      // Render verses and bulk references
+      renderDrawerVerses(data.verses, '', data.bulkReferences);
+
+      // Open drawer
+      versesDrawer.classList.add('active');
+      versesDrawerOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVersesDrawer() {
+      versesDrawer.classList.remove('active');
+      versesDrawerOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      currentDrawerSephirah = null;
+    }
+
+    function renderDrawerVerses(verses, searchTerm = '', bulkReferences = null) {
+      let filteredVerses = verses;
+
+      // Apply filter
+      if (currentFilter === 'featured') {
+        filteredVerses = verses.filter(v => v.featured);
+      }
+
+      // Apply search
+      if (searchTerm) {
+        const term = searchTerm.toLowerCase();
+        filteredVerses = filteredVerses.filter(v =>
+          v.ref.toLowerCase().includes(term) ||
+          v.english.toLowerCase().includes(term) ||
+          v.hebrew.includes(searchTerm) ||
+          (v.notes && v.notes.some(n => n.toLowerCase().includes(term)))
+        );
+      }
+
+      // Generate HTML for verse cards
+      const html = filteredVerses.map(verse => {
+        const notesHtml = verse.notes ? verse.notes.map(n => `<li>${n}</li>`).join('') : '';
+
+        return `
+          <div class="verse-card ${verse.featured ? 'featured' : ''}">
+            <div class="verse-card-header">
+              <span class="verse-ref">${verse.ref}</span>
+              ${verse.featured ? '<span class="featured-badge">Featured</span>' : ''}
+            </div>
+            <div class="verse-card-body">
+              <div class="verse-hebrew">${verse.hebrew}</div>
+              <div class="verse-kjv">${verse.english}</div>
+            </div>
+            ${notesHtml ? `
+              <button class="notes-toggle" onclick="toggleVerseNotes(this)">
+                <span class="arrow">▶</span> Linguistic notes
+              </button>
+              <div class="notes-content">
+                <div class="notes-inner">
+                  <ul>${notesHtml}</ul>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+
+      // Generate HTML for bulk references (if any and not filtering/searching)
+      let bulkHtml = '';
+      if (bulkReferences && currentFilter === 'all' && !searchTerm) {
+        const refsHtml = bulkReferences.refs.map(r => `
+          <div class="bulk-ref-item">
+            <span class="bulk-ref-reference">${r.ref}</span>
+            <div class="bulk-ref-hebrew">${r.hebrew}</div>
+            <div class="bulk-ref-english">${r.english}</div>
+          </div>
+        `).join('');
+
+        bulkHtml = `
+          <div class="bulk-references-section">
+            <button class="bulk-references-toggle" onclick="toggleBulkReferences(this)">
+              <span class="arrow">▶</span>
+              <span class="bulk-title">${bulkReferences.title}</span>
+              <span class="bulk-count">${bulkReferences.refs.length} references</span>
+            </button>
+            <div class="bulk-references-content">
+              <p class="bulk-description">${bulkReferences.description}</p>
+              <div class="bulk-refs-list">
+                ${refsHtml}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      drawerContent.innerHTML = (html || '<p style="text-align: center; color: var(--ink-light); padding: 40px;">No verses match your search.</p>') + bulkHtml;
+
+      const totalCount = verses.length + (bulkReferences ? bulkReferences.refs.length : 0);
+      drawerFooter.textContent = `Showing ${filteredVerses.length} of ${verses.length} curated verses` + (bulkReferences ? ` + ${bulkReferences.refs.length} Proverbs references` : '');
+    }
+
+    function toggleBulkReferences(btn) {
+      const section = btn.closest('.bulk-references-section');
+      section.classList.toggle('open');
+    }
+
+    function toggleVerseNotes(btn) {
+      const card = btn.closest('.verse-card');
+      card.classList.toggle('notes-open');
+    }
+
+    // Toggle notes in panel verse cards
+    function togglePanelNotes(btn) {
+      const notesDiv = btn.nextElementSibling;
+      const isExpanded = notesDiv.classList.toggle('visible');
+      btn.classList.toggle('expanded', isExpanded);
+      btn.innerHTML = isExpanded
+        ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg> Hide linguistic notes`
+        : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg> Show linguistic notes`;
+    }
+
+    // Event listeners for drawer
+    drawerClose.addEventListener('click', closeVersesDrawer);
+    versesDrawerOverlay.addEventListener('click', closeVersesDrawer);
+
+    // Filter buttons
+    drawerFilters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentFilter = btn.dataset.filter;
+        drawerFilters.forEach(b => b.classList.toggle('active', b === btn));
+
+        if (currentDrawerSephirah && curatedVersesData[currentDrawerSephirah]) {
+          const data = curatedVersesData[currentDrawerSephirah];
+          renderDrawerVerses(data.verses, drawerSearch.value, data.bulkReferences);
+        }
+      });
+    });
+
+    // Search
+    drawerSearch.addEventListener('input', () => {
+      if (currentDrawerSephirah && curatedVersesData[currentDrawerSephirah]) {
+        const data = curatedVersesData[currentDrawerSephirah];
+        renderDrawerVerses(data.verses, drawerSearch.value, data.bulkReferences);
+      }
+    });
+
+    // Close drawer on Escape (already handled above, but adding drawer-specific check)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && versesDrawer.classList.contains('active')) {
+        closeVersesDrawer();
       }
     });
   </script>
