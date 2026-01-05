@@ -4684,6 +4684,9 @@
       const data = sephirothData[key];
       if (!data) return;
 
+      // Scroll info panel back to top
+      document.querySelector('.info-section').scrollTop = 0;
+
       // Update active state
       if (activeSephirah) {
         activeSephirah.classList.remove('active');
