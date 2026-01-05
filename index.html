@@ -2458,8 +2458,8 @@
   </div>
 
   <!-- Biblical Sources Trigger Button -->
-  <button class="biblical-trigger" id="biblicalTrigger" aria-label="View Notes">
-    <span class="biblical-trigger-label">Notes</span>
+  <button class="biblical-trigger" id="biblicalTrigger" aria-label="View Linguistic Notes">
+    <span class="biblical-trigger-label">Linguistic Notes</span>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
       <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
@@ -2475,7 +2475,7 @@
     <div class="biblical-overlay-content">
       <header class="overlay-header">
         <button class="overlay-close" id="overlayClose" aria-label="Close">&times;</button>
-        <h2 class="overlay-title">Notes</h2>
+        <h2 class="overlay-title">Linguistic Notes</h2>
         <p class="overlay-subtitle">Linguistic Analysis and Vocabulary Distinctions</p>
       </header>
       <div class="overlay-body">
@@ -2796,7 +2796,7 @@
         name: "Gevurah",
         hebrew: "גבורה",
         meaning: "Severity / Strength / Judgment",
-        pronunciation: "geh-boo-RAH",
+        pronunciation: "geh-voo-RAH",
         pillar: "Pillar of Severity (Left)",
         triad: "Ethical Triad",
         summary: "Restraint, limitation, judgment, discipline. The force that says 'no,' that sets boundaries, that discriminates between what should and shouldn't be.",
@@ -4443,10 +4443,6 @@
         <div class="biblical-sources">
           <h3>Biblical Sources</h3>
           ${versesContentHtml}
-          <div class="biblical-meta">
-            <span class="occurrence-count">Appears <strong>${b.occurrences}</strong> times in Hebrew Bible</span>
-            <span class="match-badge ${b.matchType}">${b.matchLabel}</span>
-          </div>
           ${b.note ? `<p style="font-size: 0.9rem; color: var(--ink-light); margin-top: 12px; font-style: italic;">${b.note}</p>` : ''}
           ${hasCurated && additionalCount > 0 ? `
           <button class="view-curated-btn" onclick="openVersesDrawer('${key}')">
